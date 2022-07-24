@@ -1700,6 +1700,15 @@
     utility-types "^3.10.0"
     zustand "^3.3.3"
 
+"@react-three/postprocessing@2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@react-three/postprocessing/-/postprocessing-2.1.6.tgz#af844e5213419daeb912386372a6ed4c9db1fb85"
+  integrity sha512-IMpPBeSY9kkL8d+Rsnf9+LHZoa7K3L8J0aTP4yS08B23Nxz9/vMee8ird2gRT1WtvPDFqSmjT79RDMRBFQA2BQ==
+  dependencies:
+    postprocessing "^6.24.1"
+    react-merge-refs "^1.1.0"
+    three-stdlib "^2.8.6"
+
 "@restart/hooks@^0.4.6", "@restart/hooks@^0.4.7":
   version "0.4.7"
   resolved "https://registry.yarnpkg.com/@restart/hooks/-/hooks-0.4.7.tgz#d79ca6472c01ce04389fc73d4a79af1b5e33cd39"
@@ -7374,6 +7383,11 @@ postcss@^8.3.5, postcss@^8.4.14, postcss@^8.4.4, postcss@^8.4.7:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+postprocessing@^6.24.1:
+  version "6.28.4"
+  resolved "https://registry.yarnpkg.com/postprocessing/-/postprocessing-6.28.4.tgz#03dc2b5c546ef26bdd963af1ea8f75c933e88e34"
+  integrity sha512-xVw7wT9H4s/f/AWS+u3FssIZ1iMY632zweCHqcNZ1ydFChCWeHcWOpEPx0dQz2DMIUlZclFW9WmwMJQxESI+cQ==
+
 potpack@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/potpack/-/potpack-1.0.2.tgz#23b99e64eb74f5741ffe7656b5b5c4ddce8dfc14"
@@ -8681,7 +8695,7 @@ three-mesh-bvh@^0.5.4:
   resolved "https://registry.yarnpkg.com/three-mesh-bvh/-/three-mesh-bvh-0.5.14.tgz#605654cf802b3e92ea7b18997535960d04344159"
   integrity sha512-rSk7SpKDR47m1PmkUxt5na5+dM4h0KW5zF43lMniZGjT4hQn9Om+g64ooFreFIWlQlrNN8pFqiPnDMRZS58/Yw==
 
-three-stdlib@^2.8.2:
+three-stdlib@^2.8.2, three-stdlib@^2.8.6:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-2.12.1.tgz#b63de05cf7f7803e630a7c0c5887e85ae06178ca"
   integrity sha512-G3SSsCOBiWa0sjjPt+K28ikQ84Plm/ZVUozMfWagK59kZqBWcaPVXpOThkAgvdBpm2zCWLW3edAoW/4XIbljVQ==
