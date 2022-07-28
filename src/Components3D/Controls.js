@@ -21,9 +21,9 @@ export default function Controls({ disable, ...props }) {
       ref={ref}
       target={[0, 0, 0]}
       enableDamping
-      enableZoom={true}
+      enableZoom={false}
       enablePan={true}
-      enableRotate={true}
+      enableRotate={false}
       dampingFactor={0.05}
       rotateSpeed={0.5}
       minPolarAngle={Math.PI / 1.9}
