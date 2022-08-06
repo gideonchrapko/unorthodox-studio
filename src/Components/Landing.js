@@ -2,8 +2,6 @@ import { Suspense, useEffect, useState } from 'react';
 import { ContactShadows, Backdrop, Environment, softShadows } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
-// import { useSpring } from '@react-spring/core';
-// import { a } from '@react-spring/three';
 
 import Controls from '../Components3D/Controls';
 import Logo from '../Components3D/Logo';
@@ -16,13 +14,13 @@ const Landing = () => {
     const [dragY, setDragY] = useState({ y: 0 });
 
     const bind = useDrag((params) => {
-        setDragX({ x: params.offset[0] / 5 })
-        setDragY({ y: params.offset[1] / 5 })
+        setDragX({ x: params.offset[0] })
+        setDragY({ y: params.offset[1] })
       })
 
     useEffect(() => {
-        rotation[0] = dragY.y / 5
-        rotation[1] = dragX.x / 5
+        rotation[0] = dragY.y / 75
+        rotation[1] = dragX.x / 75
         setRotation([...rotation])
       },[dragX, dragY])
 
@@ -31,7 +29,6 @@ const Landing = () => {
             style={{ height: "100vh", width: "100vw" }}
             dpr={[1, 2]} shadows camera={{ position: [0, 0, 4] }}
         >
-            {/* <color attach="background" args={['white']} /> */}
             <color attach="background" args={['#0f0f0f']} />
             <ambientLight intensity={1} />
             <fog attach="fog" args={['black', 1, 150]} />
