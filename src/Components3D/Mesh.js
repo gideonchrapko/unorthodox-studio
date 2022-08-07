@@ -15,9 +15,8 @@ const Mesh = ({ ...props }) => {
     const [speed, setSpeed] = useState()
 
     useEffect(() => {
-        // setHeight(Math.random() * (9.5 - 9 + 0.5) + 9.5)
         setHeight(9 + Math.random())
-        setSpeed(Math.random() * (2 - 1 + 1) + 1)
+        setSpeed(0.5 + Math.random())
     },[])
 
     const animatedProps = useSpring({
@@ -35,7 +34,7 @@ const Mesh = ({ ...props }) => {
         ref.current.position.y = (hovPos + Math.sin(t / speed)) / height 
       })
 
-      console.log(height)
+      console.log(speed)
 
     return (
         <a.mesh 
