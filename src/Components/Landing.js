@@ -1,17 +1,23 @@
+import * as THREE from "three";
 import { Suspense, useEffect, useState } from 'react';
 import { ContactShadows, Backdrop, Environment, softShadows } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
+import { useShopify } from '../hooks'
 
 import Controls from '../Components3D/Controls';
 import Logo from '../Components3D/Logo';
 
+import url from '../Assets/BG_Vid.mp4';
+
 softShadows();
 
 const Landing = () => {
+    const { setModalImg, modalImg } = useShopify();
     const [rotation, setRotation] = useState([0, 0, 0]);
     const [dragX, setDragX] = useState({ x: 0 });
     const [dragY, setDragY] = useState({ y: 0 });
+    console.log(modalImg)
 
     const bind = useDrag((params) => {
         setDragX({ x: params.offset[0] })
@@ -24,11 +30,18 @@ const Landing = () => {
         setRotation([...rotation])
       },[dragX, dragY])
 
+      const [video] = useState(() => {
+        const vid = document.createElement("video");
+        vid.src = url;
+        vid.crossOrigin = "Anonymous";
+        vid.loop = true;
+        vid.muted = true;
+        vid.play();
+        return vid;
+      });
+
     return (
-        <Canvas 
-            style={{ height: "100vh", width: "100vw" }}
-            dpr={[1, 2]} shadows camera={{ position: [0, 0, 4] }}
-        >
+        <Canvas style={{ height: "100vh", width: "100vw" }} dpr={[1, 2]} shadows camera={{ position: [0, 0, 4] }} >
             <color attach="background" args={['#0f0f0f']} />
             <ambientLight intensity={1} />
             <fog attach="fog" args={['black', 1, 150]} />
@@ -39,7 +52,23 @@ const Landing = () => {
             </Backdrop>
          <Suspense fallback={"Loading..."}>
              <Controls />
-            <Logo rotation={rotation}/>
+            <Logo 
+                rotation={rotation}
+                setModalImg={setModalImg}
+            />
+            {modalImg === 1 ?
+                    <group>
+                        <mesh rotation={[0, 0, 0]} position={[0, 3, -4]} scale={2.5}>
+                            <planeGeometry args={[3.2, 1.9]} />
+                            <meshStandardMaterial emissive={"white"} side={THREE.DoubleSide}>
+                            <videoTexture attach="map" args={[video]} />
+                            <videoTexture attach="emissiveMap" args={[video]} />
+                            </meshStandardMaterial>
+                        </mesh>
+                    </group>
+                    :
+                    <mesh></mesh>
+            }
             <ContactShadows
                 rotation-x={Math.PI / 2}
                 position={[0, -35, 0]}

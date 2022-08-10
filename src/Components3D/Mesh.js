@@ -34,8 +34,6 @@ const Mesh = ({ ...props }) => {
         ref.current.position.y = (hovPos + Math.sin(t / speed)) / height 
       })
 
-      console.log(speed)
-
     return (
         <a.mesh 
             ref={ref}

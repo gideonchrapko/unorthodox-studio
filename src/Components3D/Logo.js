@@ -3,16 +3,29 @@ import { useGLTF } from '@react-three/drei';
 import { useSpring } from '@react-spring/core';
 import { a } from '@react-spring/three';
 import Mesh from './Mesh';
+import sanityClient from '../client';
 
-export default function Model({ ...props }) {
-  const rotation = props.rotation
-  // const [hover, setHover] = useState(false);
+export default function Model(props) {
+  const { setModalImg, rotation } = props
+
   const [load, setLoad] = useState(false);
-  const group = useRef()
-  const { nodes } = useGLTF('/Logo.glb')
+  const [landingVideos, setLandingVideos] = useState();
+  const group = useRef();
+  const { nodes } = useGLTF('/Logo.glb');
 
   useEffect(() => {
     setLoad(true)
+    sanityClient.fetch(`*[_type == "galleryImages"]{
+        text[]{
+          _type == "muxVideo" => {
+            asset->{
+              "url": "https://stream.mux.com/" + playbackId
+            }
+          }
+        },
+      }`)
+    .then((data) => setLandingVideos(data))
+    .catch(console.error)
   },[])
 
   const [spring, set] = useSpring(() => ({
@@ -36,10 +49,12 @@ export default function Model({ ...props }) {
   })
 
   return (
-    <a.group ref={group} {...props} dispose={null}
+    <a.group 
+      ref={group} {...props} dispose={null} {...spring}
       position={animatedPropsonLoad.position} 
-      scale={animatedPropsonLoad.scale} 
-      {...spring}
+      scale={animatedPropsonLoad.scale}
+      onPointerOver={() => setModalImg(1)}
+      onPointerOut={() => setModalImg(0)}
     >
       <group position={[-2.5, -3.5, 0]}>
         <Mesh
