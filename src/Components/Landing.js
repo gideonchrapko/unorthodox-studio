@@ -57,8 +57,8 @@ const Landing = () => {
             <ContactShadows position={[0, -2.1, 0]} opacity={0.3} scale={10} blur={1.5}  />
             <Backdrop castShadow receiveShadow floor={2} position={[0, -2.2, -3]} scale={[50, 10, 4]} {...bind()}>
                  <meshStandardMaterial color="#1a1a1a" envMapIntensity={0.1}>
-                    <videoTexture attach="map" args={[video]} />
-                    <videoTexture attach="emissiveMap" args={[video]} />
+                    {/* <videoTexture attach="map" args={[video]} />
+                    <videoTexture attach="emissiveMap" args={[video]} /> */}
                 </meshStandardMaterial>
             </Backdrop>
          <Suspense fallback={"Loading..."}>
