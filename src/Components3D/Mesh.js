@@ -31,15 +31,23 @@ const Mesh = ({ ...props }) => {
 
       useFrame((state) => {
         const t = state.clock.getElapsedTime()
-        ref.current.position.y = (hovPos + Math.sin(t / speed)) / height 
+        ref.current.position.y = (hovPos - Math.sin(t / speed)) / height
+        // console.log((hovPos - Math.sin(t / speed)) / height) 
       })
 
     return (
         <a.mesh 
             ref={ref}
             geometry={geometry}
-            onPointerOver={() => setHover(true)}
-            onPointerOut={() => setHover(false)}
+            onPointerOver={(e) => {
+              // e.stopPropagation()
+              setHover(true)
+            }}
+            onPointerOut={(e) => {
+              // e.stopPropagation()
+              setHover(false)
+            }}
+
             position={animatedProps.position} 
             rotation={rotation} 
             scale={scale} 

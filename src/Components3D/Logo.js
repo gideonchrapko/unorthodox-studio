@@ -15,14 +15,15 @@ export default function Model(props) {
 
   useEffect(() => {
     setLoad(true)
-    sanityClient.fetch(`*[_type == "galleryImages"]{
-        text[]{
-          _type == "muxVideo" => {
-            asset->{
-              "url": "https://stream.mux.com/" + playbackId
-            }
-          }
-        },
+    sanityClient.fetch(`*[_type == "landingPageVideos"]{
+        // text[]{
+        //   _type == "muxVideo" => {
+        //     asset->{
+        //       "url": "https://stream.mux.com/" + playbackId
+        //     }
+        //   }
+        // },
+        landingVideos,
       }`)
     .then((data) => setLandingVideos(data))
     .catch(console.error)
@@ -48,13 +49,21 @@ export default function Model(props) {
     },
   })
 
+  console.log(landingVideos && landingVideos)
+
   return (
     <a.group 
       ref={group} {...props} dispose={null} {...spring}
       position={animatedPropsonLoad.position} 
       scale={animatedPropsonLoad.scale}
-      onPointerOver={() => setModalImg(1)}
-      onPointerOut={() => setModalImg(0)}
+      onPointerOver={(e) => {
+        // e.stopPropagation()
+        setModalImg(1)
+      }}
+      onPointerOut={(e) => {
+        // e.stopPropagation()
+        setModalImg(0)
+      }}
     >
       <group position={[-2.5, -3.5, 0]}>
         <Mesh
@@ -62,6 +71,14 @@ export default function Model(props) {
           geometry={nodes.BezierCurve.geometry} 
           position={[2.77, 5.27, 0.07]} 
           rotation={[Math.PI / 2, 0, 0]}
+          onPointerOver={(e) => {
+            e.stopPropagation()
+            setModalImg(1)
+          }}
+          onPointerOut={(e) => {
+            e.stopPropagation()
+            setModalImg(0)
+          }}
         />
         <Mesh
           hovPos={53}
@@ -77,19 +94,19 @@ export default function Model(props) {
           rotation={[Math.PI / 2, 0, 0]}
         />
         <Mesh
-          hovPos={23}        
+          hovPos={19}        
           geometry={nodes.BezierCurve004.geometry}
           position={[3.64, 2.07, 0.07]} 
           rotation={[-Math.PI / 2, 0, -Math.PI]} 
         />
         <Mesh
-          hovPos={33}         
+          hovPos={30}         
           geometry={nodes.BezierCurve006.geometry}
           position={[3.16, 3.11, 0.07]} 
           rotation={[Math.PI / 2, 0, 0]} 
         />
         <Mesh
-          hovPos={24}         
+          hovPos={21}         
           geometry={nodes.Circle.geometry}
           position={[2.48, 2.17, 0.08]} 
           rotation={[Math.PI / 2, 0, 0]} 
