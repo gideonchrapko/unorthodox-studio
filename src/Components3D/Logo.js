@@ -7,26 +7,12 @@ import sanityClient from '../client';
 
 export default function Model(props) {
   const { setModalImg, rotation } = props
-
   const [load, setLoad] = useState(false);
-  const [landingVideos, setLandingVideos] = useState();
   const group = useRef();
   const { nodes } = useGLTF('/Logo.glb');
 
   useEffect(() => {
     setLoad(true)
-    sanityClient.fetch(`*[_type == "landingPageVideos"]{
-        // text[]{
-        //   _type == "muxVideo" => {
-        //     asset->{
-        //       "url": "https://stream.mux.com/" + playbackId
-        //     }
-        //   }
-        // },
-        landingVideos,
-      }`)
-    .then((data) => setLandingVideos(data))
-    .catch(console.error)
   },[])
 
   const [spring, set] = useSpring(() => ({
@@ -41,7 +27,7 @@ export default function Model(props) {
   const animatedPropsonLoad = useSpring({
     scale: load ? 0.5 : 0,
     rotation: load ? [0, -0.5, 0] : [0, -5, 0],
-    position: load ? [-0.1, 0, 0] : [-0.8, 2, 0],
+    position: load ? [-0.1, 2, 0] : [-0.8, 2, 0],
     config: { 
       mass: 3, 
       friction: 60, 
@@ -49,21 +35,11 @@ export default function Model(props) {
     },
   })
 
-  console.log(landingVideos && landingVideos)
-
   return (
     <a.group 
       ref={group} {...props} dispose={null} {...spring}
       position={animatedPropsonLoad.position} 
       scale={animatedPropsonLoad.scale}
-      onPointerOver={(e) => {
-        // e.stopPropagation()
-        setModalImg(1)
-      }}
-      onPointerOut={(e) => {
-        // e.stopPropagation()
-        setModalImg(0)
-      }}
     >
       <group position={[-2.5, -3.5, 0]}>
         <Mesh
@@ -71,14 +47,6 @@ export default function Model(props) {
           geometry={nodes.BezierCurve.geometry} 
           position={[2.77, 5.27, 0.07]} 
           rotation={[Math.PI / 2, 0, 0]}
-          onPointerOver={(e) => {
-            e.stopPropagation()
-            setModalImg(1)
-          }}
-          onPointerOut={(e) => {
-            e.stopPropagation()
-            setModalImg(0)
-          }}
         />
         <Mesh
           hovPos={53}

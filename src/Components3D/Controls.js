@@ -22,13 +22,19 @@ export default function Controls({ disable, ...props }) {
       target={[0, 0, 0]}
       enableDamping
       enableZoom={false}
-      enablePan={true}
+      enablePan={false}
       enableRotate={false}
       dampingFactor={0.05}
       rotateSpeed={0.5}
-      minPolarAngle={Math.PI / 1.9}
-      maxPolarAngle={Math.PI / 1.9}
+      // minPolarAngle={Math.PI / 1.9}
+      // maxPolarAngle={Math.PI / 1.9}
       autoRotate={false}
+
+      minPolarAngle={Math.PI / 2.4}
+      maxPolarAngle={Math.PI / 2.4}
+      // minAzimuthAngle={- Infinity}
+      // maxAzimuthAngle={ Infinity}
+
       {...props}
       args={[camera, gl.domElement]}
     />
