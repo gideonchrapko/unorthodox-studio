@@ -3,10 +3,10 @@ import { useGLTF } from '@react-three/drei';
 import { useSpring } from '@react-spring/core';
 import { a } from '@react-spring/three';
 import Mesh from './Mesh';
-import sanityClient from '../client';
+// import sanityClient from '../client';
 
 export default function Model(props) {
-  const { setModalImg, rotation } = props
+  const { rotation } = props
   const [load, setLoad] = useState(false);
   const group = useRef();
   const { nodes } = useGLTF('/Logo.glb');
@@ -27,7 +27,7 @@ export default function Model(props) {
   const animatedPropsonLoad = useSpring({
     scale: load ? 0.5 : 0,
     rotation: load ? [0, -0.5, 0] : [0, -5, 0],
-    position: load ? [-0.1, 2, 0] : [-0.8, 2, 0],
+    position: load ? [0.2, 0, -0.2] : [-0.8, 2, 0],
     config: { 
       mass: 3, 
       friction: 60, 

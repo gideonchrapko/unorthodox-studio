@@ -1,18 +1,51 @@
 import * as THREE from "three";
-import { Suspense, useEffect, useState, useMemo, useRef } from 'react';
-import { ContactShadows, Environment, softShadows } from '@react-three/drei'
-import { Canvas, extend, useThree, useLoader,useFrame } from '@react-three/fiber';
+import { Suspense, useEffect, useState } from 'react';
+import { 
+    ContactShadows, 
+    Environment, 
+    softShadows, 
+    useTexture, 
+    Reflector, 
+    Lightformer,
+    useAspect
+} from '@react-three/drei'
+import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
-import { Water } from 'three-stdlib';
 import { useShopify } from '../hooks'
 
 import Controls from '../Components3D/Controls';
+import { Effects } from '../Components3D/Effects'
 import Logo from '../Components3D/Logo';
 
 softShadows();
 
+// function Ground() {
+//     const [floor, normal] = useTexture(['/SurfaceImperfections003_1K_var1.jpg', '/SurfaceImperfections003_1K_Normal.jpg'])
+//     return (
+//       <Reflector blur={[400, 100]} position={[0, -2, 0]} resolution={512} args={[10, 15]} mirror={0.5} mixBlur={6} mixStrength={1.5} rotation={[-Math.PI / 2, 0, Math.PI / 2]}>
+//         {(Material, props) => <Material color="#303030" metalness={0.4} roughnessMap={floor} normalMap={normal} normalScale={[2, 2]} {...props} />}
+//       </Reflector>
+//     )
+//   }
+
+  function Video() {
+    const scale = useAspect(35500, 39500, 2)
+    // Video texture by: https://www.pexels.com/@rostislav/
+    const [video] = useState(() =>
+      Object.assign(document.createElement('video'), { src: '/giphy.mp4', crossOrigin: 'Anonymous', loop: true, muted: true })
+    )
+    useEffect(() => void video.play(), [video])
+    return (
+      <mesh scale={scale} position={[0, 0, -7]} >
+        <planeGeometry />
+        <meshBasicMaterial toneMapped={true} side={THREE.DoubleSide}>
+          <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
+        </meshBasicMaterial>
+      </mesh>
+    )
+  }
+
 const Landing = () => {
-    const { setModalImg, modalImg } = useShopify();
     const [rotation, setRotation] = useState([0, 0, 0]);
     const [dragX, setDragX] = useState({ x: 0 });
     const [dragY, setDragY] = useState({ y: 0 });
@@ -28,69 +61,22 @@ const Landing = () => {
         setRotation([...rotation])
       },[dragX, dragY])
 
-    extend({ Water })
-    function Ocean() {
-        const ref = useRef()
-        const gl = useThree((state) => state.gl)
-        const waterNormals = useLoader(THREE.TextureLoader, '/waternormals.jpeg')
-        waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping
-        const geom = useMemo(() => new THREE.PlaneGeometry(10000, 10000), [])
-        const config = useMemo(
-            () => ({
-            textureWidth: 512,
-            textureHeight: 512,
-            waterNormals,
-            sunDirection: new THREE.Vector3(),
-            sunColor: "0xffffff",
-            waterColor: "#000F9B",
-            distortionScale: 1.2,
-            fog: true,
-            format: gl.encoding
-            }),
-            [waterNormals]
-        )
-        useFrame((state, delta) => (ref.current.material.uniforms.time.value += delta))
-        return <water ref={ref} args={[geom, config]} rotation-x={-Math.PI / 2} />
-    }
-
     return (
-        <Canvas style={{ height: "100vh", width: "100vw" }} dpr={[1, 2]} shadows camera={{ position: [0, 2, 4], fov: 100 }}>
-        {/* <Canvas 
-             receiveShadow 
-             castShadow 
-             shadows
-             dpr={[1, 2]}
-             performance={{ min: 0.5 }}
-             gl={{ alpha: false, antialias: false }}
-             camera={{ position: [0, 5, 100], fov: 55, near: 1, far: 20000 }}
-         >  */}
-            <color attach="background" args={['#000000']} {...bind()}/>
-            <ambientLight intensity={1} />
-            <fog attach="fog" args={['black', 1, 10]} />
-            <spotLight intensity={1} angle={0.2} penumbra={1} position={[1, 25, 10]} color="white" />
-            <ContactShadows position={[0, -2.1, 0]} opacity={0.3} scale={10} blur={1.5}  />
-            {/* <Backdrop castShadow receiveShadow floor={2} position={[0, -2.2, -3]} scale={[50, 10, 4]} {...bind()}>
-                 <meshStandardMaterial color="#1a1a1a" envMapIntensity={0.1}>
-                    <videoTexture attach="map" args={[video]} />
-                    <videoTexture attach="emissiveMap" args={[video]} />
-                </meshStandardMaterial>
-            </Backdrop> */}
-         <Suspense fallback={"Loading..."}>
-            <Ocean {...bind()}/>
-            <Controls />
-            <Logo rotation={rotation} setModalImg={setModalImg} />
-            {/* <ContactShadows
-                rotation-x={Math.PI / 2}
-                position={[0, -35, 0]}
-                opacity={0.25}
-                width={100}
-                height={100}
-                blur={2}
-                far={50}
-            /> */}
-            <Environment files="./studio_small_03_2k(2).hdr" resolution={256} />
-            {/* <Environment resolution={10} far={1000} near={1} preset="studio" /> */}
-            </Suspense>
+        <Canvas style={{ height: "100vh" }} shadows camera={{ position: [0, 0, 8], fov: 28 }}>
+            <color attach="background" args={['#151520']} />
+            <directionalLight position={[-2.5, 4, 5]} castShadow intensity={1} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
+            <Effects />
+            <Suspense fallback={"Loading..."}>
+                <Video />
+                <Controls />
+                <group position={[0, -1.5, 0]}>
+                    <mesh receiveShadow rotation-x={-Math.PI / 2} scale={100} position={[0, -1, 0]}>
+                        <planeGeometry />
+                        <meshStandardMaterial color="black" envMapIntensity={0.5} roughness={0} metalness={0} />
+                    </mesh>
+                </group>
+                <Logo rotation={rotation} {...bind()}/>
+                </Suspense>
         </Canvas>
     )
 }

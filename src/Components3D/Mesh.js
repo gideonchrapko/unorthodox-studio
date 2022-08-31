@@ -32,7 +32,6 @@ const Mesh = ({ ...props }) => {
       useFrame((state) => {
         const t = state.clock.getElapsedTime()
         ref.current.position.y = (hovPos - Math.sin(t / speed)) / height
-        // console.log((hovPos - Math.sin(t / speed)) / height) 
       })
 
     return (
@@ -40,11 +39,11 @@ const Mesh = ({ ...props }) => {
             ref={ref}
             geometry={geometry}
             onPointerOver={(e) => {
-              // e.stopPropagation()
+              e.stopPropagation()
               setHover(true)
             }}
             onPointerOut={(e) => {
-              // e.stopPropagation()
+              e.stopPropagation()
               setHover(false)
             }}
 
@@ -52,7 +51,7 @@ const Mesh = ({ ...props }) => {
             rotation={rotation} 
             scale={scale} 
         >
-            <meshStandardMaterial attach="material" color="#0f0f0f" roughness={0} metalness={0.1}/>
+            <meshStandardMaterial attach="material" color="#1C1C1C" roughness={0.1} metalness={1}/>
         </a.mesh>
     )
 }
