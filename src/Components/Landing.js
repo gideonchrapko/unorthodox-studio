@@ -1,12 +1,12 @@
 import * as THREE from "three";
 import { Suspense, useEffect, useState } from 'react';
 import { 
-    ContactShadows, 
-    Environment, 
+    // ContactShadows, 
+    // Environment, 
     softShadows, 
-    useTexture, 
-    Reflector, 
-    Lightformer,
+    // useTexture, 
+    // Reflector, 
+    // Lightformer,
     useAspect
 } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber';
@@ -32,7 +32,7 @@ softShadows();
     const scale = useAspect(35500, 39500, 2)
     // Video texture by: https://www.pexels.com/@rostislav/
     const [video] = useState(() =>
-      Object.assign(document.createElement('video'), { src: '/giphy.mp4', crossOrigin: 'Anonymous', loop: true, muted: true })
+      Object.assign(document.createElement('video'), { src: '/giphy_slowed.mp4', crossOrigin: 'Anonymous', loop: true, muted: true })
     )
     useEffect(() => void video.play(), [video])
     return (
@@ -62,9 +62,10 @@ const Landing = () => {
       },[dragX, dragY])
 
     return (
-        <Canvas style={{ height: "100vh" }} shadows camera={{ position: [0, 0, 8], fov: 28 }}>
+        <Canvas style={{ height: "100vh" }} shadows camera={{ position: [0, 0, 8], fov: 40 }}>
             <color attach="background" args={['#151520']} />
-            <directionalLight position={[-2.5, 4, 5]} castShadow intensity={1} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
+            <directionalLight position={[-2.5, 4, 5]} castShadow intensity={3} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
+            {/* <ambientLight intensity={5} /> */}
             <Effects />
             <Suspense fallback={"Loading..."}>
                 <Video />
