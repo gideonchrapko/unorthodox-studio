@@ -14,9 +14,21 @@ import Branding from '../Assets/branding.svg'
 
   function Video() {
     const scale = useAspect(35500, 39500, 2)
-    const [video] = useState(() =>
-      Object.assign(document.createElement('video'), { src: '/giphy_slowed.mp4', crossOrigin: 'Anonymous', loop: true, muted: true, autoPlay: true, playsinline: true })
-    )
+
+    const [video] = useState(() => {
+      const vid = document.createElement("video");
+      vid.src = '/giphy_slowed.mp4';
+      vid.crossOrigin = "Anonymous";
+      vid.loop = true;
+      vid.muted = true;
+      vid.playsInline=true;
+      vid.play();
+      return vid;
+    });
+
+    // const [video] = useState(() =>
+    //   Object.assign(document.createElement('video'), { src: '/giphy_slowed.mp4', crossOrigin: 'Anonymous', loop: true, muted: true, autoPlay: true, playsinline: true })
+    // )
     useEffect(() => void video.play(), [video])
     return (
       <mesh scale={scale} position={[0, 0, -7]} >
@@ -44,7 +56,6 @@ const Landing = () => {
         rotation[1] = dragX.x / 75
         setRotation([...rotation])
       },[dragX, dragY])
-
 
     return (
         <Container fluid>
