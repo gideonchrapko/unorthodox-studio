@@ -29,6 +29,7 @@ import Branding from '../Assets/branding.svg'
     // const [video] = useState(() =>
     //   Object.assign(document.createElement('video'), { src: '/giphy_slowed.mp4', crossOrigin: 'Anonymous', loop: true, muted: true, autoPlay: true, playsinline: true })
     // )
+    
     useEffect(() => void video.play(), [video])
     return (
       <mesh scale={scale} position={[0, 0, -7]} >
