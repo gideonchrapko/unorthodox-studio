@@ -14,6 +14,7 @@ import Branding from '../Assets/branding.svg'
 
   function Video() {
     const scale = useAspect(35500, 39500, 2)
+    const mobile = window.innerWidth < 600
 
     const [video] = useState(() => {
       const vid = document.createElement("video");
@@ -68,13 +69,13 @@ const Landing = () => {
               <h3 className="landing-header" style={{ textAlign: "center" }}><img src={Branding} style={{ height: "30px" }} /></h3>
             </Col>
             <Col lg={3} xs={12}>
-              <h3 className="landing-header" style={{ textAlign: mobile ? "center" : "right" }}>09/05/22__24:05:35</h3>
+              {/* <h3 className="landing-header" style={{ textAlign: mobile ? "center" : "right" }}>09/05/22__24:05:35</h3> */}
             </Col>
             <Col lg={1}>
               <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "right" }}>00</h3>
             </Col>
           </Row>
-          <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 8], fov: 40 }}>
+          <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 8], fov: mobile ? 60 : 40 }}>
               <color attach="background" args={['#151520']} />
               <directionalLight position={[-2.5, 4, 5]} castShadow intensity={3} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
               <Effects />
