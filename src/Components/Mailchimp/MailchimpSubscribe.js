@@ -26,7 +26,7 @@ const CustomForm = ({ status, message, onValidated }) => {
     return (
         <form onSubmit={(e) => handleSubmit(e)} >
             <h3 className='mail-header'>
-                LIVE__FROM__THE__FUTURE
+                {/* LIVE__FROM__THE__FUTURE */}
             </h3>
             {status === "sending" && (
                 <div className='mail-header'>sending...</div>

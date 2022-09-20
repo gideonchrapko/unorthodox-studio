@@ -72,7 +72,7 @@ const Landing = () => {
               {/* <h3 className="landing-header" style={{ textAlign: mobile ? "center" : "right" }}>09/05/22__24:05:35</h3> */}
             </Col>
             <Col lg={1}>
-              <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "right" }}>00</h3>
+              {/* <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "right" }}>00</h3> */}
             </Col>
           </Row>
           <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 8], fov: mobile ? 60 : 40 }}>
