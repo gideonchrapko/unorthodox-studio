@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Suspense, useEffect, useState } from 'react';
-import { useAspect } from '@react-three/drei';
+import { useAspect, Loader } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
 import { Container, Row, Col } from "react-bootstrap";
@@ -65,19 +65,17 @@ const Landing = () => {
             <Col lg={4}>
               <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "left" }}>UNORTHODOX__STUDIO</h3>
             </Col>
+            <Col lg={4} xs={12}>
+              <h3 className="landing-header" style={{ textAlign: "center" }}><img src={Branding} style={{ height: "20px" }} /></h3>
+            </Col>
             <Col lg={4}>
-              <h3 className="landing-header" style={{ textAlign: "center" }}><img src={Branding} style={{ height: "30px" }} /></h3>
-            </Col>
-            <Col lg={3} xs={12}>
-              {/* <h3 className="landing-header" style={{ textAlign: mobile ? "center" : "right" }}>09/05/22__24:05:35</h3> */}
-            </Col>
-            <Col lg={1}>
-              <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "right" }}>00</h3>
+              <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "right" }}>LIVE__FROM__THE__FUTURE</h3>
             </Col>
           </Row>
+          <Loader />
           <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 8], fov: mobile ? 60 : 40 }}>
-              <color attach="background" args={['#151520']} />
-              <directionalLight position={[-2.5, 4, 5]} castShadow intensity={3} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
+              {/* <color attach="background" args={['#151520']} /> */}
+              <directionalLight position={[-2.5, 4, 5]} castShadow intensity={10} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
               <Effects />
               <Suspense fallback={"Loading..."}>
                   <Video />

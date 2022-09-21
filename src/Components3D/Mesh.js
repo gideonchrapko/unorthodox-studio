@@ -51,7 +51,7 @@ const Mesh = ({ ...props }) => {
             rotation={rotation} 
             scale={scale} 
         >
-            <meshStandardMaterial attach="material" color="#1C1C1C" roughness={0.1} metalness={1}/>
+            <meshStandardMaterial attach="material" color="#1C1C1C" roughness={0.07} metalness={1}/>
         </a.mesh>
     )
 }
