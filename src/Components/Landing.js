@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Suspense, useEffect, useState } from 'react';
-import { useAspect, Loader } from '@react-three/drei';
+import { useAspect, Loader, Environment } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
 import { Container, Row, Col } from "react-bootstrap";
@@ -12,9 +12,10 @@ import Logo from '../Components3D/Logo';
 
 import Branding from '../Assets/branding.svg'
 
-  function Video() {
+  function Video(props) {
+    const { touch } = props
     const scale = useAspect(35500, 39500, 2)
-    const mobile = window.innerWidth < 600
+    // const mobile = window.innerWidth < 600
 
     const [video] = useState(() => {
       const vid = document.createElement("video");
@@ -22,18 +23,20 @@ import Branding from '../Assets/branding.svg'
       vid.crossOrigin = "Anonymous";
       vid.loop = true;
       vid.muted = true;
-      vid.playsInline=true;
-      vid.play();
+      vid.playsInline = true;
+      // vid.play();
       return vid;
     });
-
-    // const [video] = useState(() =>
-    //   Object.assign(document.createElement('video'), { src: '/giphy_slowed.mp4', crossOrigin: 'Anonymous', loop: true, muted: true, autoPlay: true, playsinline: true })
-    // )
     
-    useEffect(() => void video.play(), [video])
+    // useEffect(() => void video.play(), [video])
+    // useEffect(() => {
+    //   if(touch){
+    //     video.play()
+    //   }
+    // },[touch])
+
     return (
-      <mesh scale={scale} position={[0, 0, -7]} >
+      <mesh scale={scale} position={[0, 0, -7]} onPointerDown={() => video.play()}>
         <planeGeometry />
         <meshBasicMaterial toneMapped={true} side={THREE.DoubleSide}>
           <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding}  />
@@ -73,22 +76,23 @@ const Landing = () => {
             </Col>
           </Row>
           <Loader />
-          <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 8], fov: mobile ? 60 : 40 }}>
-              {/* <color attach="background" args={['#151520']} /> */}
-              <directionalLight position={[-2.5, 4, 5]} castShadow intensity={10} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
-              <Effects />
-              <Suspense fallback={"Loading..."}>
-                  <Video />
-                  <Controls />
-                  <group position={[0, -1.5, 0]}>
-                      <mesh receiveShadow rotation-x={-Math.PI / 2} scale={100} position={[0, -1, 0]}>
-                          <planeGeometry />
-                          <meshStandardMaterial color="black" envMapIntensity={0.5} roughness={0} metalness={0} />
-                      </mesh>
-                  </group>
-                  <Logo rotation={rotation} {...bind()}/>
+            <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 8], fov: mobile ? 60 : 40 }}>
+                {/* <color attach="background" args={['#151520']} /> */}
+                <directionalLight position={[0, 0, 30]} castShadow intensity={0.3} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
+                {/* <directionalLight position={[-2, 5, 20]} castShadow intensity={1} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} /> */}
+                <Effects />
+                <Video />
+                <Suspense fallback={null}>
+                      <Controls />
+                      <group position={[0, -2.5, 0]}>
+                            <mesh receiveShadow rotation-x={-Math.PI / 2} scale={100} position={[0, -1, 0]}>
+                                <planeGeometry />
+                                <meshStandardMaterial color="black" envMapIntensity={0.5} roughness={0} metalness={0} />
+                            </mesh>
+                        </group>
+                        <Logo rotation={rotation} {...bind()}/>
                   </Suspense>
-          </Canvas>
+            </Canvas>
             <MailchimpSubscribe />
         </Container>
     )
