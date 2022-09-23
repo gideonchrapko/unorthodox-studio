@@ -1,46 +1,43 @@
 import * as THREE from "three";
 import { Suspense, useEffect, useState } from 'react';
-import { useAspect, Loader, Environment } from '@react-three/drei';
+import { useAspect, Loader, useTexture, Html } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import { Link } from 'react-router-dom'
 
 import Controls from '../Components3D/Controls';
 import { Effects } from '../Components3D/Effects';
 import MailchimpSubscribe from './Mailchimp/MailchimpSubscribe'
 import Logo from '../Components3D/Logo';
 
-import Branding from '../Assets/branding.svg'
+// import BackgroundVideo from ''
 
-  function Video(props) {
-    const { touch } = props
+  function Video() {
     const scale = useAspect(35500, 39500, 2)
-    // const mobile = window.innerWidth < 600
+    // const backTexture = useTexture("./TLDRVideo.gif");
 
-    const [video] = useState(() => {
-      const vid = document.createElement("video");
-      vid.src = '/giphy_slowed.mp4';
-      vid.crossOrigin = "Anonymous";
-      vid.loop = true;
-      vid.muted = true;
-      vid.playsInline = true;
-      // vid.play();
-      return vid;
-    });
-    
-    // useEffect(() => void video.play(), [video])
-    // useEffect(() => {
-    //   if(touch){
-    //     video.play()
-    //   }
-    // },[touch])
+    // const [video] = useState(() => {
+    //   const vid = document.createElement("video");
+    //   vid.src = '/giphy_slowed.mp4';
+    //   vid.crossOrigin = "Anonymous";
+    //   vid.loop = true;
+    //   vid.muted = true;
+    //   vid.playsInline = true;
+    //   return vid;
+    // });
+
+    const [video] = useState(() =>
+      Object.assign(document.createElement('video'), { src: '/giphy_slowed.mp4', crossOrigin: 'Anonymous', loop: true, muted: true,  playsInline: true })
+    )
+    useEffect(() => void video.play(), [video])
 
     return (
       <mesh scale={scale} position={[0, 0, -7]} onPointerDown={() => video.play()}>
-        <planeGeometry />
-        <meshBasicMaterial toneMapped={true} side={THREE.DoubleSide}>
-          <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding}  />
-        </meshBasicMaterial>
+          <planeGeometry />
+          <meshBasicMaterial toneMapped={true} side={THREE.DoubleSide}>
+            <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding}  />
+          </meshBasicMaterial>
       </mesh>
     )
   }
@@ -64,22 +61,10 @@ const Landing = () => {
 
     return (
         <Container fluid>
-          <Row style={{ position: "relative", zIndex: "9", paddingTop: "10px"  }}>
-            <Col lg={4}>
-              <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "left" }}>UNORTHODOX__STUDIO</h3>
-            </Col>
-            <Col lg={4} xs={12}>
-              <h3 className="landing-header" style={{ textAlign: "center" }}><img src={Branding} style={{ height: "20px" }} /></h3>
-            </Col>
-            <Col lg={4}>
-              <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "right" }}>LIVE__FROM__THE__FUTURE</h3>
-            </Col>
-          </Row>
           <Loader />
+          <Link to='home'>Go to Home Page</Link>
             <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 8], fov: mobile ? 60 : 40 }}>
-                {/* <color attach="background" args={['#151520']} /> */}
                 <directionalLight position={[0, 0, 30]} castShadow intensity={0.3} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
-                {/* <directionalLight position={[-2, 5, 20]} castShadow intensity={1} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} /> */}
                 <Effects />
                 <Video />
                 <Suspense fallback={null}>
