@@ -11,21 +11,8 @@ import { Effects } from '../Components3D/Effects';
 import MailchimpSubscribe from './Mailchimp/MailchimpSubscribe'
 import Logo from '../Components3D/Logo';
 
-// import BackgroundVideo from ''
-
   function Video() {
     const scale = useAspect(35500, 39500, 2)
-    // const backTexture = useTexture("./TLDRVideo.gif");
-
-    // const [video] = useState(() => {
-    //   const vid = document.createElement("video");
-    //   vid.src = '/giphy_slowed.mp4';
-    //   vid.crossOrigin = "Anonymous";
-    //   vid.loop = true;
-    //   vid.muted = true;
-    //   vid.playsInline = true;
-    //   return vid;
-    // });
 
     const [video] = useState(() =>
       Object.assign(document.createElement('video'), { src: '/giphy_slowed.mp4', crossOrigin: 'Anonymous', loop: true, muted: true,  playsInline: true })

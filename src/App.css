@@ -1,6 +1,56 @@
 .landing-header {
   font-family: sans-serif;
-  font-weight: 400;
+  font-weight: 100;
   font-size: clamp(10pt, 5vw, 15pt);
   color: white;
+}
+
+.home-branding-text {
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: clamp(30pt, 5vw, 40pt);
+  color: white;
+}
+
+.home-branding-copy {
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: clamp(8pt, 5vw, 12pt);
+  color: white;
+  text-align: right;
+}
+
+.home-reel-div {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: green;
+}
+
+.mainMenu-ul {
+  display: flex;
+  align-items: stretch; /* Default */
+  justify-content: space-between;
+  width: 90vw;
+  left: 5vw;
+  margin: 4vh -15px 0 0;
+  padding: 0;
+  position: absolute;
+  z-index: 9999999;
+}
+
+.mainMenu-li {
+  display: block;
+  flex: 0 1 auto; /* Default */
+  list-style-type: none;
+}
+
+.product-category-text {
+  font-family: sans-serif;
+  font-weight: 100;
+  color: white;
+  font-size: clamp(15pt, 4vw, 30pt);
+  cursor: pointer;
 }

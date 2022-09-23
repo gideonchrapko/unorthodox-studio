@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@portabletext/react": "^1.0.6",
     "@react-spring/core": "9.3.0",
     "@react-spring/three": "9.3.0",
     "@react-spring/web": "9.3.0",
@@ -10,6 +11,7 @@
     "@react-three/fiber": "6.0.13",
     "@react-three/postprocessing": "2.5.5",
     "@sanity/client": "^3.3.3",
+    "@sanity/image-url": "^1.0.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
