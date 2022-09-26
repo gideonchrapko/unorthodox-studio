@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Suspense, useEffect, useState } from 'react';
-import { useAspect, Loader, useTexture, Html } from '@react-three/drei';
+import { useAspect, Loader } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
 import { Container } from "react-bootstrap";
@@ -15,7 +15,7 @@ import Logo from '../Components3D/Logo';
     const scale = useAspect(35500, 39500, 2)
 
     const [video] = useState(() =>
-      Object.assign(document.createElement('video'), { src: '/giphy_slowed.mp4', crossOrigin: 'Anonymous', loop: true, muted: true,  playsInline: true })
+      Object.assign(document.createElement('video'), { src: '/giphy_slowed_1.mp4', crossOrigin: 'Anonymous', loop: true, muted: true,  playsInline: true })
     )
     useEffect(() => void video.play(), [video])
 

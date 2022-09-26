@@ -2,7 +2,7 @@ import sanityClient from '../client';
 import { PortableText } from '@portabletext/react'
 import { useState, useEffect } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import imageUrlBuilder from '@sanity/image-url';
 
 const thumbnails = [
@@ -29,8 +29,6 @@ const Clients = [
     { image: "ASAP" },
 ]
 
-console.log(thumbnails)
-
 const Home = () => {
     const [landingPageData, setLandingPageData] = useState()
     const aboutCopy = landingPageData && landingPageData[0].aboutCopy
@@ -52,17 +50,21 @@ const Home = () => {
 
     return (
         <Container fluid>
-            <Row style={{ marginTop: "7vh", height: "10vh" }}>
-                <Col lg={6}>
+            <Row style={{ marginTop: "8vh", height: "10vh" }}>
+                <Col lg={6} md={6} xs={12}>
                     <h3 className='home-branding-text'>UNORTHODOX__STUDIO</h3>
                 </Col>
-                <Col lg={6}>
-                    <h6 className='home-branding-copy'>
+                {/* This text sometimes goes under the reel video frame */}
+                <Col lg={6} md={6} xs={12}>
+                    <h6 className='home-branding-copy d-sm-none d-none d-md-block d-lg-block'>
                         <PortableText value={aboutCopy} />
+                    </h6>
+                    <h6 className='home-branding-copy d-block d-md-none' style={{ textAlign: "left" }}>
+                        <PortableText value={aboutCopy} /> 
                     </h6>
                 </Col>
             </Row>
-            <Row style={{ height: "70vh" }}>
+            <Row style={{ height: "65vh", marginTop: "3vh" }}>
                 <Col lg={12}>
                     {landingPageData && landingPageData[0] ?
                         <div 
@@ -73,10 +75,10 @@ const Home = () => {
                     }
                 </Col>
             </Row>
-            <Row style={{ height: "13vh", background: "green" }}>
+            <Row style={{ height: "14vh" }}>
             {/* <Row style={{ height: "150vh" }}> */}
                 {/* <Col lg={12} style={{ height: "50%", position: "-webkit-sticky" , position: "sticky", top: "6vh"  }}> */}
-                <Col lg={12} style={{ position: "-webkit-sticky" , position: "sticky", top: "6vh"  }}>
+                <Col lg={12}>
                     <ul className='mainMenu-ul' >
                         <li className='mainMenu-li'>
                             <h5 className='product-category-text'>
@@ -101,8 +103,8 @@ const Home = () => {
                 </Col>
             </Row>
             <Row style={{ height: "85vh" }}>
-                    <Col lg={2} style={{ background: "green" }}>
-                        Hello
+                    <Col lg={2}>
+                        Clients
                     </Col>
                     <Col lg={10} style={{ background: "blue", overflowY: "scroll", height: "100%" }}>
                         <div style={{ 

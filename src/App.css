@@ -1,21 +1,14 @@
-.landing-header {
-  font-family: sans-serif;
-  font-weight: 100;
-  font-size: clamp(10pt, 5vw, 15pt);
-  color: white;
-}
-
 .home-branding-text {
   font-family: sans-serif;
   font-weight: 100;
-  font-size: clamp(30pt, 5vw, 40pt);
+  font-size: clamp(20pt, 4vw, 40pt);
   color: white;
 }
 
 .home-branding-copy {
   font-family: sans-serif;
   font-weight: 100;
-  font-size: clamp(8pt, 5vw, 12pt);
+  font-size: clamp(8pt, 1.5vw, 10pt);
   color: white;
   text-align: right;
 }
