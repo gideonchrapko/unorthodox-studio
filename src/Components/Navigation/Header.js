@@ -21,7 +21,7 @@ const Header = () => {
         <Container fluid style={{ 
             height: "6vh", 
             // background: "linear-gradient(180deg, rgba(0,0,0,1) 89%, rgba(0,0,0,0) 100%)", 
-            background: "black", 
+            // background: "black", 
             position: "fixed", 
             zIndex: "9",
             top: "0"
