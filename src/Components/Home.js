@@ -158,7 +158,7 @@ const Home = () => {
 
                     <Col lg={2} style={{ color: "white" }}>
                         Clients
-                        {/* {clientData &&
+                        {clientData &&
                             clientData.map((clients, index) => {
                                 return (
                                     <div key={index}>
@@ -166,9 +166,9 @@ const Home = () => {
                                     </div>
                                 )
                             })
-                        } */}
+                        }
 
-                        {projectCat && projectCat[0] &&
+                        {/* {projectCat && projectCat[0] &&
                             projectCat.map((projects, index) => {
 
                                 // console.log(projects)
@@ -179,7 +179,7 @@ const Home = () => {
                                     </div>
                                 )
                             })
-                        }   
+                        }    */}
                     </Col>
 
                     <Col lg={10} className="home-project-wrapper"
