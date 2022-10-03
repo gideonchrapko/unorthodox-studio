@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
 import { Col, Row, Container } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-// import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import './Nav.css'
 
@@ -12,15 +11,15 @@ const Header = () => {
     const [landingNav, setLandingNav] = useState(true);
     let location = useLocation();
     let navigate = useNavigate();
- 
-    //need a better at determining what page I'm on
-    // useEffect(() => {
-    //     if(location.pathname === "/"){
-    //         setLandingNav(true)
-    //     } else {
-    //         setLandingNav(false)
-    //     }
-    // },[])
+    const path = location.pathname
+
+    useEffect(() => {
+        if(path === '/'){
+            setLandingNav(true)
+        } else { 
+            setLandingNav(false)
+        }
+    },[location])
 
     return (
         <Container fluid style={{ 
@@ -31,43 +30,69 @@ const Header = () => {
             top: "0"
             }}
         >
-            {landingNav ?
-                <Row style={{ position: "relative", zIndex: "9", paddingTop: "10px" }}>
-                    <Col lg={4}>
-                        <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "left" }}>
-                            UNORTHODOX__STUDIO
-                        </h3>
-                    </Col>
-                    <Col lg={4} xs={12} style={{ textAlign: 'center' }}>
-                        <img src={Branding} alt='Unorthodox' className='nav-logo' onClick={() => navigate('/home')} />
-                    </Col>
-                    <Col lg={4}>
-                        <h3 className="landing-header d-sm-none d-none d-lg-block d-md-block" style={{ textAlign: "right" }}>
-                            LIVE__FROM__THE__FUTURE
-                        </h3>
-                    </Col>
-                </Row> : null
-            }
-
-            {!landingNav ?
-                <Row style={{ position: "relative", zIndex: "9", paddingTop: "10px" }}>
-                    <Col lg={4}>
-                        <img src={Branding} alt='Unorthodox' className='nav-logo' onClick={() => navigate('/home')}/>
-                    </Col>
-                    <Col lg={4} xs={12} style={{ textAlign: 'center' }}>
-                        <h3 className="landing-header d-md-none d-sm-none d-none d-lg-block" style={{ textAlign: "centre" }}>
-                            LIVE__FROM__THE__FUTURE
-                        </h3>
-                    </Col>
-                    <Col lg={{  offset: 1, span: 3 }} className="d-sm-none d-md-none d-none d-lg-block">
-                        <ul className='Nav-ul'>
-                            <li className='Nav-li'><h4 className='nav-text'>HOME</h4></li>
-                            <li className='Nav-li'><h4 className='nav-text'>ABOUT</h4></li>
-                            <li className='Nav-li'><h4 className='nav-text'>CONTACT</h4></li>
-                        </ul>
-                    </Col>
-                </Row> : null
-            }
+        <Row style={{ position: "relative", zIndex: "9", paddingTop: "10px" }}>
+                 <AnimatePresence  initial={false}>
+                     <motion.div 
+                            animate={{ 
+                                width: landingNav ? "33.33%" : "0%",
+                                transition: { duration: 0.5} 
+                            }}
+                        >
+                             <motion.h3 
+                                className="landing-header d-sm-none d-none d-lg-block d-md-block" 
+                                style={{ textAlign: "left", float: "left" }}
+                                animate={{ 
+                                    opacity: landingNav ? 1 : 0,
+                                    transition: { duration: 0.5} 
+                                }}
+                            >
+                                 UNORTHODOX__STUDIO
+                            </motion.h3>
+                        </motion.div>
+                        <motion.div 
+                            style={{ width: "33.33%" }}
+                            animate={{ 
+                                textAlign: landingNav ? "center" : "left",
+                                transition: { duration: 0.5} 
+                            }}
+                        >
+                            <img src={Branding} alt='Unorthodox' className='nav-logo' onClick={() => navigate('/home')} />
+                        </motion.div>
+                        <motion.div 
+                            style={{ width: "33.33%" }}
+                            animate={{ 
+                                textAlign: landingNav ? "right" : "center",
+                                transition: { duration: 0.5} 
+                            }}
+                        >
+                            <h3 className="landing-header d-md-none d-sm-none d-none d-lg-block" style={{ textAlign: "centre" }}>
+                                LIVE__FROM__THE__FUTURE
+                            </h3>
+                        </motion.div>
+                        <motion.div 
+                            className="d-sm-none d-md-none d-none d-lg-block" 
+                            style={{ marginLeft: "11.11%", float: "right" }}
+                            animate={{ 
+                                width: landingNav ? "0" : "22.22%",
+                                opacity: landingNav ? 0 : 1,
+                                transition: { duration: 1 } 
+                            }}
+                        >
+                            {!landingNav && (
+                                <ul className='Nav-ul'>
+                                    <li className='Nav-li'><h4 className='nav-text' onClick={() => navigate('/home')}>HOME</h4></li>
+                                    <li className='Nav-li'><h4 className='nav-text' onClick={() => navigate('/about')}>ABOUT</h4></li>
+                                    <li className='Nav-li'><h4 className='nav-text' onClick={() => navigate('/')}>CONTACT</h4></li>
+                                </ul>
+                           )}
+                        </motion.div>
+                        {!landingNav ? 
+                            <div className='d-block d-lg-none' style={{ width: "33.33%", color: "white" }}>
+                                <h6>{"(hamburger menu)"}</h6>
+                            </div> : null
+                        }
+                    </AnimatePresence>
+                </Row>
         </Container>
     )
 }

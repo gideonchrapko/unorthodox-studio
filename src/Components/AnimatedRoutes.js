@@ -12,7 +12,16 @@ const AnimatedRoutes = () => {
     const location = useLocation();
 
     return (      
-        <AnimatePresence>
+        // <AnimatePresence initial={false} exitBeforeEnter>
+        // <AnimatePresence>
+        //   <Routes location={location} key={location.pathname}>
+        //     <Route path='/' element={<Landing />} />
+        //     <Route path='/home' element={<Home />} />
+        //     <Route path='/about' element={<About />} />
+        //     <Route path="/project/:slugRoute" exact render={() => <SingleProject />} />
+        //     <Route path="*" element={<PageNotFound />} />
+        //   </Routes>
+        // </AnimatePresence>
           <Routes location={location} key={location.pathname}>
             <Route path='/' element={<Landing />} />
             <Route path='/home' element={<Home />} />
@@ -20,7 +29,6 @@ const AnimatedRoutes = () => {
             <Route path="/project/:slugRoute" exact render={() => <SingleProject />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
-        </AnimatePresence>
     )
 }
 

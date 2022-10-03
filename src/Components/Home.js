@@ -1,43 +1,40 @@
 import sanityClient from '../client';
-import { PortableText } from '@portabletext/react'
+import { PortableText } from '@portabletext/react';
 import { useState, useEffect } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-// import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+
 import imageUrlBuilder from '@sanity/image-url';
 
-const thumbnails = [
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-    { image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Uprising_in_Tehran%2C_Keshavarz_Boulvard_September_2022_%282%2C_cropped_for_ITN%29.jpg" },
-]
-
-const Clients = [
-    { image: "ASAP ROCKY" },
-    { image: "ASAP" },
-    { image: "ASAP ROCKY" },
-    { image: "ASAP" },
-    { image: "ASAP ROCKY" },
-    { image: "ASAP" },
-]
+import placeholderImage from '../Assets/placeholderImage-01.png';
 
 const Home = () => {
-    const [landingPageData, setLandingPageData] = useState()
-    const aboutCopy = landingPageData && landingPageData[0].aboutCopy
-    const videoReel = landingPageData && landingPageData[0].LandingPageReel.asset
-    const builder = imageUrlBuilder(sanityClient)
+    // const [projectCategory, setProjectCategory] = useState();
+    const [projectCat, setProjectCat] = useState();
+    const [clientData, setClientData] = useState();
+    const [visualData, setVisualData] = useState();
+    const [soundData, setSoundData] = useState();
+    const [fashionData, setFashionData] = useState();
+    const [uxData, setUXData] = useState();
+    // const [projectIndex, setProjectIndex] = useState(0);
+    const [landingPageData, setLandingPageData] = useState();
+    const aboutCopy = landingPageData && landingPageData[0].aboutCopy;
+    const videoReel = landingPageData && landingPageData[0].LandingPageReel.asset;
+    const builder = imageUrlBuilder(sanityClient);
+    const mobile = window.innerWidth < 600;
+    const navigate = useNavigate();
   
     function urlFor(source) {
       return builder.image(source)
     }
+
+      useEffect(() => {
+        sanityClient.fetch(`*[_type == "clients"]{
+            clientsName
+        }`)
+        .then((data) => setClientData(data))
+        .catch(console.error)
+      },[])
 
     useEffect(() => {
         sanityClient.fetch(`*[_type == "landingPage"]{
@@ -48,13 +45,62 @@ const Home = () => {
         .catch(console.error)
     },[])
 
+    useEffect(() => {
+        sanityClient.fetch(`*[_type == "visualProject"]{
+            slugRoute,
+            projectImages,
+            clients,
+            "relatedClients": *[_type=='clients' && references(^._ref)]{
+                clients,
+                clientsName,
+            }
+        }`)
+        .then((data) => {
+            setVisualData(data)
+            setProjectCat(data)
+        })
+        .catch(console.error)
+      },[])
+
+      useEffect(() => {
+        sanityClient.fetch(`*[_type == "fashionProject"]{
+            slugRoute,
+            projectImages,
+            clients
+        }`)
+        .then((data) => setFashionData(data))
+        .catch(console.error)
+      },[])
+
+      useEffect(() => {
+        sanityClient.fetch(`*[_type == "soundProject"]{
+            slugRoute,
+            projectImages,
+            clients
+        }`)
+        .then((data) => setSoundData(data))
+        .catch(console.error)
+      },[])
+
+      useEffect(() => {
+        sanityClient.fetch(`*[_type == "uxProject"]{
+            slugRoute,
+            projectImages,
+            clients
+        }`)
+        .then((data) => setUXData(data))
+        .catch(console.error)
+      },[])
+
+    //   console.log(clientData, 'client Data')
+    //   console.log(visualData, 'visual Data')
+
     return (
         <Container fluid>
             <Row style={{ marginTop: "8vh", height: "10vh" }}>
                 <Col lg={6} md={6} xs={12}>
                     <h3 className='home-branding-text'>UNORTHODOX__STUDIO</h3>
                 </Col>
-                {/* This text sometimes goes under the reel video frame */}
                 <Col lg={6} md={6} xs={12}>
                     <h6 className='home-branding-copy d-sm-none d-none d-md-block d-lg-block'>
                         <PortableText value={aboutCopy} />
@@ -75,75 +121,106 @@ const Home = () => {
                     }
                 </Col>
             </Row>
-            <Row style={{ height: "14vh" }}>
-            {/* <Row style={{ height: "150vh" }}> */}
-                {/* <Col lg={12} style={{ height: "50%", position: "-webkit-sticky" , position: "sticky", top: "6vh"  }}> */}
+            <Row style={{ height: "15vh" }}>
                 <Col lg={12}>
                     <ul className='mainMenu-ul' >
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text'>
+                            <h5 className='product-category-text' onClick={() => setProjectCat(visualData)}
+                                style={{ fontWeight: projectCat === visualData ? "800" : "100"}}
+                            >
                                 VISUAL
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text'>
+                            <h5 className='product-category-text' onClick={() => setProjectCat(soundData)}
+                                style={{ fontWeight: projectCat === soundData ? "800" : "100"}}
+                            >
                                 SOUND
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text'>
+                            <h5 className='product-category-text' onClick={() => setProjectCat(fashionData)}
+                                style={{ fontWeight: projectCat === fashionData ? "800" : "100"}}
+                            >
                                 FASHION
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text'>
+                            <h5 className='product-category-text' onClick={() => setProjectCat(uxData)}
+                                style={{ fontWeight: projectCat === uxData ? "800" : "100"}}
+                            >
                                 USER EXPERIENCE
                         </h5></li>
                     </ul>
                 </Col>
             </Row>
             <Row style={{ height: "85vh" }}>
-                    <Col lg={2}>
-                        Clients
-                    </Col>
-                    <Col lg={10} style={{ background: "blue", overflowY: "scroll", height: "100%" }}>
-                        <div style={{ 
-                                margin: "0 auto 0",
-                                display: "flex", 
-                                flexWrap: "wrap", 
-                                justifyContent: "right", 
-                                width: "100%",
-                                backgroundRepeat: "no-repeat"
-                            }}>
-                            {thumbnails &&
-                                thumbnails.map((thumbs, index) => {
-                                    return (
-                                        <div key={index} 
-                                            style={{ 
-                                                backgroundImage: `url(${thumbs.image})`, 
-                                                height: "50vh",
-                                                flex: "0 0 30%",
-                                                width: "100px",
-                                                cursor: "pointer",
-                                            }}
 
+                    <Col lg={2} style={{ color: "white" }}>
+                        Clients
+                        {/* {clientData &&
+                            clientData.map((clients, index) => {
+                                return (
+                                    <div key={index}>
+                                        <h6 style={{ cursor: "pointer" }}>{clients.clientsName}</h6>
+                                    </div>
+                                )
+                            })
+                        } */}
+
+                        {projectCat && projectCat[0] &&
+                            projectCat.map((projects, index) => {
+
+                                // console.log(projects)
+
+                                return (
+                                    <div key={index}>
+                                        <h6 style={{ cursor: "pointer" }}></h6>
+                                    </div>
+                                )
+                            })
+                        }   
+                    </Col>
+
+                    <Col lg={10} className="home-project-wrapper"
+                        style={{ overflowY: "scroll", height: "100%", gridTemplateColumns: mobile ? "1fr 1fr" : "1fr 1fr 1fr" }} 
+                    >
+                        {projectCat && projectCat[0] ?
+                             projectCat.map((project, index) => {
+                                return (
+                                    <div className='home-prodContainers'>
+                                        <div 
+                                            key={index}
+                                            style={{ 
+                                                backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
+                                                }}
+                                            onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
                                         >
-                                            {/* {thumbs.image} */}
                                         </div>
-                                    )
-                                })
-                            }
-                        </div>
+                                    </div>
+                                )
+                            })
+                            :
+                            <h4>Projects Coming Soon</h4>
+                        }
+                        {/* {postData && postData[0] &&
+                             postData[0].visualProject.map((project, index) => {
+                                return (
+                                    <div className='home-prodContainers'>
+                                        <div 
+                                            key={index}
+                                            style={{ 
+                                                backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
+                                                }}
+                                            onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                                        >
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        } */}
                     </Col>
             </Row>
-            {/* <div>
-                <Link to='/project/Project1'>Project Link</Link>
-            </div> */}
-            {/* <Row style={{ height: "200vh" }}>
-                <Col>
-                    Hello
-                </Col>
-            </Row> */}
         </Container>
     )
 }

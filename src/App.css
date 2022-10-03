@@ -28,7 +28,7 @@
   justify-content: space-between;
   width: 90vw;
   left: 5vw;
-  margin: 4vh -15px 0 0;
+  margin: 6vh -15px 0 0;
   padding: 0;
   position: absolute;
   z-index: 9999999;
@@ -44,6 +44,21 @@
   font-family: sans-serif;
   font-weight: 100;
   color: white;
-  font-size: clamp(15pt, 4vw, 30pt);
+  font-size: clamp(10pt, 4vw, 30pt);
+  cursor: pointer;
+}
+
+.home-project-wrapper {
+  width: 100%;
+  display: grid;
+  grid-gap: 5px;
+}
+
+.home-prodContainers div {
+  background-color: red;
+  aspect-ratio: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   cursor: pointer;
 }

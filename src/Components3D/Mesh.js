@@ -52,7 +52,7 @@ const Mesh = ({ ...props }) => {
             scale={scale} 
         >
             {/* <meshStandardMaterial attach="material" color="#1C1C1C" roughness={0} metalness={0.5}/> */}
-            <meshStandardMaterial attach="material" color="black" roughness={0} metalness={0.5}/>
+            <meshStandardMaterial attach="material" color="black" roughness={0} metalness={1}/>
         </a.mesh>
     )
 }
