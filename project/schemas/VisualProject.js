@@ -18,6 +18,7 @@ export default {
             title: "Project Date",
             type: "string"
         },
+
         {
             name: "clients",
             type: "array",
@@ -25,12 +26,13 @@ export default {
             of: [
               {
                 type: "reference",
-                to: {
-                  type: "clients",
+                to: { 
+                    type: "visualClients" 
                 },
               },
             ],
-          },
+        },
+        
         {
             name: 'projectDescription',
             title: 'Project Descripion',

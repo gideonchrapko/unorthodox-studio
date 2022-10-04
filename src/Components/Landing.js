@@ -4,13 +4,13 @@ import { useAspect, Loader } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
 import { Container } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import MailchimpSubscribe from './Mailchimp/MailchimpSubscribe';
 
 import Logo from '../Components3D/Logo';
 import Controls from '../Components3D/Controls';
 import { Effects } from '../Components3D/Effects';
-import Header from './Navigation/Header';
+// import Header from './Navigation/Header';
 
   function Video() {
     const scale = useAspect(35500, 39500, 2)

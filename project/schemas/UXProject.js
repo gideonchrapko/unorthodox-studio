@@ -25,12 +25,12 @@ export default {
             of: [
               {
                 type: "reference",
-                to: {
-                  type: "clients",
+                to: { 
+                    type: "uxClients" 
                 },
               },
             ],
-          },
+        },
         {
             name: 'projectDescription',
             title: 'Project Descripion',

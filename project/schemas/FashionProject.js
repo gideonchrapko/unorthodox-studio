@@ -25,8 +25,8 @@ export default {
             of: [
               {
                 type: "reference",
-                to: {
-                  type: "clients",
+                to: { 
+                    type: "fashionClients" 
                 },
               },
             ],

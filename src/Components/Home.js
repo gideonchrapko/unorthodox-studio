@@ -5,18 +5,14 @@ import { Col, Row, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import imageUrlBuilder from '@sanity/image-url';
-
 import placeholderImage from '../Assets/placeholderImage-01.png';
 
 const Home = () => {
-    // const [projectCategory, setProjectCategory] = useState();
-    const [projectCat, setProjectCat] = useState();
+    const [projectCat, setProjectCat] = useState('visualProject');
+    const [projectData, setProjectData] = useState()
+    const [clientCat, setClientCat] = useState('visualClients');
     const [clientData, setClientData] = useState();
-    const [visualData, setVisualData] = useState();
-    const [soundData, setSoundData] = useState();
-    const [fashionData, setFashionData] = useState();
-    const [uxData, setUXData] = useState();
-    // const [projectIndex, setProjectIndex] = useState(0);
+
     const [landingPageData, setLandingPageData] = useState();
     const aboutCopy = landingPageData && landingPageData[0].aboutCopy;
     const videoReel = landingPageData && landingPageData[0].LandingPageReel.asset;
@@ -28,14 +24,6 @@ const Home = () => {
       return builder.image(source)
     }
 
-      useEffect(() => {
-        sanityClient.fetch(`*[_type == "clients"]{
-            clientsName
-        }`)
-        .then((data) => setClientData(data))
-        .catch(console.error)
-      },[])
-
     useEffect(() => {
         sanityClient.fetch(`*[_type == "landingPage"]{
             LandingPageReel,
@@ -46,54 +34,21 @@ const Home = () => {
     },[])
 
     useEffect(() => {
-        sanityClient.fetch(`*[_type == "visualProject"]{
-            slugRoute,
-            projectImages,
-            clients,
-            "relatedClients": *[_type=='clients' && references(^._ref)]{
-                clients,
-                clientsName,
-            }
+        sanityClient.fetch(`*[_type == "${clientCat}"]{
+            clientsName
         }`)
-        .then((data) => {
-            setVisualData(data)
-            setProjectCat(data)
-        })
+        .then((data) => setClientData(data))
         .catch(console.error)
-      },[])
+      },[clientCat])
 
       useEffect(() => {
-        sanityClient.fetch(`*[_type == "fashionProject"]{
-            slugRoute,
-            projectImages,
-            clients
+        sanityClient.fetch(`*[_type == "${projectCat}"]{
+             slugRoute,
+             projectImages,
         }`)
-        .then((data) => setFashionData(data))
+        .then((data) => setProjectData(data))
         .catch(console.error)
-      },[])
-
-      useEffect(() => {
-        sanityClient.fetch(`*[_type == "soundProject"]{
-            slugRoute,
-            projectImages,
-            clients
-        }`)
-        .then((data) => setSoundData(data))
-        .catch(console.error)
-      },[])
-
-      useEffect(() => {
-        sanityClient.fetch(`*[_type == "uxProject"]{
-            slugRoute,
-            projectImages,
-            clients
-        }`)
-        .then((data) => setUXData(data))
-        .catch(console.error)
-      },[])
-
-    //   console.log(clientData, 'client Data')
-    //   console.log(visualData, 'visual Data')
+      },[projectCat])
 
     return (
         <Container fluid>
@@ -125,29 +80,41 @@ const Home = () => {
                 <Col lg={12}>
                     <ul className='mainMenu-ul' >
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text' onClick={() => setProjectCat(visualData)}
-                                style={{ fontWeight: projectCat === visualData ? "800" : "100"}}
+                            <h5 className='product-category-text' style={{ fontWeight: projectCat === 'visualProject' ? "800" : "100"}}
+                                onClick={() => {
+                                    setProjectCat('visualProject')
+                                    setClientCat('visualClients')
+                                }}
                             >
                                 VISUAL
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text' onClick={() => setProjectCat(soundData)}
-                                style={{ fontWeight: projectCat === soundData ? "800" : "100"}}
+                            <h5 className='product-category-text' style={{ fontWeight: projectCat === 'soundProject' ? "800" : "100"}}
+                                onClick={() => {
+                                    setProjectCat('soundProject')
+                                    setClientCat('soundClients')
+                                }}
                             >
                                 SOUND
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text' onClick={() => setProjectCat(fashionData)}
-                                style={{ fontWeight: projectCat === fashionData ? "800" : "100"}}
+                            <h5 className='product-category-text' style={{ fontWeight: projectCat === 'fashionProject' ? "800" : "100"}}
+                                onClick={() => {
+                                    setProjectCat('fashionProject')
+                                    setClientCat('fashionClients')
+                                }}
                             >
                                 FASHION
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text' onClick={() => setProjectCat(uxData)}
-                                style={{ fontWeight: projectCat === uxData ? "800" : "100"}}
+                            <h5 className='product-category-text' style={{ fontWeight: projectCat === 'uxProject' ? "800" : "100"}}
+                                onClick={() => {
+                                    setProjectCat('uxProject')
+                                    setClientCat('uxClients')
+                                }}
                             >
                                 USER EXPERIENCE
                         </h5></li>
@@ -167,26 +134,13 @@ const Home = () => {
                                 )
                             })
                         }
-
-                        {/* {projectCat && projectCat[0] &&
-                            projectCat.map((projects, index) => {
-
-                                // console.log(projects)
-
-                                return (
-                                    <div key={index}>
-                                        <h6 style={{ cursor: "pointer" }}></h6>
-                                    </div>
-                                )
-                            })
-                        }    */}
                     </Col>
 
                     <Col lg={10} className="home-project-wrapper"
                         style={{ overflowY: "scroll", height: "100%", gridTemplateColumns: mobile ? "1fr 1fr" : "1fr 1fr 1fr" }} 
                     >
-                        {projectCat && projectCat[0] ?
-                             projectCat.map((project, index) => {
+                        {projectData && projectData[0] ?
+                             projectData.map((project, index) => {
                                 return (
                                     <div className='home-prodContainers'>
                                         <div 

@@ -7,7 +7,11 @@ import visualProject from './visualProject';
 import FashionProject from './FashionProject';
 import uxProject from './UXProject';
 import soundProject from './SoundProject';
-import clients from './Clients';
+
+import VisualClients from './VisualClients';
+import FashionClients from './FashionClients';
+import SoundClients from './SoundClients';
+import UXClients from './UXClients';
 
 export default createSchema({
   name: 'default',
@@ -18,6 +22,9 @@ export default createSchema({
     FashionProject,
     uxProject,
     soundProject,
-    clients,
+    VisualClients,
+    FashionClients,
+    UXClients,
+    SoundClients,
   ]),
 })
