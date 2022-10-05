@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Container } from 'react-bootstrap';
+import { Row, Container } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -9,6 +9,7 @@ import Branding from '../../Assets/branding.svg';
 
 const Header = () => {
     const [landingNav, setLandingNav] = useState(true);
+    const [route, setRoute] = useState();
     let location = useLocation();
     let navigate = useNavigate();
     const path = location.pathname
@@ -19,6 +20,7 @@ const Header = () => {
         } else { 
             setLandingNav(false)
         }
+        setRoute(path)
     },[location])
 
     return (
@@ -27,7 +29,8 @@ const Header = () => {
             background: landingNav ? "" : "black", 
             position: "fixed", 
             zIndex: "9",
-            top: "0"
+            top: "0",
+            padding: "0px 30px 0px 30px"
             }}
         >
         <Row style={{ position: "relative", zIndex: "9", paddingTop: "10px" }}>
@@ -80,9 +83,21 @@ const Header = () => {
                         >
                             {!landingNav && (
                                 <ul className='Nav-ul'>
-                                    <li className='Nav-li'><h4 className='nav-text' onClick={() => navigate('/home')}>HOME</h4></li>
-                                    <li className='Nav-li'><h4 className='nav-text' onClick={() => navigate('/about')}>ABOUT</h4></li>
-                                    <li className='Nav-li'><h4 className='nav-text' onClick={() => navigate('/')}>CONTACT</h4></li>
+                                    <li className='Nav-li'>
+                                        <h4 className={`nav-text ${route === "/home" ? 'nav-text-active' : ''}`} onClick={() => navigate('/home')} >
+                                            HOME
+                                        </h4>
+                                    </li>
+                                    <li className='Nav-li'>
+                                        <h4 className={`nav-text ${route === "/about" ? 'nav-text-active' : ''}`} onClick={() => navigate('/about')}>
+                                            ABOUT
+                                        </h4>
+                                    </li>
+                                    <li className='Nav-li'>
+                                        <h4 className={`nav-text ${route === "/contact" ? 'nav-text-active' : ''}`} onClick={() => navigate('/')}>
+                                            CONTACT
+                                        </h4>
+                                    </li>
                                 </ul>
                            )}
                         </motion.div>

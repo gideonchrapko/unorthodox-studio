@@ -3,6 +3,7 @@ import { PortableText } from '@portabletext/react';
 import { useState, useEffect } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 import imageUrlBuilder from '@sanity/image-url';
 import placeholderImage from '../Assets/placeholderImage-01.png';
@@ -10,10 +11,18 @@ import placeholderImage from '../Assets/placeholderImage-01.png';
 const Home = () => {
     const [projectCat, setProjectCat] = useState('visualProject');
     const [projectData, setProjectData] = useState()
+
     const [clientCat, setClientCat] = useState('visualClients');
     const [clientData, setClientData] = useState();
 
+    //projectList has all projects 
+    const [projectList, setProjectList] = useState();
+    const [displayClientsProj, setDisplayClientsProj] = useState(false);
+    const [clientsIndex, setClientsIndex] = useState();
+    const [clientProjectData, setClientProjectData] = useState();
+
     const [landingPageData, setLandingPageData] = useState();
+    const [hoverIndex, setHoverIndex] = useState();
     const aboutCopy = landingPageData && landingPageData[0].aboutCopy;
     const videoReel = landingPageData && landingPageData[0].LandingPageReel.asset;
     const builder = imageUrlBuilder(sanityClient);
@@ -33,22 +42,52 @@ const Home = () => {
         .catch(console.error)
     },[])
 
+    //fetches all clients depeding on which category their in
     useEffect(() => {
         sanityClient.fetch(`*[_type == "${clientCat}"]{
-            clientsName
+            clientsName,
+            _id
         }`)
         .then((data) => setClientData(data))
         .catch(console.error)
       },[clientCat])
 
+      //fetches all projects depending on if its visual, fashion, sound or UX cat
       useEffect(() => {
         sanityClient.fetch(`*[_type == "${projectCat}"]{
              slugRoute,
              projectImages,
+             projectTitle,
         }`)
         .then((data) => setProjectData(data))
         .catch(console.error)
       },[projectCat])
+
+      //fetches the list of projects that have a specific client
+      useEffect(() => {
+        sanityClient.fetch(`*[_type=="${projectCat}" && references("${clientsIndex}")]{
+             slugRoute,
+             projectImages,
+             projectTitle,
+        }`)
+        .then((data) => setClientProjectData(data))
+        .catch(console.error)
+      },[clientsIndex])
+
+      function clientList(clientsId) {
+            if(clientsIndex === clientsId){
+                setDisplayClientsProj(false)
+                setProjectList(projectData)
+            }else{
+                //wait for project to not equal clientProjectData
+                setProjectList(clientProjectData)
+                setDisplayClientsProj(true)
+            }
+            if(clientsIndex === clientsId && !displayClientsProj){
+                setDisplayClientsProj(true)
+                setProjectList(clientProjectData)
+            }
+      }
 
     return (
         <Container fluid>
@@ -80,40 +119,44 @@ const Home = () => {
                 <Col lg={12}>
                     <ul className='mainMenu-ul' >
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text' style={{ fontWeight: projectCat === 'visualProject' ? "800" : "100"}}
+                            <h5 className={`product-category-text ${projectCat === "visualProject" ? "product-category-text-active" : ""}`}
                                 onClick={() => {
                                     setProjectCat('visualProject')
                                     setClientCat('visualClients')
+                                    setDisplayClientsProj(false)
                                 }}
                             >
                                 VISUAL
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text' style={{ fontWeight: projectCat === 'soundProject' ? "800" : "100"}}
+                            <h5 className={`product-category-text ${projectCat === "soundProject" ? "product-category-text-active" : ""}`}
                                 onClick={() => {
                                     setProjectCat('soundProject')
                                     setClientCat('soundClients')
+                                    setDisplayClientsProj(false)
                                 }}
                             >
                                 SOUND
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text' style={{ fontWeight: projectCat === 'fashionProject' ? "800" : "100"}}
+                            <h5 className={`product-category-text ${projectCat === "fashionProject" ? "product-category-text-active" : ""}`}
                                 onClick={() => {
                                     setProjectCat('fashionProject')
                                     setClientCat('fashionClients')
+                                    setDisplayClientsProj(false)
                                 }}
                             >
                                 FASHION
                             </h5>
                         </li>
                         <li className='mainMenu-li'>
-                            <h5 className='product-category-text' style={{ fontWeight: projectCat === 'uxProject' ? "800" : "100"}}
+                            <h5 className={`product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}
                                 onClick={() => {
                                     setProjectCat('uxProject')
                                     setClientCat('uxClients')
+                                    setDisplayClientsProj(false)
                                 }}
                             >
                                 USER EXPERIENCE
@@ -122,57 +165,90 @@ const Home = () => {
                 </Col>
             </Row>
             <Row style={{ height: "85vh" }}>
-
                     <Col lg={2} style={{ color: "white" }}>
-                        Clients
+                        <h3>Clients</h3>
                         {clientData &&
                             clientData.map((clients, index) => {
+                                const clientsId = clients._id
                                 return (
                                     <div key={index}>
-                                        <h6 style={{ cursor: "pointer" }}>{clients.clientsName}</h6>
+                                        <h6 
+                                            style={{ cursor: "pointer" }} 
+                                            onClick={() => {
+                                                clientList(clientsId)
+                                                setClientsIndex(clientsId)
+                                            }}
+                                        >
+                                            {clients.clientsName}
+                                        </h6>
                                     </div>
                                 )
                             })
                         }
                     </Col>
-
-                    <Col lg={10} className="home-project-wrapper"
-                        style={{ overflowY: "scroll", height: "100%", gridTemplateColumns: mobile ? "1fr 1fr" : "1fr 1fr 1fr" }} 
-                    >
-                        {projectData && projectData[0] ?
-                             projectData.map((project, index) => {
-                                return (
-                                    <div className='home-prodContainers'>
+                    <Col lg={10} style={{ display: "flex", flexWrap: "wrap", height: "100%", overflowY: "scroll" }}>
+                            {!displayClientsProj && projectData &&
+                                projectData.map((project, index) => {
+                                    return (
                                         <div 
-                                            key={index}
-                                            style={{ 
-                                                backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
-                                                }}
-                                            onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                                            onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
+                                            className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
                                         >
+                                            <div 
+                                                key={index}
+                                                style={{ 
+                                                    backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
+                                                    filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)"
+                                                }}
+                                                className="content"
+                                                onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                                            >
+                                                <motion.h4 
+                                                    className='home-overlay-text'
+                                                    initial={false}
+                                                    animate={{ 
+                                                        opacity: hoverIndex === index ? 1 : 0,
+                                                        transition: { duration: 0.2 } 
+                                                    }}
+                                                >
+                                                    {project.projectTitle && project.projectTitle}
+                                                </motion.h4>
+                                            </div>
                                         </div>
-                                    </div>
                                 )
                             })
-                            :
-                            <h4>Projects Coming Soon</h4>
-                        }
-                        {/* {postData && postData[0] &&
-                             postData[0].visualProject.map((project, index) => {
-                                return (
-                                    <div className='home-prodContainers'>
+                            }
+                            {displayClientsProj && clientProjectData &&
+                                clientProjectData.map((project, index) => {
+                                    return (
                                         <div 
-                                            key={index}
-                                            style={{ 
-                                                backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
-                                                }}
-                                            onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                                            onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
+                                            className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
                                         >
+                                            <div 
+                                                key={index}
+                                                style={{ 
+                                                    backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
+                                                    filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)"
+                                                }}
+                                                className="content"
+                                                onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                                            >
+                                                <motion.h4 
+                                                    className='home-overlay-text'
+                                                    initial={false}
+                                                    animate={{ 
+                                                        opacity: hoverIndex === index ? 1 : 0,
+                                                        transition: { duration: 0.2 } 
+                                                    }}
+                                                >
+                                                    {project.projectTitle && project.projectTitle}
+                                                </motion.h4>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            })
-                        } */}
+                                    )
+                                })
+                            }
                     </Col>
             </Row>
         </Container>

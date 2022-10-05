@@ -31,7 +31,7 @@
   margin: 6vh -15px 0 0;
   padding: 0;
   position: absolute;
-  z-index: 9999999;
+  z-index: 9999;
 }
 
 .mainMenu-li {
@@ -46,17 +46,77 @@
   color: white;
   font-size: clamp(10pt, 4vw, 30pt);
   cursor: pointer;
+
+  display: inline-block;
+  position: relative;
 }
 
-.home-project-wrapper {
+.product-category-text:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.product-category-text:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.product-category-text-active {
+  border-bottom: solid 1px white;
+}
+
+/* .home-project-wrapper {
   width: 100%;
   display: grid;
   grid-gap: 5px;
+  text-align: center;
+} */
+
+/* .home-prodContainers div {
+  background-color: black;
+  aspect-ratio: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+
+} */
+
+.home-overlay-text {
+  color: white;
+  position: absolute;
+  z-index: 99;
+  font-size: clamp(8pt, 3vw, 18pt);
 }
 
-.home-prodContainers div {
-  background-color: red;
-  aspect-ratio: 1;
+.square {
+  position: relative;
+  flex-basis: calc(33.333% - 10px);
+  margin: 5px;
+  box-sizing: border-box;
+}
+
+.square::before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.square .content {
+  background-color: black;
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 100%;
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
