@@ -11,16 +11,12 @@ import placeholderImage from '../Assets/placeholderImage-01.png';
 const Home = () => {
     const [projectCat, setProjectCat] = useState('visualProject');
     const [projectData, setProjectData] = useState()
-
     const [clientCat, setClientCat] = useState('visualClients');
     const [clientData, setClientData] = useState();
-
-    //projectList has all projects 
     const [projectList, setProjectList] = useState();
     const [displayClientsProj, setDisplayClientsProj] = useState(false);
     const [clientsIndex, setClientsIndex] = useState();
     const [clientProjectData, setClientProjectData] = useState();
-
     const [landingPageData, setLandingPageData] = useState();
     const [hoverIndex, setHoverIndex] = useState();
     const aboutCopy = landingPageData && landingPageData[0].aboutCopy;
@@ -78,14 +74,16 @@ const Home = () => {
             if(clientsIndex === clientsId){
                 setDisplayClientsProj(false)
                 setProjectList(projectData)
+                setClientsIndex()
             }else{
-                //wait for project to not equal clientProjectData
                 setProjectList(clientProjectData)
                 setDisplayClientsProj(true)
+                setClientsIndex(clientsId)
             }
             if(clientsIndex === clientsId && !displayClientsProj){
                 setDisplayClientsProj(true)
                 setProjectList(clientProjectData)
+                setClientsIndex(clientsId)
             }
       }
 
@@ -115,7 +113,7 @@ const Home = () => {
                     }
                 </Col>
             </Row>
-            <Row style={{ height: "15vh" }}>
+            <Row style={{ height: "15vh", position: "sticky", top: "5vh", backgroundColor: "black", zIndex: "8" }}>
                 <Col lg={12}>
                     <ul className='mainMenu-ul' >
                         <li className='mainMenu-li'>
@@ -164,20 +162,19 @@ const Home = () => {
                     </ul>
                 </Col>
             </Row>
-            <Row style={{ height: "85vh" }}>
-                    <Col lg={2} style={{ color: "white" }}>
-                        <h3>Clients</h3>
+            <Row >
+                <Col lg={2}>
+                    <div style={{ position: "sticky", top: "20vh" }}>
+                        <h3 style={{ color: "white" }}>Clients</h3>
                         {clientData &&
                             clientData.map((clients, index) => {
                                 const clientsId = clients._id
                                 return (
                                     <div key={index}>
                                         <h6 
-                                            style={{ cursor: "pointer" }} 
-                                            onClick={() => {
-                                                clientList(clientsId)
-                                                setClientsIndex(clientsId)
-                                            }}
+                                            className={clientsIndex === clientsId ? 'client-list-text-active' : 'client-list-text'}
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => clientList(clientsId)}
                                         >
                                             {clients.clientsName}
                                         </h6>
@@ -185,8 +182,9 @@ const Home = () => {
                                 )
                             })
                         }
-                    </Col>
-                    <Col lg={10} style={{ display: "flex", flexWrap: "wrap", height: "100%", overflowY: "scroll" }}>
+                    </div>
+                </Col>
+                    <Col lg={10} style={{ display: "flex", flexWrap: "wrap", overflowY: "scroll" }}>
                             {!displayClientsProj && projectData &&
                                 projectData.map((project, index) => {
                                     return (
@@ -194,6 +192,13 @@ const Home = () => {
                                             onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
                                             className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
                                         >
+                                            <motion.h4 
+                                                className='home-overlay-text'
+                                                initial={false}
+                                                animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
+                                            >
+                                                {project.projectTitle && project.projectTitle}
+                                            </motion.h4>
                                             <div 
                                                 key={index}
                                                 style={{ 
@@ -203,16 +208,6 @@ const Home = () => {
                                                 className="content"
                                                 onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
                                             >
-                                                <motion.h4 
-                                                    className='home-overlay-text'
-                                                    initial={false}
-                                                    animate={{ 
-                                                        opacity: hoverIndex === index ? 1 : 0,
-                                                        transition: { duration: 0.2 } 
-                                                    }}
-                                                >
-                                                    {project.projectTitle && project.projectTitle}
-                                                </motion.h4>
                                             </div>
                                         </div>
                                 )
