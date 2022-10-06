@@ -188,28 +188,34 @@ const Home = () => {
                             {!displayClientsProj && projectData &&
                                 projectData.map((project, index) => {
                                     return (
-                                        <div 
-                                            onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
-                                            className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
-                                        >
-                                            <motion.h4 
-                                                className='home-overlay-text'
-                                                initial={false}
-                                                animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
-                                            >
-                                                {project.projectTitle && project.projectTitle}
-                                            </motion.h4>
+                                        <>
+                                        {projectData[0] ?
                                             <div 
-                                                key={index}
-                                                style={{ 
-                                                    backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
-                                                    filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)"
-                                                }}
-                                                className="content"
-                                                onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                                                onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
+                                                className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
                                             >
-                                            </div>
-                                        </div>
+                                                <motion.h4 
+                                                    className='home-overlay-text'
+                                                    initial={false}
+                                                    animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
+                                                >
+                                                    {project.projectTitle && project.projectTitle}
+                                                </motion.h4>
+                                                <div 
+                                                    key={index}
+                                                    style={{ 
+                                                        backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
+                                                        filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)"
+                                                    }}
+                                                    className="content"
+                                                    onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                                                >
+                                                </div>
+                                            </div> 
+                                            :
+                                            <h3 style={{ color: "white" }}>New Projects Coming Soon</h3>
+                                    }
+                                    </>
                                 )
                             })
                             }
