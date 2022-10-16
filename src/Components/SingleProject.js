@@ -1,38 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
-import sanityClient from '../client';
-import imageUrlBuilder from '@sanity/image-url';
-import { PortableText } from '@portabletext/react';
+// import sanityClient from '../client';
 // import imageUrlBuilder from '@sanity/image-url';
+import { PortableText } from '@portabletext/react';
+// import SanityMuxPlayer from "sanity-mux-player";
+import { motion } from 'framer-motion';
+import MuxPlayer from '@mux/mux-player-react';
+import sanityClient from '../client';
 
+import Masonry from './Masonry/Masonry'
 import './SinglePage.css'
 
 const SingleProject = () => {
-    const [singlePost, setSinglePost] = useState()
+    const [singlePost, setSinglePost] = useState();
+    const [clientNames, setClientNames] = useState();
     const { slugRoute } = useParams();
-    const builder = imageUrlBuilder(sanityClient);
+    const images = singlePost && singlePost[0].projectImages
+    const mobile = window.innerWidth < 600
 
-    function urlFor(source) {
-      return builder.image(source)
-    }
-    
     useEffect(() => {
-        sanityClient.fetch(`*[slugRoute.current == "${slugRoute}"]{
+      sanityClient.fetch(`*[slugRoute.current == "${slugRoute}"]{
           projectTitle,
           projectDate,
           projectDescription,
           projectImages,
+          projectTeam,
+          clients,
+          videoPost,
+          "playbackId": videoPost.video.asset->playbackId,
+
          }`)
         .then((data) => setSinglePost(data))
         .catch(console.error)
       },[])
 
-      console.log(singlePost && singlePost[0].projectDescription)
+      console.log(singlePost)
+
+      useEffect(() => {
+        sanityClient.fetch(`*[_type=='visualClients' && _id == '${singlePost && singlePost[0].clients[0]._ref}']{
+            "name" : clientsName
+          }`)
+        .then((data) => setClientNames(data))
+        .catch(console.error)
+      },[singlePost])
+
+      // console.log(singlePost)
 
     return (
         <Container fluid style={{ marginTop: "10vh" }}>
-          <Row>
+          {/* <AnimatePresence> */}
+          <motion.div
+            enter={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 1 }}}
+            exit={{ opacity: 0 }}
+          >
+          <Row style={{ position: "sticky", top: "5vh", background: "black", zIndex: "9" }}>
             <Col lg={12}>
               <h1 className='header-title-text' >{singlePost && singlePost[0].projectTitle}</h1>
             </Col>
@@ -41,7 +64,11 @@ const SingleProject = () => {
             <Col lg={12} >
                   <ul className='project-ul'>
                     <li className='project-li'>
-                      <h5 className='body-copy'>CLIENT</h5>
+                      <h5 className='body-copy'>
+                        {clientNames && clientNames[0] ?
+                          clientNames[0].name : ""
+                        }
+                      </h5>
                     </li>
                     <li className='project-li'>
                       <h5 className='body-copy'>{singlePost && singlePost[0].projectDate}</h5>
@@ -57,28 +84,39 @@ const SingleProject = () => {
               <h5 className='body-copy'><PortableText value={singlePost && singlePost[0].projectDescription} /></h5>
             </Col>
             <Col lg={3} style={{ textAlign: "right" }}>
-              <h5 className='body-copy'>Team Names</h5>
+              {singlePost && singlePost[0] &&
+                singlePost[0].projectTeam.map((team, index) => {
+                  const stringColinIndex = team.indexOf(':') + 1
+                  const stringLength = team.length
+                  const newTeamStringTop = team.slice(0, stringColinIndex)
+                  const newTeamStringBottom = team.slice(stringColinIndex, stringLength)
+                  return (
+                    <div key={index}>
+                      <h5 className='body-copy team'>{newTeamStringTop}</h5>
+                      <h5 className='body-copy team'>{newTeamStringBottom}</h5><br/>
+                    </div>
+                  )
+                })
+              }
             </Col>
           </Row>
-          <Row>
-            <Col lg={12}>
-              <div style={{ height: "50vh" }}>
-                {singlePost && singlePost[0] &&
-                  singlePost[0].projectImages.map((images, i) => {
-                    return (
-                      <div>
-                        <img 
-                          src={urlFor(images.asset).url()} 
-                          alt={`project image${i}`} 
-                          style={{ height: "10vh" }} 
-                        />
-                      </div>
-                    )
-                  })
-                }
-              </div>
+          <Row style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+            <Col lg={{ offset: 1, span: 10 }}>
+              {/* <MuxPlayer playbackId={singlePost && singlePost[0].videoPost.video.asset} metadata={{video_title: 'project video'}} /> */}
+              {singlePost && singlePost[0].playbackId ?
+              <MuxPlayer
+                streamType="on-demand"
+                playbackId={singlePost.playbackId}
+                metadata={{
+                  video_title: 'title'
+                }}
+              />:"hello"
+            }
+              <Masonry images={images} columnCount={mobile ? "1" : "2"} gap="10" />
             </Col>
           </Row>
+          </motion.div>
+          {/* </AnimatePresence> */}
         </Container>
     )
 }

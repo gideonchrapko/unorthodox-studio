@@ -20,7 +20,7 @@ export function Effects() {
       blurKernelSize={8}
       blurSharpness={0.5}
       rayStep={0.43}
-      intensity={1}
+      intensity={1.5}
       maxRoughness={1}
       jitter={0.1}
       jitterSpread={0.25}

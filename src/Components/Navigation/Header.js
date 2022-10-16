@@ -24,17 +24,19 @@ const Header = () => {
     },[location])
 
     return (
-        <Container fluid style={{ 
-            height: "6vh", 
-            background: landingNav ? "" : "black", 
-            position: "fixed", 
-            zIndex: "9",
-            top: "0",
-            padding: "0px 30px 0px 30px"
+        <Container 
+            fluid 
+            style={{ 
+                height: "6vh", 
+                background: landingNav ? "" : "black", 
+                position: "fixed", 
+                zIndex: "9",
+                top: "0",
+                padding: "0px 30px 0px 30px"
             }}
         >
         <Row style={{ position: "relative", zIndex: "9", paddingTop: "10px" }}>
-                 <AnimatePresence  initial={false}>
+                 <AnimatePresence initial={false}>
                      <motion.div 
                             animate={{ 
                                 width: landingNav ? "33.33%" : "0%",

@@ -11,25 +11,26 @@ import About from './About';
 const AnimatedRoutes = () => {
     const location = useLocation();
 
-    return (      
-        // <AnimatePresence initial={false} exitBeforeEnter>
-        // <AnimatePresence>
-        //   <Routes location={location} key={location.pathname}>
-        //     <Route path='/' element={<Landing />} />
-        //     <Route path='/home' element={<Home />} />
-        //     <Route path='/about' element={<About />} />
-        //     <Route path="/project/:slugRoute" exact render={() => <SingleProject />} />
-        //     <Route path="*" element={<PageNotFound />} />
-        //   </Routes>
-        // </AnimatePresence>
+    return (    
+        
+        <AnimatePresence >
           <Routes location={location} key={location.pathname}>
-            <Route path='/' element={<Landing />} />
-            <Route path='/home' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path="/project/:slugRoute" exact render={() => <SingleProject />} />
-            <Route path="*" element={<PageNotFound />} />
+            <Route path='/' element={<Landing/>} />
+            <Route path='/home' element={<Home/>} />
+            <Route path='/about' element={<About/>} />
+            <Route path='project/:slugRoute' element={<SingleProject/>} />
+            <Route path="*" element={<PageNotFound/>} />
           </Routes>
+        </AnimatePresence>
     )
 }
 
 export default AnimatedRoutes
+
+{/* <Routes location={location} key={location.pathname}>
+  <Route path='/' element={<Landing />} />
+  <Route path='/home' element={<Home />} />
+  <Route path='/about' element={<About />} />
+  <Route path="/project/:slugRoute" exact render={() => <SingleProject />} />
+  <Route path="*" element={<PageNotFound />} />
+</Routes> */}

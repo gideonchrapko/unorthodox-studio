@@ -1,9 +1,10 @@
-import sanityClient from '../client';
+// import client from '../client';
 import { PortableText } from '@portabletext/react';
 import { useState, useEffect } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import sanityClient from '../client';
 
 import imageUrlBuilder from '@sanity/image-url';
 import placeholderImage from '../Assets/placeholderImage-01.png';
@@ -13,7 +14,6 @@ const Home = () => {
     const [projectData, setProjectData] = useState()
     const [clientCat, setClientCat] = useState('visualClients');
     const [clientData, setClientData] = useState();
-    const [projectList, setProjectList] = useState();
     const [displayClientsProj, setDisplayClientsProj] = useState(false);
     const [clientsIndex, setClientsIndex] = useState();
     const [clientProjectData, setClientProjectData] = useState();
@@ -38,7 +38,6 @@ const Home = () => {
         .catch(console.error)
     },[])
 
-    //fetches all clients depeding on which category their in
     useEffect(() => {
         sanityClient.fetch(`*[_type == "${clientCat}"]{
             clientsName,
@@ -48,23 +47,23 @@ const Home = () => {
         .catch(console.error)
       },[clientCat])
 
-      //fetches all projects depending on if its visual, fashion, sound or UX cat
       useEffect(() => {
         sanityClient.fetch(`*[_type == "${projectCat}"]{
              slugRoute,
              projectImages,
              projectTitle,
+             clients,
         }`)
         .then((data) => setProjectData(data))
         .catch(console.error)
       },[projectCat])
 
-      //fetches the list of projects that have a specific client
       useEffect(() => {
         sanityClient.fetch(`*[_type=="${projectCat}" && references("${clientsIndex}")]{
              slugRoute,
              projectImages,
              projectTitle,
+             clients,
         }`)
         .then((data) => setClientProjectData(data))
         .catch(console.error)
@@ -73,16 +72,13 @@ const Home = () => {
       function clientList(clientsId) {
             if(clientsIndex === clientsId){
                 setDisplayClientsProj(false)
-                setProjectList(projectData)
                 setClientsIndex()
             }else{
-                setProjectList(clientProjectData)
                 setDisplayClientsProj(true)
                 setClientsIndex(clientsId)
             }
             if(clientsIndex === clientsId && !displayClientsProj){
                 setDisplayClientsProj(true)
-                setProjectList(clientProjectData)
                 setClientsIndex(clientsId)
             }
       }
@@ -164,20 +160,23 @@ const Home = () => {
             </Row>
             <Row >
                 <Col lg={2}>
-                    <div style={{ position: "sticky", top: "20vh" }}>
-                        <h3 style={{ color: "white" }}>Clients</h3>
+                    <div style={{ position: "sticky", top: "20vh", paddingTop: "5vh" }}>
+                        <h4 style={{ color: "white" }}>Clients</h4>
                         {clientData &&
                             clientData.map((clients, index) => {
                                 const clientsId = clients._id
                                 return (
                                     <div key={index}>
                                         <h6 
-                                            className={clientsIndex === clientsId ? 'client-list-text-active' : 'client-list-text'}
+                                            className='client-list-text'
                                             style={{ cursor: "pointer" }}
                                             onClick={() => clientList(clientsId)}
                                         >
                                             {clients.clientsName}
                                         </h6>
+                                        <span style={{ backgroundColor: `${clientsIndex === clientsId ? 'white' : 'transparent'}` }}
+                                            className="dot">
+                                        </span>
                                     </div>
                                 )
                             })
@@ -222,10 +221,17 @@ const Home = () => {
                             {displayClientsProj && clientProjectData &&
                                 clientProjectData.map((project, index) => {
                                     return (
-                                        <div 
+                                        <div
                                             onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
                                             className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
                                         >
+                                                <motion.h4 
+                                                    className='home-overlay-text'
+                                                    initial={false}
+                                                    animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
+                                                >
+                                                    {project.projectTitle && project.projectTitle}
+                                                </motion.h4>
                                             <div 
                                                 key={index}
                                                 style={{ 
@@ -235,16 +241,6 @@ const Home = () => {
                                                 className="content"
                                                 onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
                                             >
-                                                <motion.h4 
-                                                    className='home-overlay-text'
-                                                    initial={false}
-                                                    animate={{ 
-                                                        opacity: hoverIndex === index ? 1 : 0,
-                                                        transition: { duration: 0.2 } 
-                                                    }}
-                                                >
-                                                    {project.projectTitle && project.projectTitle}
-                                                </motion.h4>
                                             </div>
                                         </div>
                                     )

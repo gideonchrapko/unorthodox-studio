@@ -113,6 +113,7 @@
   font-weight: 100;
   color: white;
   cursor: pointer;
+  font-size: 10pt;
 
   display: inline-block;
   position: relative;
@@ -134,15 +135,4 @@
 .client-list-text:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
-}
-
-.client-list-text-active {
-  border-bottom: solid 1px white;
-  font-family: sans-serif;
-  font-weight: 100;
-  color: white;
-  cursor: pointer;
-
-  display: inline-block;
-  position: relative;
 }

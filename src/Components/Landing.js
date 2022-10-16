@@ -13,7 +13,7 @@ import { Effects } from '../Components3D/Effects';
 // import Header from './Navigation/Header';
 
   function Video() {
-    const scale = useAspect(35500, 39500, 2)
+    const scale = useAspect(800, 450, 2)
     const [video] = useState(() =>
       Object.assign(document.createElement('video'), { src: '/giphy_slowed_1.mp4', crossOrigin: 'Anonymous', loop: true, muted: true,  playsInline: true })
     )

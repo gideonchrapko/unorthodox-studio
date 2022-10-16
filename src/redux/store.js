@@ -2,7 +2,7 @@
   import thunk from "redux-thunk"
   import * as reducers from "./ducks"
 
-  import { useShopify } from "../hooks"
+  // import { useShopify } from "../hooks"
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const rootReducer = combineReducers(reducers)
