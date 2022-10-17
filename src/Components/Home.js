@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import sanityClient from '../client';
 
+import LandingVideo from './MuxVideo/LandingVideo';
+
 import imageUrlBuilder from '@sanity/image-url';
 import placeholderImage from '../Assets/placeholderImage-01.png';
 
@@ -20,7 +22,7 @@ const Home = () => {
     const [landingPageData, setLandingPageData] = useState();
     const [hoverIndex, setHoverIndex] = useState();
     const aboutCopy = landingPageData && landingPageData[0].aboutCopy;
-    const videoReel = landingPageData && landingPageData[0].LandingPageReel.asset;
+    // const videoReel = landingPageData && landingPageData[0].LandingPageReel.asset;
     const builder = imageUrlBuilder(sanityClient);
     const mobile = window.innerWidth < 600;
     const navigate = useNavigate();
@@ -33,6 +35,8 @@ const Home = () => {
         sanityClient.fetch(`*[_type == "landingPage"]{
             LandingPageReel,
             aboutCopy,
+            videoReel,
+            "playbackId": videoReel.Reel.asset->playbackId,
         }`)
         .then((data) => setLandingPageData(data))
         .catch(console.error)
@@ -83,6 +87,8 @@ const Home = () => {
             }
       }
 
+      console.log(landingPageData && landingPageData[0].playbackId)
+
     return (
         <Container fluid>
             <Row style={{ marginTop: "8vh", height: "10vh" }}>
@@ -99,14 +105,20 @@ const Home = () => {
                 </Col>
             </Row>
             <Row style={{ height: "65vh", marginTop: "3vh" }}>
-                <Col lg={12}>
-                    {landingPageData && landingPageData[0] ?
+                <Col lg={{ offset: 2, span: 8 }}>
+                    {landingPageData && landingPageData[0].playbackId &&
+                        <LandingVideo 
+                            playbackId={landingPageData && landingPageData[0].playbackId}
+                            title={landingPageData && landingPageData[0].videoReel.title}
+                        />
+                    }
+                    {/* {landingPageData && landingPageData[0] ?
                         <div 
                             className='home-reel-div'
                             style={{ backgroundImage: `url(${urlFor(videoReel).url()})` }}
                         >
                         </div> : null
-                    }
+                    } */}
                 </Col>
             </Row>
             <Row style={{ height: "15vh", position: "sticky", top: "5vh", backgroundColor: "black", zIndex: "8" }}>
@@ -204,7 +216,8 @@ const Home = () => {
                                                     key={index}
                                                     style={{ 
                                                         backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
-                                                        filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)"
+                                                        filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
+                                                        // backgroundSize: hoverIndex === index ? "contain" : "cover",
                                                     }}
                                                     className="content"
                                                     onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
@@ -236,7 +249,8 @@ const Home = () => {
                                                 key={index}
                                                 style={{ 
                                                     backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
-                                                    filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)"
+                                                    filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
+                                                    // backgroundSize: hoverIndex === index ? "100%" : "110%",
                                                 }}
                                                 className="content"
                                                 onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}

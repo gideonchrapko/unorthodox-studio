@@ -6,10 +6,11 @@ import { Container, Col, Row } from 'react-bootstrap';
 import { PortableText } from '@portabletext/react';
 // import SanityMuxPlayer from "sanity-mux-player";
 import { motion } from 'framer-motion';
-import MuxPlayer from '@mux/mux-player-react';
+// import MuxPlayer from '@mux/mux-player-react';
 import sanityClient from '../client';
 
 import Masonry from './Masonry/Masonry'
+import Video from './MuxVideo/ProjectVideo'
 import './SinglePage.css'
 
 const SingleProject = () => {
@@ -44,8 +45,6 @@ const SingleProject = () => {
         .then((data) => setClientNames(data))
         .catch(console.error)
       },[singlePost])
-
-      // console.log(singlePost)
 
     return (
         <Container fluid style={{ marginTop: "10vh" }}>
@@ -102,16 +101,12 @@ const SingleProject = () => {
           </Row>
           <Row style={{ marginTop: "5vh", marginBottom: "5vh" }}>
             <Col lg={{ offset: 1, span: 10 }}>
-              {/* <MuxPlayer playbackId={singlePost && singlePost[0].videoPost.video.asset} metadata={{video_title: 'project video'}} /> */}
-              {singlePost && singlePost[0].playbackId ?
-              <MuxPlayer
-                streamType="on-demand"
-                playbackId={singlePost.playbackId}
-                metadata={{
-                  video_title: 'title'
-                }}
-              />:"hello"
-            }
+              {singlePost && singlePost[0].playbackId &&
+                <Video 
+                  playbackId={singlePost && singlePost[0].playbackId}
+                  title={singlePost && singlePost[0].videoPost.title}
+                />            
+              }
               <Masonry images={images} columnCount={mobile ? "1" : "2"} gap="10" />
             </Col>
           </Row>
