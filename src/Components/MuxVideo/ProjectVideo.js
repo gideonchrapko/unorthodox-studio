@@ -1,6 +1,8 @@
 import MuxPlayer from '@mux/mux-player-react';
 import {useEffect} from 'react';
 
+import './mux.css'
+
 export default function Video(props) {
   const { playbackId, title } = props
 
@@ -8,13 +10,6 @@ export default function Video(props) {
     document.title = title
   }, [title])
 
-  return (
-    <MuxPlayer 
-      playbackId={playbackId} 
-      metadata={{video_title: title}} 
-      streamType="on-demand"
-      style={{ width: "80%" }}
-      // className='home-reel-div'
-    />
-  )
+  return <MuxPlayer playbackId={playbackId} metadata={{video_title: title}} streamType="on-demand" />
+  
 }

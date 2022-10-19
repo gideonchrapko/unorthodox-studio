@@ -1,0 +1,11 @@
+mux-player {
+    /* --seek-backward-button: none;
+    --seek-forward-button: none;
+    --center-controls: none; 
+    --top-captions-button: none;
+    --volume-range: none;
+    --fullscreen-button: none;
+    --playback-rate-button: none; */
+
+    --controls: none;
+} 

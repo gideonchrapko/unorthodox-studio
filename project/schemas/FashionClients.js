@@ -1,7 +1,7 @@
 export default {
     name: "fashionClients",
     type: "document",
-    title: "FashCli",
+    title: "FC (ignore)",
     fields: [
       {
         name: 'clientsName',

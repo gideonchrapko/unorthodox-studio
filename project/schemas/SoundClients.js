@@ -1,7 +1,7 @@
 export default {
     name: "soundClients",
     type: "document",
-    title: "SouCli",
+    title: "SC (ignore)",
     fields: [
       {
         name: 'clientsName',

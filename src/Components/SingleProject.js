@@ -36,7 +36,7 @@ const SingleProject = () => {
         .catch(console.error)
       },[])
 
-      console.log(singlePost)
+      // console.log(singlePost)
 
       useEffect(() => {
         sanityClient.fetch(`*[_type=='visualClients' && _id == '${singlePost && singlePost[0].clients[0]._ref}']{
@@ -51,7 +51,7 @@ const SingleProject = () => {
           {/* <AnimatePresence> */}
           <motion.div
             enter={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 1 }}}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
           <Row style={{ position: "sticky", top: "5vh", background: "black", zIndex: "9" }}>

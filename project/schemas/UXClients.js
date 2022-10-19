@@ -1,7 +1,7 @@
 export default {
     name: "uxClients",
     type: "document",
-    title: "UXCli",
+    title: "UXC (ignore)",
     fields: [
       {
         name: 'clientsName',

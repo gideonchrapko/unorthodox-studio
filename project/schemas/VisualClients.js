@@ -1,7 +1,7 @@
 export default {
     name: "visualClients",
     type: "document",
-    title: "VisCli",
+    title: "VC (ignore)",
     fields: [
       {
         name: 'clientsName',
