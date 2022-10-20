@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
-// import sanityClient from '../client';
-// import imageUrlBuilder from '@sanity/image-url';
 import { PortableText } from '@portabletext/react';
 // import SanityMuxPlayer from "sanity-mux-player";
 import { motion } from 'framer-motion';
@@ -54,9 +52,9 @@ const SingleProject = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-          <Row style={{ position: "sticky", top: "5vh", background: "black", zIndex: "9" }}>
+          <Row style={{ top: "5vh", background: "transparent", zIndex: "9" }}>
             <Col lg={12}>
-              <h1 className='header-title-text' >{singlePost && singlePost[0].projectTitle}</h1>
+              <h1 className='header-title-text' style={{ paddingTop: "5px" }}>{singlePost && singlePost[0].projectTitle}</h1>
             </Col>
           </Row>
           <Row style={{ marginTop: "5vh" }}>

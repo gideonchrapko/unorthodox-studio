@@ -4,6 +4,7 @@ import { useAspect, Loader } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
 import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 // import { Link } from 'react-router-dom';
 import MailchimpSubscribe from './Mailchimp/MailchimpSubscribe';
 
@@ -31,9 +32,11 @@ import { Effects } from '../Components3D/Effects';
 
 const Landing = () => {
     const [rotation, setRotation] = useState([0, 0, 0]);
+    const [entered, setEntered] = useState(false)
     const [dragX, setDragX] = useState({ x: 0 });
     const [dragY, setDragY] = useState({ y: 0 });
     const mobile = window.innerWidth < 600
+    const navigate = useNavigate();
 
     const bind = useDrag((params) => {
         setDragX({ x: params.offset[0] })
@@ -46,11 +49,30 @@ const Landing = () => {
         setRotation([...rotation])
       },[dragX, dragY])
 
+    useEffect(() => {
+      (async () => {
+        if (entered === true) {    
+            return  setTimeout(function() {
+                navigate("/home");
+              console.log('entered')
+           }, 2000);
+       }  
+   })();
+    },[entered])
+
     return (
         <Container fluid>
           <Loader />
+            {/* <button style={{ position: "fixed", zIndex: "9", color: "white" }}>
+              <h1 onClick={() => {
+                setEntered(true)
+                setRotation([0, 0, 0])
+                }}>
+                  Enter Site
+                </h1>
+            </button> */}
             <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 12], fov: mobile ? 40 : 28 }}>
-                <directionalLight position={[0, 0, 30]} castShadow intensity={0.3} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} />
+                {/* <directionalLight position={[0, 0, 30]} castShadow intensity={0.3} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} /> */}
                 <Effects />
                 <Video />
                 <Suspense fallback={null}>
@@ -61,7 +83,7 @@ const Landing = () => {
                           <meshStandardMaterial color="black" envMapIntensity={0} roughness={0.5} metalness={0} />
                       </mesh>
                   </group>
-                  <Logo rotation={rotation} {...bind()}/>
+                  <Logo entered={entered} rotation={rotation} {...bind()}/>
                 </Suspense>
             </Canvas>
             <MailchimpSubscribe />

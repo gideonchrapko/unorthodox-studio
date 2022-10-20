@@ -1,6 +1,6 @@
 // import client from '../client';
 import { PortableText } from '@portabletext/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -33,7 +33,6 @@ const Home = () => {
 
     useEffect(() => {
         sanityClient.fetch(`*[_type == "landingPage"]{
-            LandingPageReel,
             aboutCopy,
             videoReel,
             "playbackId": videoReel.Reel.asset->playbackId,
@@ -98,7 +97,7 @@ const Home = () => {
                     <Col lg={6} md={6} xs={12}>
                         <h3 className='home-branding-text'>UNORTHODOX__STUDIO</h3>
                     </Col>
-                    <Col lg={6} md={6} xs={12}>
+                    <Col lg={{ offset: 1, span: 5 }} md={6} xs={12}>
                         <h6 className='home-branding-copy d-sm-none d-none d-md-block d-lg-block'>
                             <PortableText value={aboutCopy} />
                         </h6>
@@ -108,20 +107,13 @@ const Home = () => {
                     </Col>
                 </Row>
                 <Row style={{ height: "65vh", marginTop: "3vh" }}>
-                    <Col lg={{ offset: 2, span: 8 }} >
+                    <Col lg={{ span: 12 }}>
                         {landingPageData && landingPageData[0].playbackId &&
                             <LandingVideo 
                                 playbackId={landingPageData && landingPageData[0].playbackId}
                                 title={landingPageData && landingPageData[0].videoReel.title}
                             />
                         }
-                        {/* {landingPageData && landingPageData[0] ?
-                            <div 
-                                className='home-reel-div'
-                                style={{ backgroundImage: `url(${urlFor(videoReel).url()})` }}
-                            >
-                            </div> : null
-                        } */}
                     </Col>
                 </Row>
                 <Row style={{ height: "15vh", position: "sticky", top: "5vh", backgroundColor: "black", zIndex: "8" }}>

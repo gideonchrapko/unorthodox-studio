@@ -5,11 +5,7 @@ import { a } from '@react-spring/three';
 
 const Mesh = ({ ...props }) => {
     const ref = useRef();
-    const geometry = props.geometry
-    const position = props.position
-    const scale = props.scale
-    const rotation = props.rotation
-    const hovPos = props.hovPos
+    const { hovPos, rotation, scale, position, geometry, entered, index } = props
     const [hover, setHover] = useState(false)
     const [height, setHeight] = useState()
     const [speed, setSpeed] = useState()
@@ -20,7 +16,6 @@ const Mesh = ({ ...props }) => {
     },[])
 
     const animatedProps = useSpring({
-        hovered: hover ? scale + 0.2 : scale,
         position: hover ? [position[0], position[1], position[2] + 1] : [position[0], position[1], position[2]],
         config: { 
           mass: 20, 
@@ -29,31 +24,41 @@ const Mesh = ({ ...props }) => {
         },
       })
 
-      useFrame((state) => {
-        const t = state.clock.getElapsedTime()
-        ref.current.position.y = (hovPos - Math.sin(t / speed)) / height
-      })
+    // const [spring, set] = useSpring(() => ({
+    //   position: [...position],
+    // }))
+
+    // useEffect(() => {
+    //   set({ position: entered ? [0, 0, 25] : [0, 0, 0], delay: (index + 3) * 100 });
+    // }, [entered, set]);
+
+    useFrame((state) => {
+      const t = state.clock.getElapsedTime()
+      ref.current.position.y = (hovPos - Math.sin(t / speed)) / height
+    })
 
     return (
-        <a.mesh 
-            ref={ref}
-            geometry={geometry}
-            onPointerOver={(e) => {
-              e.stopPropagation()
-              setHover(true)
-            }}
-            onPointerOut={(e) => {
-              e.stopPropagation()
-              setHover(false)
-            }}
+        <a.group>
+        {/* <a.group {...spring}> */}
+          <a.mesh 
+              ref={ref}
+              geometry={geometry}
+              onPointerOver={(e) => {
+                e.stopPropagation()
+                setHover(true)
+              }}
+              onPointerOut={(e) => {
+                e.stopPropagation()
+                setHover(false)
+              }}
 
-            position={animatedProps.position} 
-            rotation={rotation} 
-            scale={scale} 
-        >
-            {/* <meshStandardMaterial attach="material" color="#1C1C1C" roughness={0} metalness={0.5}/> */}
-            <meshStandardMaterial attach="material" color="black" roughness={0} metalness={1}/>
-        </a.mesh>
+              position={animatedProps.position} 
+              rotation={rotation} 
+              scale={scale} 
+          >
+              <meshStandardMaterial attach="material" color="black" roughness={0} metalness={1}/>
+          </a.mesh>
+        </a.group>
     )
 }
 

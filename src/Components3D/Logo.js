@@ -6,7 +6,7 @@ import Mesh from './Mesh';
 // import sanityClient from '../client';
 
 export default function Model(props) {
-  const { rotation } = props
+  const { rotation, entered } = props
   const [load, setLoad] = useState(false);
   const group = useRef();
   const { nodes } = useGLTF('/Logo.glb');
@@ -17,7 +17,7 @@ export default function Model(props) {
 
   const [spring, set] = useSpring(() => ({
     rotation: [...rotation],
-    config: { mass: 10, friction: 300, tension: 400 },
+    // config: { mass: 10, friction: 200, tension: 400 },
   }))
 
   useEffect(() => {
@@ -47,6 +47,8 @@ export default function Model(props) {
           geometry={nodes.BezierCurve.geometry} 
           position={[2.77, 5.27, 0.07]} 
           rotation={[Math.PI / 2, 0, 0]}
+          entered={entered}
+          index={1}
         />
         <Mesh
           hovPos={53}
@@ -54,24 +56,32 @@ export default function Model(props) {
           position={[4.92, 5.27, 0.07]} 
           rotation={[Math.PI / 2, 0, 0]} 
           scale={[-1, 1, 1]} 
+          entered={entered}
+          index={2}
         />
         <Mesh
           hovPos={24}        
           geometry={nodes.BezierCurve003.geometry}
           position={[1.31, 2.35, 0.07]} 
           rotation={[Math.PI / 2, 0, 0]}
+          entered={entered}
+          index={3}
         />
         <Mesh
           hovPos={19}        
           geometry={nodes.BezierCurve004.geometry}
           position={[3.64, 2.07, 0.07]} 
           rotation={[-Math.PI / 2, 0, -Math.PI]} 
+          entered={entered}
+          index={4}
         />
         <Mesh
           hovPos={30}         
           geometry={nodes.BezierCurve006.geometry}
           position={[3.16, 3.11, 0.07]} 
           rotation={[Math.PI / 2, 0, 0]} 
+          entered={entered}
+          index={5}
         />
         <Mesh
           hovPos={21}         
@@ -79,6 +89,8 @@ export default function Model(props) {
           position={[2.48, 2.17, 0.08]} 
           rotation={[Math.PI / 2, 0, 0]} 
           scale={0.43} 
+          entered={entered}
+          index={6}
         />
       </group>
     </a.group>

@@ -4,14 +4,6 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'LandingPageReel',
-      title: 'Landing Page Reel Upload',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-    },
-    {
       title: "Video Reel",
       name: "videoReel",
       type: "document",

@@ -1,11 +1,20 @@
 mux-player {
-    /* --seek-backward-button: none;
+    /* --play-button: none; */
+    --seek-live-button: none;
+    --seek-backward-button: none;
     --seek-forward-button: none;
-    --center-controls: none; 
-    --top-captions-button: none;
-    --volume-range: none;
+    /* --mute-button: none; */
+    --captions-button: none;
+    --airplay-button: none;
+    --pip-button: none;
     --fullscreen-button: none;
-    --playback-rate-button: none; */
+    --cast-button: none;
+    --playback-rate-button: none;
+    --volume-range: none;
+    /* --time-range: none; */
+    --time-display: none;
+    --duration-display: none;
 
-    --controls: none;
+    /* --controls: none;
+    --playback-rate-button: true; */
 } 
