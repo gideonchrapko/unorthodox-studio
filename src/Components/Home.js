@@ -39,6 +39,8 @@ const Home = () => {
             aboutCopy,
             videoReel,
             "playbackId": videoReel.Reel.asset->playbackId,
+            videoReelMobile,
+            "playbackIdMobile": videoReelMobile.reelMobile.asset->playbackId,
         }`)
         .then((data) => setLandingPageData(data))
         .catch(console.error)
@@ -97,7 +99,7 @@ const Home = () => {
         >
             <Container fluid>
                 <Row style={{ marginTop: "8vh", height: "10vh" }}>
-                    <Col lg={6} md={6} xs={12}>
+                    <Col lg={6} md={6} xs={12} className='d-sm-none d-none d-md-block d-lg-block'>
                         <h3 className='home-branding-text'>UNORTHODOX__STUDIO</h3>
                     </Col>
                     <Col lg={{ offset: 1, span: 5 }} md={6} xs={12}>
@@ -110,11 +112,21 @@ const Home = () => {
                     </Col>
                 </Row>
                 <Row style={{ height: "65vh", marginTop: "3vh" }}>
-                    <Col lg={{ span: 12 }}>
+                    <Col lg={{ span: 12 }} className='d-sm-none d-none d-lg-block d-md-block' >
                         {landingPageData && landingPageData[0].playbackId &&
                             <LandingVideo 
+                                className='d-sm-none d-none d-lg-block d-md-block'
                                 playbackId={landingPageData && landingPageData[0].playbackId}
                                 title={landingPageData && landingPageData[0].videoReel.title}
+                            />
+                        }
+                    </Col>
+                    <Col lg={{ span: 12 }} className='d-block d-md-none' >
+                        {landingPageData && landingPageData[0].playbackIdMobile &&
+                            <LandingVideo 
+                                className='d-block d-md-none'
+                                playbackId={landingPageData && landingPageData[0].playbackIdMobile}
+                                title={landingPageData && landingPageData[0].videoReelMobile.title}
                             />
                         }
                     </Col>

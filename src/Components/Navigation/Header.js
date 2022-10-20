@@ -104,8 +104,8 @@ const Header = () => {
                            )}
                         </motion.div>
                         {!landingNav ? 
-                            <div className='d-block d-lg-none' style={{ width: "33.33%", color: "white" }}>
-                                <h6>{"(hamburger menu)"}</h6>
+                            <div className='d-block d-lg-none' style={{ width: "33.33%", color: "white", textAlign: "right" }}>
+                                <h6>{"hamburger"}</h6>
                             </div> : null
                         }
                     </AnimatePresence>
