@@ -1,17 +1,20 @@
 // import client from '../client';
 import { PortableText } from '@portabletext/react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import sanityClient from '../client';
 
 import LandingVideo from './MuxVideo/LandingVideo';
 
 import imageUrlBuilder from '@sanity/image-url';
 import placeholderImage from '../Assets/placeholderImage-01.png';
+import plus from '../Assets/plus.svg';
+import minus from '../Assets/minus.svg';
 
 const Home = () => {
+    const [clientClicked, setClientClicked] = useState(false)
     const [projectCat, setProjectCat] = useState('visualProject');
     const [projectData, setProjectData] = useState()
     const [clientCat, setClientCat] = useState('visualClients');
@@ -119,61 +122,75 @@ const Home = () => {
                 <Row style={{ height: "15vh", position: "sticky", top: "5vh", backgroundColor: "black", zIndex: "8" }}>
                     <Col lg={12}>
                         <ul className='mainMenu-ul' >
-                            <li className='mainMenu-li'>
-                                <h5 className={`product-category-text ${projectCat === "visualProject" ? "product-category-text-active" : ""}`}
-                                    onClick={() => {
-                                        setProjectCat('visualProject')
-                                        setClientCat('visualClients')
-                                        setDisplayClientsProj(false)
-                                    }}
-                                >
+                            <li className='mainMenu-li'
+                                onClick={() => {
+                                    setProjectCat('visualProject')
+                                    setClientCat('visualClients')
+                                    setDisplayClientsProj(false)
+                                }}                            
+                            >
+                                <h5 className={`product-category-text ${projectCat === "visualProject" ? "product-category-text-active" : ""}`}>
                                     VISUAL
                                 </h5>
                             </li>
-                            <li className='mainMenu-li'>
-                                <h5 className={`product-category-text ${projectCat === "soundProject" ? "product-category-text-active" : ""}`}
-                                    onClick={() => {
-                                        setProjectCat('soundProject')
-                                        setClientCat('soundClients')
-                                        setDisplayClientsProj(false)
-                                    }}
-                                >
+                            <li className='mainMenu-li'
+                                onClick={() => {
+                                    setProjectCat('soundProject')
+                                    setClientCat('soundClients')
+                                    setDisplayClientsProj(false)
+                                }}                            
+                            >
+                                <h5 className={`product-category-text ${projectCat === "soundProject" ? "product-category-text-active" : ""}`} >
                                     SOUND
                                 </h5>
                             </li>
-                            <li className='mainMenu-li'>
-                                <h5 className={`product-category-text ${projectCat === "fashionProject" ? "product-category-text-active" : ""}`}
-                                    onClick={() => {
-                                        setProjectCat('fashionProject')
-                                        setClientCat('fashionClients')
-                                        setDisplayClientsProj(false)
-                                    }}
-                                >
+                            <li className='mainMenu-li'
+                                onClick={() => {
+                                    setProjectCat('fashionProject')
+                                    setClientCat('fashionClients')
+                                    setDisplayClientsProj(false)
+                                }}                            
+                            >
+                                <h5 className={`product-category-text ${projectCat === "fashionProject" ? "product-category-text-active" : ""}`}>
                                     FASHION
                                 </h5>
                             </li>
-                            <li className='mainMenu-li'>
-                                <h5 className={`product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}
-                                    onClick={() => {
-                                        setProjectCat('uxProject')
-                                        setClientCat('uxClients')
-                                        setDisplayClientsProj(false)
-                                    }}
-                                >
+                            <li className='mainMenu-li'
+                                onClick={() => {
+                                    setProjectCat('uxProject')
+                                    setClientCat('uxClients')
+                                    setDisplayClientsProj(false)
+                                }}
+                            >
+                                <h5 className={`d-sm-none d-none d-lg-block d-md-block product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
                                     USER EXPERIENCE
-                            </h5></li>
+                                </h5>
+                                <h5 className={`d-block d-md-none product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
+                                    UX
+                                </h5>
+                            </li>
                         </ul>
                     </Col>
                 </Row>
                 <Row >
                     <Col lg={2}>
-                        <div style={{ position: "sticky", top: "20vh", paddingTop: "5vh" }}>
-                            <h4 style={{ color: "white" }}>Clients</h4>
+                        <div style={{ position: "sticky", top: "20vh", paddingTop: "0vh" }}>
+                            <h4 
+                                style={{ color: "white", fontSize: "clamp(12pt, 3vw, 15pt)" }}
+                                onClick={() => setClientClicked(!clientClicked)}
+                            >
+                                Clients
+                                <img 
+                                    className='d-inline d-md-none' 
+                                    src={clientClicked ? minus : plus} 
+                                    style={{ marginLeft: "10px",  width: "10px" }}
+                                />
+                            </h4>
                             {clientData &&
                                 clientData.map((clients, index) => {
                                     const clientsId = clients._id
                                     return (
-                                        <div key={index}>
+                                        <div key={index} className="d-sm-none d-none d-lg-block d-md-block">
                                             <h6 
                                                 className='client-list-text'
                                                 style={{ cursor: "pointer" }}
@@ -188,6 +205,32 @@ const Home = () => {
                                     )
                                 })
                             }
+                            <AnimatePresence initial={false}>
+                                <div 
+                                    style={{ width: "100%" }} 
+                                    className="d-block d-md-none"
+                                >
+                                    {clientData &&
+                                        clientData.map((clients, index) => {
+                                            const clientsId = clients._id
+                                            return (
+                                                    <motion.h6 
+                                                        key={index}
+                                                        className='client-list-text-mobile'
+                                                        style={{ cursor: "pointer", display: "inline-block", paddingLeft: "25px", fontWeight: clientsIndex === clientsId ? "800" : "100"  }}
+                                                        onClick={() => clientList(clientsId)}
+                                                        animate={{ 
+                                                            opacity: clientClicked ? 1 : 0,
+                                                            transition: { duration: 0.5} 
+                                                        }}
+                                                    >
+                                                        { clientClicked ? clients.clientsName : "" }
+                                                    </motion.h6>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </AnimatePresence>
                         </div>
                     </Col>
                         <Col lg={10} style={{ display: "flex", flexWrap: "wrap", overflowY: "scroll" }}>

@@ -112,6 +112,17 @@
   transition: background-size 0.3s;
 }
 
+.client-list-text-mobile {
+  font-family: sans-serif;
+  font-weight: 100;
+  color: white;
+  cursor: pointer;
+  font-size: 12pt;
+
+  /* display: inline; */
+  position: relative;
+}
+
 .client-list-text {
   font-family: sans-serif;
   font-weight: 100;
