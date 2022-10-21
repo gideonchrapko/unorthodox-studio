@@ -71,7 +71,7 @@ const Header = () => {
                             }}
                         >
                             <h3 className="landing-header d-md-none d-sm-none d-none d-lg-block" style={{ textAlign: "centre" }}>
-                                {/* LIVE__FROM__THE__FUTURE */}
+                                LIVE__FROM__THE__FUTURE
                             </h3>
                         </motion.div>
                         <motion.div 

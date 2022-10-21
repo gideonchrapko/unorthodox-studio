@@ -75,7 +75,7 @@
 .home-overlay-text {
   color: white;
   position: absolute;
-  z-index: 99;
+  z-index: 7;
   top: 50%;
   font-size: clamp(8pt, 3vw, 18pt);
   width: 100%;
@@ -129,6 +129,7 @@
   color: white;
   cursor: pointer;
   font-size: 10pt;
+  /* line-height: 0.8; */
 
   display: inline-block;
   position: relative;
@@ -151,3 +152,9 @@
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+
+/* .dot {
+  left: -3px;
+  height: 5px;
+  width: 5px;
+} */

@@ -5,16 +5,18 @@ import { Col, Row, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import sanityClient from '../client';
+import Helmet from 'react-helmet';
+import imageUrlBuilder from '@sanity/image-url';
+// import { useInView } from 'react-intersection-observer'
 
 import LandingVideo from './MuxVideo/LandingVideo';
-
-import imageUrlBuilder from '@sanity/image-url';
 import placeholderImage from '../Assets/placeholderImage-01.png';
 import plus from '../Assets/plus.svg';
 import minus from '../Assets/minus.svg';
 
 const Home = () => {
     const [clientClicked, setClientClicked] = useState(false)
+    // const [inViewRef, inView] = useInView({ triggerOnce: true, threshold: 0 })
     const [projectCat, setProjectCat] = useState('visualProject');
     const [projectData, setProjectData] = useState()
     const [clientCat, setClientCat] = useState('visualClients');
@@ -25,7 +27,6 @@ const Home = () => {
     const [landingPageData, setLandingPageData] = useState();
     const [hoverIndex, setHoverIndex] = useState();
     const aboutCopy = landingPageData && landingPageData[0].aboutCopy;
-    // const videoReel = landingPageData && landingPageData[0].LandingPageReel.asset;
     const builder = imageUrlBuilder(sanityClient);
     const mobile = window.innerWidth < 600;
     const navigate = useNavigate();
@@ -97,6 +98,13 @@ const Home = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
         >
+            <Helmet>
+        	    <title>Home</title>
+				<meta
+					name="Home Page"
+					content="Welcome to Unorthodox Studios. We invite you view all of our projects sorted by category as well as client"
+				/>
+			</Helmet>
             <Container fluid>
                 <Row style={{ marginTop: "8vh", height: "10vh" }}>
                     <Col lg={6} md={6} xs={12} className='d-sm-none d-none d-md-block d-lg-block'>
@@ -112,26 +120,24 @@ const Home = () => {
                     </Col>
                 </Row>
                 <Row style={{ height: "65vh", marginTop: "3vh" }}>
-                    <Col lg={{ span: 12 }} className='d-sm-none d-none d-lg-block d-md-block' >
+                    {/* <Col lg={{ span: 12 }} className='d-sm-none d-none d-lg-block d-md-block' >
                         {landingPageData && landingPageData[0].playbackId &&
                             <LandingVideo 
-                                className='d-sm-none d-none d-lg-block d-md-block'
                                 playbackId={landingPageData && landingPageData[0].playbackId}
                                 title={landingPageData && landingPageData[0].videoReel.title}
                             />
                         }
-                    </Col>
-                    <Col lg={{ span: 12 }} className='d-block d-md-none' >
+                    </Col> */}
+                    {/* <Col lg={{ span: 12 }} className='d-block d-md-none' >
                         {landingPageData && landingPageData[0].playbackIdMobile &&
                             <LandingVideo 
-                                className='d-block d-md-none'
                                 playbackId={landingPageData && landingPageData[0].playbackIdMobile}
                                 title={landingPageData && landingPageData[0].videoReelMobile.title}
                             />
                         }
-                    </Col>
+                    </Col> */}
                 </Row>
-                <Row style={{ height: "15vh", position: "sticky", top: "5vh", backgroundColor: "black", zIndex: "8" }}>
+                <Row style={{ height: "15vh", position: "sticky", top: "5vh", backgroundColor: "black", zIndex: "9" }}>
                     <Col lg={12}>
                         <ul className='mainMenu-ul' >
                             <li className='mainMenu-li'
@@ -184,133 +190,143 @@ const Home = () => {
                         </ul>
                     </Col>
                 </Row>
-                <Row >
-                    <Col lg={2}>
-                        <div style={{ position: "sticky", top: "20vh", paddingTop: "0vh" }}>
+                <Row className="d-block d-lg-none" style={{ position: "sticky", top: "20vh", zIndex: "8", background: "black" }}>
+                    <Col>
+                        <AnimatePresence initial={false}>
                             <h4 
-                                style={{ color: "white", fontSize: "clamp(12pt, 3vw, 15pt)" }}
+                                style={{ color: "white", fontSize: "clamp(12pt, 3vw, 15pt)", cursor: "pointer" }}
                                 onClick={() => setClientClicked(!clientClicked)}
                             >
                                 Clients
                                 <img 
-                                    className='d-inline d-md-none' 
+                                    className='d-inline d-lg-none' 
                                     src={clientClicked ? minus : plus} 
                                     style={{ marginLeft: "10px",  width: "10px" }}
                                 />
+                            </h4>
+                            {clientClicked &&
+                                <div style={{ width: "100%" }}>
+                                    {clientData &&
+                                        clientData.map((clients, index) => {
+                                            const clientsId = clients._id
+                                            return (
+                                                <motion.h6
+                                                    key={index}
+                                                    className='client-list-text-mobile'
+                                                    style={{ cursor: "pointer", display: "inline-block", paddingLeft: "25px", fontWeight: clientsIndex === clientsId ? "800" : "100"  }}
+                                                    onClick={() => clientList(clientsId)}
+                                                    // animate={{ 
+                                                    //     opacity: clientClicked ? 1 : 0,
+                                                    //     transition: { duration: 0.5}
+                                                    // }}
+                                                >
+                                                    { clientClicked ? clients.clientsName : null }
+                                                </motion.h6>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            }
+                        </AnimatePresence>  
+                    </Col>                  
+                </Row>
+                <Row>
+                    <Col lg={2}>
+                        <div style={{ position: "sticky", top: "20vh" }}>
+                            <h4 
+                                className='d-md-none d-none d-lg-block' 
+                                style={{ color: "white", fontSize: "clamp(12pt, 3vw, 15pt)" }}
+                                onClick={() => setClientClicked(!clientClicked)}
+                            >
+                                Clients
                             </h4>
                             {clientData &&
                                 clientData.map((clients, index) => {
                                     const clientsId = clients._id
                                     return (
-                                        <div key={index} className="d-sm-none d-none d-lg-block d-md-block">
+                                        <div key={index} className="d-md-none d-none d-lg-inline-block">
                                             <h6 
                                                 className='client-list-text'
-                                                style={{ cursor: "pointer" }}
+                                                style={{ cursor: "pointer", fontWeight: clientsIndex === clientsId ? 800 : 100 }}
                                                 onClick={() => clientList(clientsId)}
                                             >
-                                                {clients.clientsName}
+                                                {clients.clientsName}&nbsp;&nbsp;
                                             </h6>
-                                            <span style={{ backgroundColor: `${clientsIndex === clientsId ? 'white' : 'transparent'}` }}
+                                            {/* <span style={{ backgroundColor: `${clientsIndex === clientsId ? 'white' : 'transparent'}` }}
                                                 className="dot">
-                                            </span>
+                                            </span> */}
                                         </div>
                                     )
                                 })
                             }
-                            <AnimatePresence initial={false}>
-                                <div 
-                                    style={{ width: "100%" }} 
-                                    className="d-block d-md-none"
-                                >
-                                    {clientData &&
-                                        clientData.map((clients, index) => {
-                                            const clientsId = clients._id
-                                            return (
-                                                    <motion.h6 
-                                                        key={index}
-                                                        className='client-list-text-mobile'
-                                                        style={{ cursor: "pointer", display: "inline-block", paddingLeft: "25px", fontWeight: clientsIndex === clientsId ? "800" : "100"  }}
-                                                        onClick={() => clientList(clientsId)}
-                                                        animate={{ 
-                                                            opacity: clientClicked ? 1 : 0,
-                                                            transition: { duration: 0.5} 
-                                                        }}
-                                                    >
-                                                        { clientClicked ? clients.clientsName : "" }
-                                                    </motion.h6>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            </AnimatePresence>
                         </div>
                     </Col>
-                        <Col lg={10} style={{ display: "flex", flexWrap: "wrap", overflowY: "scroll" }}>
-                                {!displayClientsProj && projectData &&
-                                    projectData.map((project, index) => {
-                                        return (
-                                            <>
-                                            {projectData[0] ?
-                                                <div 
-                                                    onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
-                                                    className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
-                                                >
-                                                    <motion.h4 
-                                                        className='home-overlay-text'
-                                                        initial={false}
-                                                        animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
-                                                    >
-                                                        {project.projectTitle && project.projectTitle}
-                                                    </motion.h4>
-                                                    <div 
-                                                        key={index}
-                                                        style={{ 
-                                                            backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
-                                                            filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
-                                                            // backgroundSize: hoverIndex === index ? "contain" : "cover",
-                                                        }}
-                                                        className="content"
-                                                        onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                    <Col lg={10} style={{ display: "flex", flexWrap: "wrap" }}>
+                        {!displayClientsProj && projectData &&
+                            projectData.map((project, index) => {
+                                return (
+                                       <>
+                                       {projectData[0] ?
+                                           <div 
+                                            onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
+                                            className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
+                                          >
+                                                  <motion.h4 
+                                                      className='home-overlay-text'
+                                                     initial={false}
+                                                     animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
+                                                 >
+                                                     {project.projectTitle && project.projectTitle}
+                                                 </motion.h4>
+                                                 <div 
+                                                    key={index}
+                                                    style={{ 
+                                                        backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).width(400).height(400).url() : placeholderImage})`,
+                                                        filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
+                                                        // backgroundSize: hoverIndex === index ? "contain" : "cover",
+                                                    }}
+                                                      className="content"
+                                                     onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
                                                     >
                                                     </div>
                                                 </div> 
                                                 :
                                                 <h3 style={{ color: "white" }}>New Projects Coming Soon</h3>
-                                        }
-                                        </>
+                                    }
+                                    </>
+                                )
+                            })
+                            }
+                            {displayClientsProj && clientProjectData &&
+                                clientProjectData.map((project, index) => {
+                                    return (
+                                        <div
+                                            onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
+                                               className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
+                                        >
+                                                <motion.h4 
+                                                    className='home-overlay-text'
+                                                    initial={false}
+                                                    animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
+                                                >
+                                                    {project.projectTitle && project.projectTitle}
+                                                </motion.h4>
+                                            <div 
+                                                key={index}
+                                                style={{ 
+                                                    backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).width(400).height(400).url() : placeholderImage})`,
+                                                    filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
+                                                    // backgroundSize: hoverIndex === index ? "100%" : "110%",
+                                                }}
+                                                className="content"
+                                                onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
+                                            >
+                                            </div>
+                                        </div>
                                     )
                                 })
-                                }
-                                {displayClientsProj && clientProjectData &&
-                                    clientProjectData.map((project, index) => {
-                                        return (
-                                            <div
-                                                onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
-                                                className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
-                                            >
-                                                    <motion.h4 
-                                                        className='home-overlay-text'
-                                                        initial={false}
-                                                        animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
-                                                    >
-                                                        {project.projectTitle && project.projectTitle}
-                                                    </motion.h4>
-                                                <div 
-                                                    key={index}
-                                                    style={{ 
-                                                        backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).url() : placeholderImage})`,
-                                                        filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
-                                                        // backgroundSize: hoverIndex === index ? "100%" : "110%",
-                                                    }}
-                                                    className="content"
-                                                    onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
-                                                >
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                        </Col>
+                            }
+                    </Col>
                 </Row>
             </Container>
         </motion.div>
