@@ -129,6 +129,7 @@
   color: white;
   cursor: pointer;
   font-size: 10pt;
+  margin-right: 15px;
   /* line-height: 0.8; */
 
   display: inline-block;

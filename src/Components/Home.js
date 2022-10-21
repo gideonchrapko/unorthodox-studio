@@ -1,22 +1,16 @@
-// import client from '../client';
 import { PortableText } from '@portabletext/react';
 import { useState, useEffect } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import sanityClient from '../client';
 import Helmet from 'react-helmet';
-import imageUrlBuilder from '@sanity/image-url';
-// import { useInView } from 'react-intersection-observer'
 
-import LandingVideo from './MuxVideo/LandingVideo';
-import placeholderImage from '../Assets/placeholderImage-01.png';
+import LandingGridImage from './LandingGridImage'
 import plus from '../Assets/plus.svg';
 import minus from '../Assets/minus.svg';
 
 const Home = () => {
     const [clientClicked, setClientClicked] = useState(false)
-    // const [inViewRef, inView] = useInView({ triggerOnce: true, threshold: 0 })
     const [projectCat, setProjectCat] = useState('visualProject');
     const [projectData, setProjectData] = useState()
     const [clientCat, setClientCat] = useState('visualClients');
@@ -25,15 +19,7 @@ const Home = () => {
     const [clientsIndex, setClientsIndex] = useState();
     const [clientProjectData, setClientProjectData] = useState();
     const [landingPageData, setLandingPageData] = useState();
-    const [hoverIndex, setHoverIndex] = useState();
     const aboutCopy = landingPageData && landingPageData[0].aboutCopy;
-    const builder = imageUrlBuilder(sanityClient);
-    const mobile = window.innerWidth < 600;
-    const navigate = useNavigate();
-  
-    function urlFor(source) {
-      return builder.image(source)
-    }
 
     useEffect(() => {
         sanityClient.fetch(`*[_type == "landingPage"]{
@@ -58,10 +44,10 @@ const Home = () => {
 
       useEffect(() => {
         sanityClient.fetch(`*[_type == "${projectCat}"]{
-             slugRoute,
-             projectImages,
-             projectTitle,
-             clients,
+            slugRoute,
+            projectImages,
+            projectTitle,
+            clients,
         }`)
         .then((data) => setProjectData(data))
         .catch(console.error)
@@ -69,10 +55,10 @@ const Home = () => {
 
       useEffect(() => {
         sanityClient.fetch(`*[_type=="${projectCat}" && references("${clientsIndex}")]{
-             slugRoute,
-             projectImages,
-             projectTitle,
-             clients,
+            slugRoute,
+            projectImages,
+            projectTitle,
+            clients,
         }`)
         .then((data) => setClientProjectData(data))
         .catch(console.error)
@@ -250,7 +236,7 @@ const Home = () => {
                                                 style={{ cursor: "pointer", fontWeight: clientsIndex === clientsId ? 800 : 100 }}
                                                 onClick={() => clientList(clientsId)}
                                             >
-                                                {clients.clientsName}&nbsp;&nbsp;
+                                                {clients.clientsName}
                                             </h6>
                                             {/* <span style={{ backgroundColor: `${clientsIndex === clientsId ? 'white' : 'transparent'}` }}
                                                 className="dot">
@@ -265,64 +251,20 @@ const Home = () => {
                         {!displayClientsProj && projectData &&
                             projectData.map((project, index) => {
                                 return (
-                                       <>
-                                       {projectData[0] ?
-                                           <div 
-                                            onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
-                                            className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
-                                          >
-                                                  <motion.h4 
-                                                      className='home-overlay-text'
-                                                     initial={false}
-                                                     animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
-                                                 >
-                                                     {project.projectTitle && project.projectTitle}
-                                                 </motion.h4>
-                                                 <div 
-                                                    key={index}
-                                                    style={{ 
-                                                        backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).width(400).height(400).url() : placeholderImage})`,
-                                                        filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
-                                                        // backgroundSize: hoverIndex === index ? "contain" : "cover",
-                                                    }}
-                                                      className="content"
-                                                     onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
-                                                    >
-                                                    </div>
-                                                </div> 
-                                                :
-                                                <h3 style={{ color: "white" }}>New Projects Coming Soon</h3>
-                                    }
-                                    </>
+                                    <LandingGridImage 
+                                        project={project} 
+                                        index={index} 
+                                    />
                                 )
                             })
                             }
                             {displayClientsProj && clientProjectData &&
                                 clientProjectData.map((project, index) => {
                                     return (
-                                        <div
-                                            onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
-                                               className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
-                                        >
-                                                <motion.h4 
-                                                    className='home-overlay-text'
-                                                    initial={false}
-                                                    animate={{ opacity: hoverIndex === index ? 1 : 0, transition: { duration: 0.2 } }}
-                                                >
-                                                    {project.projectTitle && project.projectTitle}
-                                                </motion.h4>
-                                            <div 
-                                                key={index}
-                                                style={{ 
-                                                    backgroundImage: `url(${project.projectImages ? urlFor(project.projectImages[0].asset).width(400).height(400).url() : placeholderImage})`,
-                                                    filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
-                                                    // backgroundSize: hoverIndex === index ? "100%" : "110%",
-                                                }}
-                                                className="content"
-                                                onClick={() => navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)}
-                                            >
-                                            </div>
-                                        </div>
+                                            <LandingGridImage 
+                                                project={project} 
+                                                index={index} 
+                                            />
                                     )
                                 })
                             }
