@@ -255,7 +255,10 @@ const Home = () => {
                                             <div key={index} className="d-md-none d-none d-lg-inline-block">
                                                 <h6 
                                                     className='client-list-text'
-                                                    style={{ cursor: "pointer", fontWeight: clientsIndex === clientsId ? 800 : 100 }}
+                                                    style={{ 
+                                                        cursor: "pointer", 
+                                                        fontWeight: clientsIndex === clientsId ? 800 : 100,
+                                                    }}
                                                     onClick={() => clientList(clientsId)}
                                                 >
                                                     {clients.clientsName}
@@ -270,26 +273,62 @@ const Home = () => {
                             </div>
                         </Col>
                         <Col lg={10} style={{ display: "flex", flexWrap: "wrap" }}>
-                                {!displayClientsProj && projectData &&
-                                    projectData.map((project, index) => {
+                                {!displayClientsProj && projectCat === "visualProject" &&
+                                    visualData.map((project, index) => {
                                         return (
                                             <LandingGridImage
                                                 project={project}
+                                                key={index}
                                                 index={index}
                                             />
                                         )
                                     })
                                 }
+                                {!displayClientsProj && projectCat === "soundProject" &&
+                                    soundData.map((project, index) => {
+                                        return (
+                                            <LandingGridImage
+                                                project={project}
+                                                key={index}
+                                                index={index}
+                                            />
+                                        )
+                                    })
+                                }
+                                {!displayClientsProj && projectCat === "fashionProject" &&
+                                    fashionData.map((project, index) => {
+                                        return (
+                                            <LandingGridImage
+                                                project={project}
+                                                key={index}
+                                                index={index}
+                                            />
+                                        )
+                                    })
+                                }
+                                {!displayClientsProj && projectCat === "uxProject" &&
+                                    uxData.map((project, index) => {
+                                        return (
+                                            <LandingGridImage
+                                                project={project}
+                                                key={index}
+                                                index={index}
+                                            />
+                                        )
+                                    })
+                                }
+
                                 {displayClientsProj && clientProjectData &&
                                     clientProjectData.map((project, index) => {
                                         return (
                                             <LandingGridImage
                                                 project={project}
+                                                key={index}
                                                 index={index}
                                             />
                                         )
                                     })
-                            }
+                                }
                         </Col>
                     </Row>
                 </section>

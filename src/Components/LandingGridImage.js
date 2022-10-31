@@ -32,18 +32,19 @@ const LandingGridImage = (props) => {
         .catch(console.error)
       },[projectCat])
 
-      useEffect(() => {
+    useEffect(() => {
         if(projectData !== undefined){
             setData(projectData.map(projectData => projectData.projectTitle))
         }
-      },[projectData])
+    },[projectData])
+
+    console.log(index)
 
     return (
             <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index / 8 }}
-                key={index}
+                animate={{ opacity: 1, transition: { delay: index / 8 } }}
+                index={index}
                 onPointerOver={() => setHoverIndex(index)} onPointerOut={() => setHoverIndex()}
                 className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}
             >
@@ -51,7 +52,7 @@ const LandingGridImage = (props) => {
                         className='home-overlay-text'
                         initial={false}
                         animate={{ 
-                            opacity: hoverIndex === index ? 1 : 0, 
+                            opacity: hoverIndex === index ? 1 : 0,
                             y: hoverIndex === index ? 0 : 100,
                             transition: { duration: 0.2 } }}
                         onClick={e => {
@@ -63,7 +64,7 @@ const LandingGridImage = (props) => {
                     </motion.h4>
                     <div
                         ref={ref}
-                        key={index}
+                        index={index}
                         style={{
                             backgroundImage: `url(${inView ? urlFor(project.projectImages[0].asset).width(400).height(400).url() : null})`,
                             filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
