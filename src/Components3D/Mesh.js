@@ -24,13 +24,13 @@ const Mesh = ({ ...props }) => {
         },
       })
 
-    // const [spring, set] = useSpring(() => ({
-    //   position: [...position],
-    // }))
+    const [spring, set] = useSpring(() => ({
+      position: [...position],
+    }))
 
-    // useEffect(() => {
-    //   set({ position: entered ? [0, 0, 25] : [0, 0, 0], delay: (index + 3) * 100 });
-    // }, [entered, set]);
+    useEffect(() => {
+      set({ position: entered ? [0, 0, 25] : [0, 0, 0], delay: (index + 3) * 100 });
+    }, [entered, set]);
 
     useFrame((state) => {
       const t = state.clock.getElapsedTime()
@@ -38,8 +38,8 @@ const Mesh = ({ ...props }) => {
     })
 
     return (
-        <a.group>
-        {/* <a.group {...spring}> */}
+        // <a.group>
+        <a.group {...spring}>
           <a.mesh 
               ref={ref}
               geometry={geometry}

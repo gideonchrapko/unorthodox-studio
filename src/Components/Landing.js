@@ -5,13 +5,11 @@ import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-// import { Link } from 'react-router-dom';
 import MailchimpSubscribe from './Mailchimp/MailchimpSubscribe';
 
 import Logo from '../Components3D/Logo';
 import Controls from '../Components3D/Controls';
 import { Effects } from '../Components3D/Effects';
-// import Header from './Navigation/Header';
 
   function Video() {
     const scale = useAspect(800, 450, 2)
@@ -54,7 +52,6 @@ const Landing = () => {
         if (entered === true) {    
             return  setTimeout(function() {
                 navigate("/home");
-              console.log('entered')
            }, 2000);
        }  
    })();
@@ -63,17 +60,15 @@ const Landing = () => {
     return (
         <Container fluid>
           <Loader />
-            {/* <button style={{ position: "fixed", zIndex: "9", color: "white" }}>
+            <button style={{ position: "fixed", zIndex: "9", color: "white", opacity: "0" }}>
               <h1 onClick={() => {
                 setEntered(true)
                 setRotation([0, 0, 0])
                 }}>
                   Enter Site
                 </h1>
-            </button> */}
-            <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 12], fov: mobile ? 40 : 28 }}>
-                {/* <directionalLight position={[0, 0, 30]} castShadow intensity={0.3} shadow-bias={-0.00001} shadow-mapSize={[1024, 1024]} /> */}
-                <Effects />
+            </button>
+            <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 12], fov: mobile ? 40 : 28 }}>                <Effects />
                 <Video />
                 <Suspense fallback={null}>
                   <Controls />

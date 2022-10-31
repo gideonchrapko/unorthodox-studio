@@ -38,6 +38,7 @@ const Header = () => {
         <Row style={{ position: "relative", zIndex: "9", paddingTop: "10px" }}>
                  <AnimatePresence initial={false}>
                      <motion.div 
+                            key="div"
                             animate={{ 
                                 width: landingNav ? "33.33%" : "0%",
                                 transition: { duration: 0.5} 
@@ -46,6 +47,7 @@ const Header = () => {
                              <motion.h3 
                                 className="landing-header d-sm-none d-none d-lg-block d-md-block" 
                                 style={{ textAlign: "left", float: "left" }}
+                                key="title"
                                 animate={{ 
                                     opacity: landingNav ? 1 : 0,
                                     transition: { duration: 0.5} 
@@ -55,6 +57,7 @@ const Header = () => {
                             </motion.h3>
                         </motion.div>
                         <motion.div 
+                            key="logo"
                             style={{ width: "33.33%" }}
                             animate={{ 
                                 textAlign: landingNav ? "center" : "left",
@@ -75,6 +78,7 @@ const Header = () => {
                             </h3>
                         </motion.div>
                         <motion.div 
+                            key="nav"
                             className="d-sm-none d-md-none d-none d-lg-block" 
                             style={{ marginLeft: "11.11%", float: "right" }}
                             animate={{ 

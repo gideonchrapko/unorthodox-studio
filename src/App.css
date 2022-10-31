@@ -108,9 +108,9 @@
   background-size: cover;
 }
 
-.content{
+/* .content{
   transition: background-size 0.3s;
-}
+} */
 
 .client-list-text-mobile {
   font-family: sans-serif;
@@ -159,3 +159,14 @@
   height: 5px;
   width: 5px;
 } */
+
+.scroller {
+  height: 300px;
+  /* overflow-y: scroll; */
+  /* overflow-y: scroll; */
+  scroll-snap-type: y mandatory;
+}
+
+.scroller section {
+  scroll-snap-align: start;
+}

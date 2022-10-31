@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
 import { PortableText } from '@portabletext/react';
-// import SanityMuxPlayer from "sanity-mux-player";
 import { motion } from 'framer-motion';
-// import MuxPlayer from '@mux/mux-player-react';
+import { useShopify } from '../hooks';
 import sanityClient from '../client';
 
-import Masonry from './Masonry/Masonry'
-import Video from './MuxVideo/ProjectVideo'
-import './SinglePage.css'
+import ProjectFooter from './ProjectFooter';
+import Masonry from './Masonry/Masonry';
+import Video from './MuxVideo/ProjectVideo';
+import './SinglePage.css';
 
 const SingleProject = () => {
+    const { clientCategory } = useShopify();
     const [singlePost, setSinglePost] = useState();
     const [clientNames, setClientNames] = useState();
     const { slugRoute } = useParams();
@@ -19,6 +20,7 @@ const SingleProject = () => {
     const mobile = window.innerWidth < 600
 
     useEffect(() => {
+      window.scrollTo(0,0)
       sanityClient.fetch(`*[slugRoute.current == "${slugRoute}"]{
           projectTitle,
           projectDate,
@@ -28,16 +30,13 @@ const SingleProject = () => {
           clients,
           videoPost,
           "playbackId": videoPost.video.asset->playbackId,
-
          }`)
         .then((data) => setSinglePost(data))
         .catch(console.error)
       },[])
 
-      // console.log(singlePost)
-
       useEffect(() => {
-        sanityClient.fetch(`*[_type=='visualClients' && _id == '${singlePost && singlePost[0].clients[0]._ref}']{
+        sanityClient.fetch(`*[_type=="${clientCategory}" && _id == '${singlePost && singlePost[0].clients[0]._ref}']{
             "name" : clientsName
           }`)
         .then((data) => setClientNames(data))
@@ -45,11 +44,15 @@ const SingleProject = () => {
       },[singlePost])
 
     return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 2 } }}
+        exit={{ opacity: 0 }}
+      >
         <Container fluid style={{ marginTop: "10vh" }}>
-          {/* <AnimatePresence> */}
           <motion.div
-            enter={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 3 } }}
             exit={{ opacity: 0 }}
           >
           <Row style={{ top: "5vh", background: "transparent", zIndex: "9" }}>
@@ -70,17 +73,17 @@ const SingleProject = () => {
                     <li className='project-li'>
                       <h5 className='body-copy'>{singlePost && singlePost[0].projectDate}</h5>
                     </li>
-                    <li className='project-li'>
+                    <li className='project-li d-md-none d-none d-lg-inline'>
                       <h5 className='body-copy'>TEAM</h5>
                     </li>
                   </ul>
               </Col>
           </Row>
           <Row style={{ marginTop: "5vh" }}>
-            <Col lg={9}>
-              <h5 className='body-copy'><PortableText value={singlePost && singlePost[0].projectDescription} /></h5>
+            <Col lg={9} xs={12}>
+              <h5 className='body-copy' ><PortableText value={singlePost && singlePost[0].projectDescription} /></h5>
             </Col>
-            <Col lg={3} style={{ textAlign: "right" }}>
+            <Col lg={3} style={{ textAlign: mobile ? "left" : "right" }}>
               {singlePost && singlePost[0] &&
                 singlePost[0].projectTeam.map((team, index) => {
                   const stringColinIndex = team.indexOf(':') + 1
@@ -103,14 +106,26 @@ const SingleProject = () => {
                 <Video 
                   playbackId={singlePost && singlePost[0].playbackId}
                   title={singlePost && singlePost[0].videoPost.title}
-                />            
+                />
               }
               <Masonry images={images} columnCount={mobile ? "1" : "2"} gap="10" />
             </Col>
+          <Row style={{ marginTop: "50vh", width: "100%" }}>
+            <Col lg={{ span: 8, offset: 4 }} className='d-md-none d-none d-lg-inline'>
+              <h4 style={{ color: "white" }}>RELATED PROJECTS:</h4>
+            </Col>
+            <Col sm={{ span: 6, offset: 6 }} xs={{ span: 6, offset: 6 }} className='d-block d-lg-none'>
+              <h6 style={{ color: "white" }}>RELATED PROJECTS:</h6>
+            </Col>
           </Row>
+          </Row>
+            <ProjectFooter 
+              clientNames={clientNames}
+              slugRoute={slugRoute}
+            />
           </motion.div>
-          {/* </AnimatePresence> */}
         </Container>
+      </motion.div>
     )
 }
 
