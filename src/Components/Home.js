@@ -141,13 +141,13 @@ const Home = () => {
                             <ul className='mainMenu-ul' >
                                 <li className='mainMenu-li'
                                     onClick={() => {
-                                        setProjectCategory("visuaProject")
+                                        setProjectCategory("visualProject")
                                         setClientCategory('visualClients')
                                         setDisplayClientsProj(false)
                                         setClientsIndex()
                                     }}                            
                                 >
-                                    <h5 className={`product-category-text ${projectCat === "visuaProject" ? "product-category-text-active" : ""}`}>
+                                    <h5 className={`product-category-text ${projectCat === "visualProject" ? "product-category-text-active" : ""}`}>
                                         VISUAL
                                         <span style={{ fontSize: "10pt", top: "2px", position: "absolute", paddingLeft: "5px" }}>{visualData && visualData.length}</span>
                                     </h5>
