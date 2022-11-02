@@ -53,7 +53,7 @@ const LandingGridImage = (props) => {
                             opacity: hoverIndex === index ? 1 : 0,
                             y: hoverIndex === index ? 0 : 100,
                             transition: { duration: 0.2 } }}
-                        onClick={e => {
+                        onPointerUp={e => {
                             navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)
                             setProjectIndex(data && data.indexOf(`${project.projectTitle}`))
                         }}
@@ -69,7 +69,7 @@ const LandingGridImage = (props) => {
                             backgroundColor: "grey",
                         }}
                         className="content"
-                        onClick={e => {
+                        onPointerUp={e => {
                             navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)
                             setProjectIndex(data && data.indexOf(`${project.projectTitle}`))
                         }}

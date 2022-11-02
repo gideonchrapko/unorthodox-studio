@@ -237,10 +237,9 @@ const Home = () => {
                         </Col>                  
                     </Row>
                     <Row>
-                        <Col lg={2}>
+                        <Col lg={2} className='d-md-none d-none d-lg-block'>
                             <div style={{ position: "sticky", top: "20vh" }}>
-                                <h4 
-                                    className='d-md-none d-none d-lg-block' 
+                                <h4  
                                     style={{ color: "white", fontSize: "clamp(12pt, 3vw, 15pt)" }}
                                     onClick={() => setClientClicked(!clientClicked)}
                                 >
