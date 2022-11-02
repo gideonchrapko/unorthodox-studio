@@ -68,7 +68,18 @@ const Landing = () => {
                   Enter Site
                 </h1>
             </button>
-            <Canvas style={{ height: "100vh", width: "100vw", marginLeft: "-15px", position: "fixed", top: "0" }} shadows camera={{ position: [0, 0, 12], fov: mobile ? 40 : 28 }}>                <Effects />
+            <Canvas 
+              style={{ 
+                height: "100vh", 
+                width: "100vw", 
+                marginLeft: "-15px", 
+                position: "fixed", 
+                top: "0" 
+              }} 
+              shadows 
+              camera={{ position: [0, 0, 12], fov: mobile ? 40 : 28 }}
+            >                
+              <Effects />
                 <Video />
                 <Suspense fallback={null}>
                   <Controls />
