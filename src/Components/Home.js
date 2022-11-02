@@ -198,10 +198,7 @@ const Home = () => {
                             </ul>
                         </Col>
                     </Row>
-                    <Row 
-                        className="d-block d-lg-none client-div-mobile" 
-                        style={{ background: "black" }}
-                    >
+                    <Row className="d-block d-lg-none client-div-mobile" style={{ background: "black" }}>
                         <Col>
                             <AnimatePresence initial={false} >
                                 <h4 
@@ -215,12 +212,7 @@ const Home = () => {
                                         style={{ marginLeft: "10px",  width: "10px" }}
                                     />
                                 </h4>
-                                <div
-                                    style={{
-                                        transform: clientClicked ? "translateY(0)" : "translateY(-100px)",
-                                        transition: "transform 0.5s"
-                                    }}
-                                >
+                                <div style={{ transform: clientClicked ? "translateY(0)" : "translateY(-100px)", transition: "transform 0.5s"  }} >
                                 {clientClicked &&
                                     <div style={{ width: "100%"}} >
                                         {clientData &&
@@ -254,28 +246,27 @@ const Home = () => {
                                 >
                                     Clients
                                 </h4>
-                                {clientData &&
-                                    clientData.map((clients, index) => {
-                                        const clientsId = clients._id
-                                        return (
-                                            <div key={index} className="d-md-none d-none d-lg-inline-block">
-                                                <h6 
-                                                    className='client-list-text'
-                                                    style={{ 
-                                                        cursor: "pointer", 
-                                                        fontWeight: clientsIndex === clientsId ? 800 : 100,
-                                                    }}
-                                                    onClick={() => clientList(clientsId)}
-                                                >
-                                                    {clients.clientsName}
-                                                </h6>
-                                                {/* <span style={{ backgroundColor: `${clientsIndex === clientsId ? 'white' : 'transparent'}` }}
-                                                    className="dot">
-                                                </span> */}
-                                            </div>
-                                        )
-                                    })
-                                }
+                                <div style={{ height: "35vh", overflowY: "scroll" }}>
+                                    {clientData &&
+                                        clientData.map((clients, index) => {
+                                            const clientsId = clients._id
+                                            return (
+                                                <div key={index} className="d-md-none d-none d-lg-inline-block">
+                                                    <h6 
+                                                        className='client-list-text'
+                                                        style={{ 
+                                                            cursor: "pointer",
+                                                            fontWeight: clientsIndex === clientsId ? 800 : 100,
+                                                        }}
+                                                        onClick={() => clientList(clientsId)}
+                                                    >
+                                                        {clients.clientsName}
+                                                    </h6>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                         </Col>
                         <Col lg={10} style={{ display: "flex", flexWrap: "wrap" }}>
