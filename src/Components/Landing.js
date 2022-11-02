@@ -66,7 +66,7 @@ const Landing = () => {
                 setRotation([0, 0, 0])
                 }}>
                   Enter Site
-                </h1>
+              </h1>
             </button>
             <Canvas 
               style={{ 
@@ -74,7 +74,10 @@ const Landing = () => {
                 width: "100vw", 
                 marginLeft: "-15px", 
                 position: "fixed", 
-                top: "0" 
+                top: "0",
+                opacity: entered ? 0 : 1,
+                transition: "opacity 1s",
+                transitionDelay: "1s"
               }} 
               shadows 
               camera={{ position: [0, 0, 12], fov: mobile ? 40 : 28 }}
