@@ -149,7 +149,7 @@ const Home = () => {
                                 >
                                     <h5 className={`product-category-text ${projectCat === "visualProject" ? "product-category-text-active" : ""}`}>
                                         VISUAL
-                                        <span style={{ fontSize: "10pt", top: "2px", position: "absolute", paddingLeft: "5px" }}>{visualData && visualData.length}</span>
+                                        <span className='category-total' >{visualData && visualData.length}</span>
                                     </h5>
                                 </li>
                                 <li className='mainMenu-li'
@@ -162,7 +162,7 @@ const Home = () => {
                                 >
                                     <h5 className={`product-category-text ${projectCat === "soundProject" ? "product-category-text-active" : ""}`} >
                                         SOUND
-                                        <span style={{ fontSize: "10pt", top: "2px", position: "absolute", paddingLeft: "5px" }}>{soundData && soundData.length}</span>
+                                        <span className='category-total' >{soundData && soundData.length}</span>
                                     </h5>
                                 </li>
                                 <li className='mainMenu-li'
@@ -175,7 +175,7 @@ const Home = () => {
                                 >
                                     <h5 className={`product-category-text ${projectCat === "fashionProject" ? "product-category-text-active" : ""}`}>
                                         FASHION
-                                        <span style={{ fontSize: "10pt", top: "2px", position: "absolute", paddingLeft: "5px" }}>{fashionData && fashionData.length}</span>
+                                        <span className='category-total' >{fashionData && fashionData.length}</span>
                                     </h5>
                                 </li>
                                 <li className='mainMenu-li'
@@ -188,21 +188,24 @@ const Home = () => {
                                 >
                                     <h5 className={`d-sm-none d-none d-lg-block d-md-block product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
                                         USER EXPERIENCE
-                                        <span style={{ fontSize: "10pt", top: "2px", position: "absolute", paddingLeft: "5px" }}>{uxData && uxData.length}</span>
+                                        <span className='category-total' >{uxData && uxData.length}</span>
                                     </h5>
                                     <h5 className={`d-block d-md-none product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
                                         UX
-                                        <span style={{ fontSize: "10pt", top: "2px", position: "absolute", paddingLeft: "5px" }}>{uxData && uxData.length}</span>
+                                        <span className='category-total' >{uxData && uxData.length}</span>
                                     </h5>
                                 </li>
                             </ul>
                         </Col>
                     </Row>
-                    <Row className="d-block d-lg-none" style={{ position: "sticky", top: "20vh", zIndex: "8", background: "black" }}>
+                    <Row 
+                        className="d-block d-lg-none client-div-mobile" 
+                        style={{ background: "black" }}
+                    >
                         <Col>
                             <AnimatePresence initial={false} >
                                 <h4 
-                                    style={{ color: "white", fontSize: "clamp(12pt, 3vw, 15pt)", cursor: "pointer" }}
+                                    style={{ color: "white", fontSize: "15pt", cursor: "pointer" }}
                                     onClick={() => setClientClicked(!clientClicked)}
                                 >
                                     Clients
@@ -212,8 +215,14 @@ const Home = () => {
                                         style={{ marginLeft: "10px",  width: "10px" }}
                                     />
                                 </h4>
+                                <div
+                                    style={{
+                                        transform: clientClicked ? "translateY(0)" : "translateY(-100px)",
+                                        transition: "transform 0.5s"
+                                    }}
+                                >
                                 {clientClicked &&
-                                    <div style={{ width: "100%" }}>
+                                    <div style={{ width: "100%"}} >
                                         {clientData &&
                                             clientData.map((clients, index) => {
                                                 const clientsId = clients._id
@@ -223,10 +232,6 @@ const Home = () => {
                                                         className='client-list-text-mobile'
                                                         style={{ cursor: "pointer", display: "inline-block", paddingLeft: "25px", fontWeight: clientsIndex === clientsId ? "800" : "100"  }}
                                                         onClick={() => clientList(clientsId)}
-                                                        // animate={{ 
-                                                        //     opacity: clientClicked ? 1 : 0,
-                                                        //     transition: { duration: 0.5}
-                                                        // }}
                                                     >
                                                         { clientClicked ? clients.clientsName : null }
                                                     </motion.h6>
@@ -235,6 +240,7 @@ const Home = () => {
                                         }
                                     </div>
                                 }
+                                </div>
                             </AnimatePresence>  
                         </Col>                  
                     </Row>

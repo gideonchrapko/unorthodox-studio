@@ -38,8 +38,6 @@ const LandingGridImage = (props) => {
         }
     },[projectData])
 
-    console.log(index)
-
     return (
             <motion.div
                 initial={{ opacity: 0 }}

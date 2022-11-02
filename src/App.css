@@ -28,7 +28,7 @@
   justify-content: space-between;
   width: 90vw;
   left: 5vw;
-  margin: 4vh -15px 0 0;
+  margin: 6vh -15px 0 0;
   padding: 0;
   position: absolute;
 }
@@ -72,6 +72,13 @@
   border-bottom: solid 1px white;
 }
 
+.category-total {
+  font-size: 10pt;
+  top: 0px;
+  position: absolute;
+  padding-left: 5px;
+}
+
 .home-overlay-text {
   color: white;
   position: absolute;
@@ -112,12 +119,19 @@
   transition: background-size 0.3s;
 } */
 
+.client-div-mobile {
+  position: sticky;
+  top: 20vh;
+  z-index: 8;
+  padding-bottom: 10px;
+}
+
 .client-list-text-mobile {
   font-family: sans-serif;
   font-weight: 100;
   color: white;
   cursor: pointer;
-  font-size: 12pt;
+  font-size: 10pt;
 
   /* display: inline; */
   position: relative;
