@@ -4,6 +4,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import { PortableText } from '@portabletext/react';
 import { motion } from 'framer-motion';
 import { useShopify } from '../hooks';
+import { Helmet } from 'react-helmet';
 import sanityClient from '../client';
 
 import ProjectFooter from './ProjectFooter';
@@ -43,12 +44,21 @@ const SingleProject = () => {
         .catch(console.error)
       },[singlePost])
 
+      console.log(singlePost && singlePost[0].projectDescription)
+
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 2 } }}
         exit={{ opacity: 0 }}
       >
+      <Helmet>
+        <title>{singlePost && singlePost[0].projectTitle}</title>
+				<meta
+					name={`${singlePost && singlePost[0].projectTitle} Page`}
+					content={singlePost && singlePost[0].projectDescription[0].children[0].text}
+				/>
+			</Helmet>
         <Container fluid style={{ marginTop: "10vh" }}>
           <motion.div
             initial={{ opacity: 0 }}

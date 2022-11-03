@@ -119,7 +119,7 @@ const Home = () => {
                     <Row style={{ height: "65vh", marginTop: "3vh" }}>
                         {/* <Col lg={{ span: 12 }} className='d-sm-none d-none d-lg-block d-md-block' >
                             {landingPageData && landingPageData[0].playbackId &&
-                                <LandingVideo 
+                                <LandingVideo
                                     playbackId={landingPageData && landingPageData[0].playbackId}
                                     title={landingPageData && landingPageData[0].videoReel.title}
                                 />
@@ -179,18 +179,18 @@ const Home = () => {
                                     </h5>
                                 </li>
                                 <li className='mainMenu-li'
-                                    onClick={() => {
-                                        setProjectCategory("uxProject")
-                                        setClientCategory('uxClients')
-                                        setDisplayClientsProj(false)
-                                        setClientsIndex()
-                                    }}
+                                    // onClick={() => {
+                                    //     setProjectCategory("uxProject")
+                                    //     setClientCategory('uxClients')
+                                    //     setDisplayClientsProj(false)
+                                    //     setClientsIndex()
+                                    // }}
                                 >
-                                    <h5 className={`d-sm-none d-none d-lg-block d-md-block product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
+                                    <h5 style={{ color: "grey" }} className={`d-sm-none d-none d-lg-block d-md-block product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
                                         USER EXPERIENCE
                                         <span className='category-total' >{uxData && uxData.length}</span>
                                     </h5>
-                                    <h5 className={`d-block d-md-none product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
+                                    <h5 style={{ color: "grey" }} className={`d-block d-md-none product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
                                         UX
                                         <span className='category-total' >{uxData && uxData.length}</span>
                                     </h5>
