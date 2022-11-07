@@ -64,9 +64,8 @@ const LandingGridImage = (props) => {
                         ref={ref}
                         index={index}
                         style={{
-                            backgroundImage: `url(${inView ? urlFor(project.projectImages[0].asset).width(400).height(400).url() : null})`,
+                            backgroundImage: `url(${inView ? urlFor(project.projectImages[0].asset).width(600).height(600).url() : null})`,
                             filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
-                            backgroundColor: "grey",
                         }}
                         className="content"
                         onPointerUp={e => {
