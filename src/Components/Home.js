@@ -7,6 +7,7 @@ import sanityClient from '../client';
 import Helmet from 'react-helmet';
 
 import LandingGridImage from './LandingGridImage';
+import LandingVideo from './MuxVideo/LandingVideo';
 import plus from '../Assets/plus.svg';
 import minus from '../Assets/minus.svg';
 
@@ -88,6 +89,8 @@ const Home = () => {
             }
       }
 
+      console.log(landingPageData)
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -117,14 +120,14 @@ const Home = () => {
                         </Col>
                     </Row>
                     <Row style={{ height: "65vh", marginTop: "3vh" }}>
-                        {/* <Col lg={{ span: 12 }} className='d-sm-none d-none d-lg-block d-md-block' >
+                        <Col lg={{ span: 12 }} className='d-sm-none d-none d-lg-block d-md-block' >
                             {landingPageData && landingPageData[0].playbackId &&
                                 <LandingVideo
                                     playbackId={landingPageData && landingPageData[0].playbackId}
                                     title={landingPageData && landingPageData[0].videoReel.title}
                                 />
                             }
-                        </Col> */}
+                        </Col>
                         {/* <Col lg={{ span: 12 }} className='d-block d-md-none' >
                             {landingPageData && landingPageData[0].playbackIdMobile &&
                                 <LandingVideo 
@@ -250,7 +253,7 @@ const Home = () => {
                                         clientData.map((clients, index) => {
                                             const clientsId = clients._id
                                             return (
-                                                <div key={index} className="d-md-none d-none d-lg-inline-block">
+                                                <div key={index} className="d-md-none d-none d-lg-block">
                                                     <h6 
                                                         className='client-list-text'
                                                         style={{ 
