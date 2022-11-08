@@ -10,11 +10,13 @@ import sanityClient from '../client';
 import ProjectFooter from './ProjectFooter';
 import Masonry from './Masonry/Masonry';
 import Video from './MuxVideo/ProjectVideo';
+// import ImageModal from './ImageModal';
 import './SinglePage.css';
 
 const SingleProject = () => {
     const { clientCategory } = useShopify();
     const [singlePost, setSinglePost] = useState();
+    // const [modal, setModal] = useState();
     const [clientNames, setClientNames] = useState();
     const { slugRoute } = useParams();
     const images = singlePost && singlePost[0].projectImages
@@ -43,8 +45,6 @@ const SingleProject = () => {
         .then((data) => setClientNames(data))
         .catch(console.error)
       },[singlePost])
-
-      console.log(singlePost && singlePost[0].projectDescription)
 
     return (
       <motion.div

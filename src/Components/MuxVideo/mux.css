@@ -14,7 +14,10 @@ mux-player {
     /* --time-range: none; */
     --time-display: none;
     --duration-display: none;
-
     /* --controls: none;
     --playback-rate-button: true; */
 } 
+
+/* mux-player::part(center play button) {
+    display: none;
+  } */

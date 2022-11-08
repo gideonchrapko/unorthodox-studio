@@ -27,6 +27,7 @@ const Home = () => {
     const [projectData, setProjectData] = useState()
     const [clientData, setClientData] = useState();
     const [displayClientsProj, setDisplayClientsProj] = useState(false);
+    const [clientAlphabetic, setClientAlphabet] = useState();
     const [clientsIndex, setClientsIndex] = useState();
     const [clientProjectData, setClientProjectData] = useState();
     const [landingPageData, setLandingPageData] = useState();
@@ -89,7 +90,22 @@ const Home = () => {
             }
       }
 
-      console.log(landingPageData)
+    useEffect(() => {
+        if(clientData !== undefined){
+            let propName = 'clientsName';
+
+            let sorted_obj = clientData.sort((a,b) => {
+                if(a[propName] > b[propName]) {
+                    return 1;
+                }
+                if (a[propName] < b[propName]) {
+                    return -1;
+                }
+                return 0;
+                })
+                setClientAlphabet(sorted_obj)
+        }
+    },[clientData])
 
     return (
         <motion.div
@@ -120,7 +136,7 @@ const Home = () => {
                         </Col>
                     </Row>
                     <Row style={{ height: "65vh", marginTop: "3vh" }}>
-                        <Col lg={{ span: 12 }} className='d-sm-none d-none d-lg-block d-md-block' >
+                        <Col className='d-sm-none d-none d-lg-block d-md-block'>
                             {landingPageData && landingPageData[0].playbackId &&
                                 <LandingVideo
                                     playbackId={landingPageData && landingPageData[0].playbackId}
@@ -128,7 +144,7 @@ const Home = () => {
                                 />
                             }
                         </Col>
-                        {/* <Col lg={{ span: 12 }} className='d-block d-md-none' >
+                        {/* <Col className='d-block d-md-none'>
                             {landingPageData && landingPageData[0].playbackIdMobile &&
                                 <LandingVideo 
                                     playbackId={landingPageData && landingPageData[0].playbackIdMobile}
@@ -215,11 +231,11 @@ const Home = () => {
                                         style={{ marginLeft: "10px",  width: "10px" }}
                                     />
                                 </h4>
-                                <div style={{ transform: clientClicked ? "translateY(0)" : "translateY(-100px)", transition: "transform 0.5s"  }} >
+                                <div style={{ transform: clientClicked ? "translateY(0)" : "translateY(-100px)", transition: "transform 0.5s" }} >
                                 {clientClicked &&
                                     <div style={{ width: "100%"}} >
-                                        {clientData &&
-                                            clientData.map((clients, index) => {
+                                        {clientAlphabetic &&
+                                            clientAlphabetic.map((clients, index) => {
                                                 const clientsId = clients._id
                                                 return (
                                                     <motion.h6
@@ -248,9 +264,9 @@ const Home = () => {
                                 >
                                     Clients
                                 </h4>
-                                <div style={{ height: "35vh", overflowY: "scroll" }}>
-                                    {clientData &&
-                                        clientData.map((clients, index) => {
+                                <div style={{ height: "26vh", overflowY: "scroll" }}>
+                                    {clientAlphabetic &&
+                                        clientAlphabetic.map((clients, index) => {
                                             const clientsId = clients._id
                                             return (
                                                 <div key={index} className="d-md-none d-none d-lg-block">

@@ -30,7 +30,7 @@ const Header = () => {
                 height: "6vh", 
                 background: landingNav ? "" : "black", 
                 position: "fixed", 
-                zIndex: "9",
+                zIndex: "99",
                 top: "0",
                 padding: "0px 30px 0px 30px"
             }}
@@ -41,7 +41,7 @@ const Header = () => {
                             key="div"
                             animate={{ 
                                 width: landingNav ? "33.33%" : "0%",
-                                transition: { duration: 0.5} 
+                                transition: { duration: 0.5 } 
                             }}
                         >
                              <motion.h3 

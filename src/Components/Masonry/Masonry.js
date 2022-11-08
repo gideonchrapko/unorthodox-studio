@@ -1,20 +1,46 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import imageUrlBuilder from '@sanity/image-url';
 import sanityClient from '../../client';
+import { motion } from 'framer-motion';
 
+import Close from '../../Assets/closeModal.svg';
 import './masonry.css'
 
 export default function(props) {
     const { images, columnCount, gap } = props
+    const [modal, setModal] = useState();
+    const [image, setImage] = useState();
     const builder = imageUrlBuilder(sanityClient);
     const mobile = window.innerWidth < 600
 
     function urlFor(source) {
         return builder.image(source)
     }
+
+    useEffect(() => {
+        const keyDownHandler = event => {
+          console.log('User pressed: ', event.key);
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            setModal(false)
+            }
+          };
+          document.addEventListener('keydown', keyDownHandler);
+          return () => {
+            document.removeEventListener('keydown', keyDownHandler);
+          };
+      }, []);
     
     return (
         <>
+            {modal &&
+                <div
+                    className='image-modal-div'
+                    style={{ backgroundImage: `url(${urlFor(image).url()})` }}
+                 >
+                    <img src={Close} className='close-modal-icon' onClick={() => setModal(false)} />
+                </div>
+            }
             {images && images.length > 1 &&
                 <div style={{ columns: columnCount, columnGap: 0 }}>
                     {images && images[0] &&
@@ -24,6 +50,10 @@ export default function(props) {
                                     key={i} 
                                     className='image'
                                     style={{ padding: gap/2 }}
+                                    onClick={e => {
+                                        setImage(image.asset)
+                                        setModal(true)
+                                    }}
                                 />
                     )}
                 </div>
@@ -39,6 +69,10 @@ export default function(props) {
                                     key={i} 
                                     className='image'
                                     style={{ padding: gap/0.15 }}
+                                    onClick={e => {
+                                        setImage(image.asset)
+                                        setModal(true)
+                                    }}
                                 />
                         )}
                     )}

@@ -17,10 +17,6 @@ const AnimatedRoutes = () => {
           <Routes location={location} key={location.pathname}>
             <Route path='/' element={<Landing/>} />
             <Route path='/home' element={<Home/>} />
-            {/* <Route path='/home/visual-client#' element={<Home/>} />
-            <Route path='/home/sound#' element={<Home/>} />
-            <Route path='/home/fashion#' element={<Home/>} />
-            <Route path='/home/user-experience#' element={<Home/>} /> */}
             <Route path='/about' element={<About/>} />
             <Route path='project/:slugRoute' element={<SingleProject/>} />
             <Route path="*" element={<PageNotFound/>} />

@@ -1,10 +1,11 @@
 import MuxPlayer from '@mux/mux-player-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import './mux.css'
 
 export default function LandingVideo(props) {
   const { playbackId, title } = props
+  const [muted, setMuted] = useState(false);
   const ref = useRef();
 
   useEffect(() => {
@@ -19,5 +20,19 @@ export default function LandingVideo(props) {
        }); 
   },[])
 
-  return <MuxPlayer ref={ref} style={{ width: "100%" }} playbackId={playbackId} metadata={{video_title: title}} streamType="on-demand" />
+  return (
+    <MuxPlayer 
+      ref={ref} 
+      style={{ 
+        width: "100%",
+        height: "65vh",
+        // aspectRatio: "5/2"
+       }} 
+      autoplay="muted"
+      playbackId={playbackId} 
+      metadata={{video_title: title}} 
+      streamType="on-demand"
+      muted={muted}
+    />
+  )
 }
