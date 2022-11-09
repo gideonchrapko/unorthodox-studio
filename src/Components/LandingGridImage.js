@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { useInView } from "react-intersection-observer";
 import { useShopify } from '../hooks'
 
+import Placeholder from '../Assets/placeholderImage-01.png';
+
 const LandingGridImage = (props) => {
     const { setProjectIndex, projectCat } = useShopify(); 
     const { index, project } = props 
@@ -15,6 +17,7 @@ const LandingGridImage = (props) => {
     const builder = imageUrlBuilder(sanityClient);
     const navigate = useNavigate();
     const mobile = window.innerWidth < 600;
+    // const projectImage = project.projectImages[0].asset === undefined ? "" : project.projectImages[0].asset
 
     const { ref, inView } = useInView({
         threshold: 0,
@@ -37,6 +40,8 @@ const LandingGridImage = (props) => {
             setData(projectData.map(projectData => projectData.projectTitle))
         }
     },[projectData])
+
+    // console.log(project.projectImages[0].asset)
 
     return (
             <motion.div
@@ -64,7 +69,7 @@ const LandingGridImage = (props) => {
                         ref={ref}
                         index={index}
                         style={{
-                            backgroundImage: `url(${inView ? urlFor(project.projectImages[0].asset).width(600).height(600).url() : null})`,
+                            backgroundImage: `url(${inView ? project.projectImages[0].asset === undefined ? Placeholder : urlFor(project.projectImages[0].asset).width(600).height(600).url() : null})`,
                             filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
                         }}
                         className="content"

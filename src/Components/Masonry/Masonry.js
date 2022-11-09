@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import imageUrlBuilder from '@sanity/image-url';
 import sanityClient from '../../client';
-import { motion } from 'framer-motion';
 
 import Close from '../../Assets/closeModal.svg';
+import Placeholder from '../../Assets/placeholderImage-01.png';
 import './masonry.css'
 
 export default function(props) {
@@ -36,7 +36,7 @@ export default function(props) {
             {modal &&
                 <div
                     className='image-modal-div'
-                    style={{ backgroundImage: `url(${urlFor(image).url()})` }}
+                    style={{ backgroundImage: `url(${urlFor(image === undefined ? Placeholder : image).width(800).height(800).url()})` }}
                  >
                     <img src={Close} className='close-modal-icon' onClick={() => setModal(false)} />
                 </div>

@@ -14,7 +14,7 @@ export default function LandingVideo(props) {
 
   useEffect(() => {
     ref.current.play().then(function () {
-        console.log("video is playing")
+        // console.log("video is playing")
       }).catch(function (error) {
         // do something if you want to handle or track this error
        }); 

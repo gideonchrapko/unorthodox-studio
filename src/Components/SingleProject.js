@@ -90,21 +90,23 @@ const SingleProject = () => {
               </Col>
           </Row>
           <Row style={{ marginTop: "5vh" }}>
-            <Col lg={9} xs={12}>
+            <Col lg={8} xs={12}>
               <h5 className='body-copy' ><PortableText value={singlePost && singlePost[0].projectDescription} /></h5>
             </Col>
-            <Col lg={3} style={{ textAlign: mobile ? "left" : "right" }}>
+            <Col lg={4} style={{ textAlign: mobile ? "left" : "right", columnCount: singlePost && `${singlePost[0].projectTeam.length === 1 ? "0" : "2"}` }}>
               {singlePost && singlePost[0] &&
                 singlePost[0].projectTeam.map((team, index) => {
+                  // console.log(singlePost && singlePost[0].projectTeam)
+                  // console.log(singlePost && singlePost[0].projectTeam.length)
                   const stringColinIndex = team.indexOf(':') + 1
                   const stringLength = team.length
                   const newTeamStringTop = team.slice(0, stringColinIndex)
                   const newTeamStringBottom = team.slice(stringColinIndex, stringLength)
                   return (
-                    <div key={index}>
-                      <h5 className='body-copy team'>{newTeamStringTop}</h5>
-                      <h5 className='body-copy team'>{newTeamStringBottom}</h5><br/>
-                    </div>
+                      <div key={index}>
+                         <h5 style={{ fontWeight: "500" }} className='body-copy team'>{newTeamStringTop}</h5>
+                        <h5 className='body-copy team'>{newTeamStringBottom}</h5><br/>
+                      </div>
                   )
                 })
               }
