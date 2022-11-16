@@ -18,7 +18,8 @@ const Hamburger = (props) => {
                 top: "5vh", 
                 left: 0, 
                 zIndex: "99", 
-                background: "black" 
+                background: "black",
+                paddingTop: "30px",
             }}
         >   
             <Link to="/" onClick={() => closeHamburger()}>
