@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useShopify } from '../../redux/ducks/shopify';
 
 const Hamburger = (props) => {
-    const { HamburgerStatus } = useShopify();
+    const { HamburgerStatus, closeHamburger } = useShopify();
 
     console.log(HamburgerStatus)
     return (
@@ -21,13 +21,13 @@ const Hamburger = (props) => {
                 background: "black" 
             }}
         >   
-            <Link to="/" >
+            <Link to="/" onClick={() => closeHamburger()}>
                 <h3 className='hamburger-text'>Home</h3>
             </Link>
-            <Link to="/about" >
+            <Link to="/about" onClick={() => closeHamburger()}>
                 <h3 className='hamburger-text'>About</h3>
             </Link>
-            <a>
+            <a onClick={() => closeHamburger()}>
                 <h3 className='hamburger-text'>Contact</h3>
             </a>
         </motion.div>
