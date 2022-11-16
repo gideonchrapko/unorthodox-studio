@@ -70,6 +70,27 @@ export default {
             ]
         },
         {
+            name: "videoArray",
+            type: "array",
+            title: "Extra Videos",
+            of: [
+                {
+                    title: "Video Post",
+                    name: "videoPost",
+                    type: "document",
+                    
+                    fields: [
+                    { title: "Title", name: "title", type: "string" },
+                      {
+                        title: "Video file",
+                        name: "video",
+                        type: "mux.video"
+                      }
+                    ]
+                },
+            ],
+        },
+        {
             name: 'projectImages',
             title: 'Project Images',
             type: 'array',

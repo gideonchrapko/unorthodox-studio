@@ -15,8 +15,8 @@ const AnimatedRoutes = () => {
         
         <AnimatePresence >
           <Routes location={location} key={location.pathname}>
-            <Route path='/' element={<Landing/>} />
-            <Route path='/home' element={<Home/>} />
+            <Route path='/landing' element={<Landing/>} />
+            <Route path='/' element={<Home/>} />
             <Route path='/about' element={<About/>} />
             <Route path='project/:slugRoute' element={<SingleProject/>} />
             <Route path="*" element={<PageNotFound/>} />

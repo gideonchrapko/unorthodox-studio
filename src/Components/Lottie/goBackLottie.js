@@ -6,18 +6,6 @@ export default function GoBackLottie() {
     const [hovered, setHovered] = useState();
     const ref = useRef();
 
-    // const options = {
-    //   animationData: goBack,
-    //   loop: false,
-    //   autoplay: true,
-    //       rendererSettings: {
-    //       preserveAspectRatio: 'xMidYMid slice'
-    //   }
-      
-    // };
-  
-    // const { View } = useLottie(options);
-
     useEffect(() => {
         if(hovered){
             ref.current.play();

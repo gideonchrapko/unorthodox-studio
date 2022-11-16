@@ -73,7 +73,7 @@
 }
 
 .category-total {
-  font-size: 10pt;
+  font-size: clamp(8px, 2vw, 10pt);
   top: 0px;
   position: absolute;
   padding-left: 5px;

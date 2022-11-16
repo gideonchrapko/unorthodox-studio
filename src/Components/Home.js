@@ -241,7 +241,12 @@ const Home = () => {
                                                     <motion.h6
                                                         key={index}
                                                         className='client-list-text-mobile'
-                                                        style={{ cursor: "pointer", display: "inline-block", paddingLeft: "25px", fontWeight: clientsIndex === clientsId ? "800" : "100"  }}
+                                                        style={{ 
+                                                            cursor: "pointer", 
+                                                            display: "inline-block", 
+                                                            paddingLeft: "25px", 
+                                                            color: clientsIndex ? clientsIndex === clientsId ? "white" : "grey" : "white"
+                                                        }}
                                                         onClick={() => clientList(clientsId)}
                                                     >
                                                         { clientClicked ? clients.clientsName : null }
@@ -264,7 +269,7 @@ const Home = () => {
                                 >
                                     Clients
                                 </h4>
-                                <div style={{ height: "26vh", overflowY: "scroll" }}>
+                                <div style={{ height: "75vh", overflowY: "scroll" }}>
                                     {clientAlphabetic &&
                                         clientAlphabetic.map((clients, index) => {
                                             const clientsId = clients._id
@@ -274,7 +279,7 @@ const Home = () => {
                                                         className='client-list-text'
                                                         style={{ 
                                                             cursor: "pointer",
-                                                            fontWeight: clientsIndex === clientsId ? 800 : 100,
+                                                            color: clientsIndex ? clientsIndex === clientsId ? "white" : "grey" : "white",
                                                         }}
                                                         onClick={() => clientList(clientsId)}
                                                     >
@@ -287,7 +292,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </Col>
-                        <Col lg={10} style={{ display: "flex", flexWrap: "wrap" }}>
+                        <Col lg={10} style={{ display: "flex", flexWrap: "wrap", height: "100%" }}>
                                 {!displayClientsProj && projectCat === "visualProject" &&
                                     visualData.map((project, index) => {
                                         return (

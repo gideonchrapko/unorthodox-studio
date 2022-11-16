@@ -6,16 +6,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './Nav.css'
 
 import Branding from '../../Assets/branding.svg';
+import HamburgerMenu from '../Lottie/HamburgerMenu';
 
 const Header = () => {
     const [landingNav, setLandingNav] = useState(true);
+    const [hamburger, setHamburger] = useState(false);
     const [route, setRoute] = useState();
     let location = useLocation();
     let navigate = useNavigate();
     const path = location.pathname
 
+    console.log(hamburger)
+
     useEffect(() => {
-        if(path === '/'){
+        if(path === '/landing'){
             setLandingNav(true)
         } else { 
             setLandingNav(false)
@@ -64,7 +68,7 @@ const Header = () => {
                                 transition: { duration: 0.5} 
                             }}
                         >
-                            <img src={Branding} alt='Unorthodox' className='nav-logo' onClick={() => navigate('/home')} />
+                            <img src={Branding} alt='Unorthodox' className='nav-logo' onClick={() => navigate('/')} />
                         </motion.div>
                         <motion.div 
                             style={{ width: "33.33%" }}
@@ -73,16 +77,16 @@ const Header = () => {
                                 transition: { duration: 0.5} 
                             }}
                         >
-                            <h3 className="landing-header d-md-none d-sm-none d-none d-lg-block" style={{ textAlign: "centre" }}>
+                            <h3 className="landing-header d-md-none d-sm-none d-none d-lg-block" style={{ textAlign: "center" }}>
                                 LIVE__FROM__THE__FUTURE
                             </h3>
                         </motion.div>
                         <motion.div 
                             key="nav"
                             className="d-sm-none d-md-none d-none d-lg-block" 
-                            style={{ marginLeft: "11.11%", float: "right" }}
+                            style={{ marginLeft: "5.555%", float: "right" }}
                             animate={{ 
-                                width: landingNav ? "0" : "22.22%",
+                                width: landingNav ? "0" : "27.775%",
                                 opacity: landingNav ? 0 : 1,
                                 transition: { duration: 1 } 
                             }}
@@ -90,7 +94,7 @@ const Header = () => {
                             {!landingNav && (
                                 <ul className='Nav-ul'>
                                     <li className='Nav-li'>
-                                        <h4 className={`nav-text ${route === "/home" ? 'nav-text-active' : ''}`} onClick={() => navigate('/home')} >
+                                        <h4 className={`nav-text ${route === "/" ? 'nav-text-active' : ''}`} onClick={() => navigate('/')} >
                                             HOME
                                         </h4>
                                     </li>
@@ -109,7 +113,11 @@ const Header = () => {
                         </motion.div>
                         {!landingNav ? 
                             <div className='d-block d-lg-none' style={{ width: "33.33%", color: "white", textAlign: "right" }}>
-                                <h6>{"hamburger"}</h6>
+                                <div onClick={() => setHamburger(!hamburger)}>
+                                    <HamburgerMenu 
+                                        hamburger={hamburger}
+                                    />
+                                </div>
                             </div> : null
                         }
                     </AnimatePresence>

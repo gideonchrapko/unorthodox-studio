@@ -56,7 +56,7 @@ const ProjectFooter = (props) => {
             <Row style={{ width: "100%", marginLeft: 0, marginBottom: "20px" }}>
                 <Col style={{ display: "flex", flexWrap: "wrap" }}>
                     <div className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}>
-                        <div className='content' style={{ background: "grey" }} onClick={() => navigate('/home')}>
+                        <div className='content' style={{ background: "grey" }} onClick={() => navigate('/')}>
                             <div style={{ position: "relative", cursor: "pointer", width: "100%", top: 0, left: 0 }}>
                                 <GoBackLottie />
                             </div>
