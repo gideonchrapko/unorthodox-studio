@@ -4,17 +4,19 @@ import sanityClient from '../../../client';
 const PROJECT_CATEGORY = "shopify/PROJECT_CATEGORY"
 const CLIENTS_CATEGORY = "shopify/CLIENTS_CATEGORY"
 const PROJECT_INDEX = "shopify/PROJECT_INDEX"
-
 const FETCH_VISUAL = "shopify/FETCH_VISUAL"
 const FETCH_SOUND = "shopify/FETCH_SOUND"
 const FETCH_FASHION = "shopify/FETCH_FASHION"
 const FETCH_UX = "shopify/FETCH_UX"
+const HAMBURGER_OPEN = "shopify/OPEN_CART"
+const HAMBURGER_CLOSE = "shopify/CLOSE_CART"
 
 const initialState = {
 	visual: {},
 	sound: {},
 	fashion: {},
 	ux: {},
+	isHamburgerOpen: false,
 }
 
 export default (state = initialState, action) => {
@@ -25,7 +27,6 @@ export default (state = initialState, action) => {
 			return { ...state, clientCat: action.payload }
 		case PROJECT_INDEX:
 			return { ...state, index: action.payload }
-
 		case FETCH_VISUAL:
 			return { ...state, visual: action.payload }
 		case FETCH_SOUND:
@@ -34,7 +35,10 @@ export default (state = initialState, action) => {
 			return { ...state, fashion: action.payload }
 		case FETCH_UX:
 			return { ...state, ux: action.payload }
-
+		case HAMBURGER_OPEN:
+			return { ...state, isHamburgerOpen: true }
+		case HAMBURGER_CLOSE:
+			return { ...state, isHamburgerOpen: false }
 		default:
 			return state
 	}
@@ -105,6 +109,19 @@ function getUX() {
 	}
 }
 
+function handleHamburgerClose() {
+	return {
+		type: HAMBURGER_CLOSE,
+	}
+}
+
+// To open the cart
+function handleHamburgerOpen() {
+	return {
+		type: HAMBURGER_OPEN,
+	}
+}
+
 export function useShopify() {
 	const dispatch = useDispatch()
 	const projectIndex = useSelector((appState) => appState.shopifyState.index)
@@ -113,6 +130,7 @@ export function useShopify() {
 	const visualData = useSelector((appState) => appState.shopifyState.visual)
 	const soundData = useSelector((appState) => appState.shopifyState.sound)
 	const fashionData = useSelector((appState) => appState.shopifyState.fashion)
+	const HamburgerStatus = useSelector((appState) => appState.shopifyState.isHamburgerOpen)
 	const uxData = useSelector((appState) => appState.shopifyState.ux)
 	const setProjectCategory = (Cat) => dispatch(handleProjectCat(Cat))
 	const setClientCategory = (clientCat) => dispatch(handleClientCat(clientCat))
@@ -121,6 +139,8 @@ export function useShopify() {
 	const setSoundData = (sound) => dispatch(getSound(sound))
 	const setFashionData = (fashion) => dispatch(getFashion(fashion))
 	const setUXData = (ux) => dispatch(getUX(ux))
+	const closeHamburger = () => dispatch(handleHamburgerClose())
+	const OpenHamburger = () => dispatch(handleHamburgerOpen())
 
 	return {
 		visualData,
@@ -130,6 +150,7 @@ export function useShopify() {
 		projectIndex,
 		projectCat,
 		clientCategory,
+		HamburgerStatus,
 		setProjectCategory,
 		setClientCategory,
 		setProjectIndex,
@@ -137,5 +158,7 @@ export function useShopify() {
 		setSoundData,
 		setFashionData,
 		setUXData,
+		closeHamburger,
+		OpenHamburger,
 	}
 }

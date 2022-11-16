@@ -7,16 +7,25 @@ import './Nav.css'
 
 import Branding from '../../Assets/branding.svg';
 import HamburgerMenu from '../Lottie/HamburgerMenu';
+import Hamburger from './Hamburger';
+import { useShopify } from '../../redux/ducks/shopify';
 
 const Header = () => {
     const [landingNav, setLandingNav] = useState(true);
-    const [hamburger, setHamburger] = useState(false);
+    // const [hamburger, setHamburger] = useState(false);
     const [route, setRoute] = useState();
+    const { HamburgerStatus, closeHamburger, OpenHamburger } = useShopify()
     let location = useLocation();
     let navigate = useNavigate();
     const path = location.pathname
 
-    console.log(hamburger)
+    function handleHamburger() {
+        if(HamburgerStatus) {
+            closeHamburger()
+        } else {
+            OpenHamburger()
+        }
+    }
 
     useEffect(() => {
         if(path === '/landing'){
@@ -104,7 +113,7 @@ const Header = () => {
                                         </h4>
                                     </li>
                                     <li className='Nav-li'>
-                                        <h4 className={`nav-text ${route === "/contact" ? 'nav-text-active' : ''}`} onClick={() => navigate('/')}>
+                                        <h4 className={`nav-text ${route === "/contact" ? 'nav-text-active' : ''}`} >
                                             CONTACT
                                         </h4>
                                     </li>
@@ -113,13 +122,13 @@ const Header = () => {
                         </motion.div>
                         {!landingNav ? 
                             <div className='d-block d-lg-none' style={{ width: "33.33%", color: "white", textAlign: "right" }}>
-                                <div onClick={() => setHamburger(!hamburger)}>
+                                <div onClick={() => handleHamburger()}>
                                     <HamburgerMenu 
-                                        hamburger={hamburger}
                                     />
                                 </div>
                             </div> : null
                         }
+                        <Hamburger />
                     </AnimatePresence>
                 </Row>
         </Container>
