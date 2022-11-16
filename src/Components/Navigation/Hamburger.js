@@ -23,13 +23,13 @@ const Hamburger = (props) => {
             }}
         >   
             <Link to="/" onClick={() => closeHamburger()}>
-                <h3 className='hamburger-text'>Home</h3>
+                <h3 className='hamburger-text'>HOME</h3>
             </Link>
             <Link to="/about" onClick={() => closeHamburger()}>
-                <h3 className='hamburger-text'>About</h3>
+                <h3 className='hamburger-text'>ABOUT</h3>
             </Link>
             <a onClick={() => closeHamburger()}>
-                <h3 className='hamburger-text'>Contact</h3>
+                <h3 className='hamburger-text'>CONTACT</h3>
             </a>
         </motion.div>
     )
