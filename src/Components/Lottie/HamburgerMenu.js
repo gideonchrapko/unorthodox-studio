@@ -1,16 +1,19 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Lottie from "lottie-react";
 import Hamburger from "../../Assets/Hamburger.json";
+import { useShopify } from "../../redux/ducks/shopify";
 
 export default function HamburgerMenu() {
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState()
+    const { HamburgerStatus } = useShopify();
     const ref = useRef();
 
     function playLottie() {
-        ref.current.setDirection(open ? -1 : 1)
+        ref.current.setDirection(HamburgerStatus ? -1 : 1)
         ref.current.play();
     }
   
+    console.log(HamburgerStatus)
     return (
       <div 
         style={{ 
@@ -21,7 +24,6 @@ export default function HamburgerMenu() {
             zIndex: "999"
         }} 
         onClick={e => {
-            setOpen(!open)
             playLottie()
         }}
     >
