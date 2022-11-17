@@ -111,12 +111,20 @@ const Header = () => {
                                 </ul>
                            )}
                         </motion.div>
-                        {!landingNav ? 
-                            <div className='d-block d-lg-none' style={{ width: "33.33%", color: "white", textAlign: "right" }}>
-                                    <HamburgerMenu 
-                                    />
-                            </div> : null
-                        }
+                            <motion.div className='d-block d-lg-none' 
+                                style={{ color: "white", float: "right" }}
+                                animate={{ 
+                                    width: landingNav ? "0%" : "33.33%",
+                                    opacity: landingNav ? 0 : 1,
+                                    transition: { duration: 1 } 
+                                }}
+                            >
+                                {!landingNav ? 
+                                    <div style={{ float: "right" }}>
+                                    <HamburgerMenu />
+                                    </div>: null
+                                }
+                            </motion.div>
                         <Hamburger />
                     </AnimatePresence>
                 </Row>
