@@ -83,7 +83,7 @@
   color: white;
   position: absolute;
   z-index: 7;
-  top: 50%;
+  top: 45%;
   font-size: clamp(8pt, 3vw, 18pt);
   width: 100%;
   text-align: center;

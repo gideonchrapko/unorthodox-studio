@@ -5,7 +5,7 @@ import './mux.css'
 
 export default function LandingVideo(props) {
   const { playbackId, title } = props
-  const [muted, setMuted] = useState(false);
+  // const [muted, setMuted] = useState(false);
   const ref = useRef();
 
   useEffect(() => {
@@ -14,9 +14,8 @@ export default function LandingVideo(props) {
 
   useEffect(() => {
     ref.current.play().then(function () {
-        // console.log("video is playing")
       }).catch(function (error) {
-        // do something if you want to handle or track this error
+        console.log("video error")
        }); 
   },[])
 
@@ -28,11 +27,12 @@ export default function LandingVideo(props) {
         height: "65vh",
         // aspectRatio: "5/2"
        }} 
-      autoplay="muted"
+      autoplay={true}
       playbackId={playbackId} 
       metadata={{video_title: title}} 
       streamType="on-demand"
-      muted={muted}
+      muted={true}
+      loop={true}
     />
   )
 }

@@ -1,19 +1,32 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Lottie from "lottie-react";
 import Hamburger from "../../Assets/Hamburger.json";
 import { useShopify } from "../../redux/ducks/shopify";
 
 export default function HamburgerMenu() {
-    // const [open, setOpen] = useState()
-    const { HamburgerStatus } = useShopify();
+    const { hamburgerStatus, openHamburger, closeHamburger } = useShopify();
     const ref = useRef();
 
-    function playLottie() {
-        ref.current.setDirection(HamburgerStatus ? -1 : 1)
-        ref.current.play();
-    }
-  
-    console.log(HamburgerStatus)
+    // function playLottie() {
+    //     if(hamburgerStatus){
+    //         closeHamburger();
+    //     }else{
+    //         openHamburger();
+    //     }
+    //     ref.current.setDirection(hamburgerStatus ? -1 : 1)
+    //     ref.current.play();
+    // }
+
+    useEffect(() => {
+        if(hamburgerStatus){
+            ref.current.setDirection(1);
+            ref.current.play();
+        }else{
+            ref.current.setDirection(-1);
+            ref.current.play();
+        }
+    },[hamburgerStatus])
+
     return (
       <div 
         style={{ 
@@ -23,9 +36,7 @@ export default function HamburgerMenu() {
             position: "relative",
             zIndex: "999"
         }} 
-        onClick={e => {
-            playLottie()
-        }}
+        onClick={() => hamburgerStatus ? closeHamburger() : openHamburger()}
     >
         <Lottie
             lottieRef={ref} 

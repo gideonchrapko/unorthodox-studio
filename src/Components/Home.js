@@ -32,6 +32,7 @@ const Home = () => {
     const [clientProjectData, setClientProjectData] = useState();
     const [landingPageData, setLandingPageData] = useState();
     const aboutCopy = landingPageData && landingPageData[0].aboutCopy;
+    const mobile = window.innerWidth < 600
 
     useEffect(() => {
         sanityClient.fetch(`*[_type == "landingPage"]{
@@ -138,21 +139,21 @@ const Home = () => {
                     </Row>
                     <Row style={{ height: "65vh", marginTop: "3vh" }}>
                         <Col className='d-sm-none d-none d-lg-block d-md-block'>
-                            {landingPageData && landingPageData[0].playbackId &&
+                            {!mobile && landingPageData && landingPageData[0].playbackId &&
                                 <LandingVideo
                                     playbackId={landingPageData && landingPageData[0].playbackId}
                                     title={landingPageData && landingPageData[0].videoReel.title}
                                 />
                             }
                         </Col>
-                        {/* <Col className='d-block d-md-none'>
-                            {landingPageData && landingPageData[0].playbackIdMobile &&
+                        <Col className='d-block d-md-none'>
+                            {mobile && landingPageData && landingPageData[0].playbackIdMobile &&
                                 <LandingVideo 
                                     playbackId={landingPageData && landingPageData[0].playbackIdMobile}
                                     title={landingPageData && landingPageData[0].videoReelMobile.title}
                                 />
                             }
-                        </Col> */}
+                        </Col>
                     </Row>
                 </section>
                 <section>

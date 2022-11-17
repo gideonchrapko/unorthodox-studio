@@ -3,14 +3,15 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useShopify } from '../../redux/ducks/shopify';
 
-const Hamburger = (props) => {
-    const { HamburgerStatus, closeHamburger } = useShopify();
+import './Nav.css';
 
-    console.log(HamburgerStatus)
+const Hamburger = () => {
+    const { hamburgerStatus, closeHamburger } = useShopify();
+
     return (
         <motion.div
             initial={false}
-            animate={{ x: HamburgerStatus ? "0" :"100%", transition: { duration: 1.2 } }}
+            animate={{ x: hamburgerStatus ? "0" :"100%", transition: { duration: 1.2 } }}
             style={{ 
                 height: '95vh', 
                 width: "100vw", 
@@ -22,14 +23,14 @@ const Hamburger = (props) => {
                 paddingTop: "30px",
             }}
         >   
-            <Link to="/" onClick={() => closeHamburger()}>
-                <h3 className='hamburger-text'>HOME</h3>
+            <Link className='hamburger-text' to="/" onClick={() => closeHamburger()}>
+                <h3 style={{ padding: "10px 10px 10px 20px" }}>HOME</h3>
             </Link>
-            <Link to="/about" onClick={() => closeHamburger()}>
-                <h3 className='hamburger-text'>ABOUT</h3>
+            <Link className='hamburger-text' to="/about" onClick={() => closeHamburger()}>
+                <h3 style={{ padding: "10px 10px 10px 20px" }}>ABOUT</h3>
             </Link>
-            <a onClick={() => closeHamburger()}>
-                <h3 className='hamburger-text'>CONTACT</h3>
+            <a className='hamburger-text' href="mailto:max@unorthodoxstudio.ca" onClick={() => closeHamburger()}>
+                <h3 style={{ padding: "10px 10px 10px 20px" }}>CONTACT</h3>
             </a>
         </motion.div>
     )

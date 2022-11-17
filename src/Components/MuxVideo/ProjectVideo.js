@@ -10,6 +10,12 @@ export default function Video(props) {
     document.title = title
   }, [title])
 
-  return <MuxPlayer playbackId={playbackId} metadata={{video_title: title}} streamType="on-demand" />
-  
+  return (
+    <MuxPlayer 
+      playbackId={playbackId} 
+      metadata={{video_title: title}} 
+      streamType="on-demand" 
+      autoPlay={true}
+    />
+    )
 }

@@ -130,7 +130,7 @@ export function useShopify() {
 	const visualData = useSelector((appState) => appState.shopifyState.visual)
 	const soundData = useSelector((appState) => appState.shopifyState.sound)
 	const fashionData = useSelector((appState) => appState.shopifyState.fashion)
-	const HamburgerStatus = useSelector((appState) => appState.shopifyState.isHamburgerOpen)
+	const hamburgerStatus = useSelector((appState) => appState.shopifyState.isHamburgerOpen)
 	const uxData = useSelector((appState) => appState.shopifyState.ux)
 	const setProjectCategory = (Cat) => dispatch(handleProjectCat(Cat))
 	const setClientCategory = (clientCat) => dispatch(handleClientCat(clientCat))
@@ -140,7 +140,7 @@ export function useShopify() {
 	const setFashionData = (fashion) => dispatch(getFashion(fashion))
 	const setUXData = (ux) => dispatch(getUX(ux))
 	const closeHamburger = () => dispatch(handleHamburgerClose())
-	const OpenHamburger = () => dispatch(handleHamburgerOpen())
+	const openHamburger = () => dispatch(handleHamburgerOpen())
 
 	return {
 		visualData,
@@ -150,7 +150,7 @@ export function useShopify() {
 		projectIndex,
 		projectCat,
 		clientCategory,
-		HamburgerStatus,
+		hamburgerStatus,
 		setProjectCategory,
 		setClientCategory,
 		setProjectIndex,
@@ -159,6 +159,6 @@ export function useShopify() {
 		setFashionData,
 		setUXData,
 		closeHamburger,
-		OpenHamburger,
+		openHamburger,
 	}
 }

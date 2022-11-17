@@ -14,18 +14,9 @@ const Header = () => {
     const [landingNav, setLandingNav] = useState(true);
     // const [hamburger, setHamburger] = useState(false);
     const [route, setRoute] = useState();
-    const { HamburgerStatus, closeHamburger, OpenHamburger } = useShopify()
     let location = useLocation();
     let navigate = useNavigate();
     const path = location.pathname
-
-    function handleHamburger() {
-        if(HamburgerStatus) {
-            closeHamburger()
-        } else {
-            OpenHamburger()
-        }
-    }
 
     useEffect(() => {
         if(path === '/landing'){
@@ -122,10 +113,8 @@ const Header = () => {
                         </motion.div>
                         {!landingNav ? 
                             <div className='d-block d-lg-none' style={{ width: "33.33%", color: "white", textAlign: "right" }}>
-                                <div onClick={() => handleHamburger()}>
                                     <HamburgerMenu 
                                     />
-                                </div>
                             </div> : null
                         }
                         <Hamburger />

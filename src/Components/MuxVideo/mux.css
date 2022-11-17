@@ -3,7 +3,7 @@ mux-player {
     --seek-live-button: none;
     --seek-backward-button: none;
     --seek-forward-button: none;
-    /* --mute-button: none; */
+    --mute-button: none;
     --captions-button: none;
     --airplay-button: none;
     --pip-button: none;
@@ -11,11 +11,11 @@ mux-player {
     --cast-button: none;
     --playback-rate-button: none;
     --volume-range: none;
-    /* --time-range: none; */
+    --time-range: none;
     --time-display: none;
     --duration-display: none;
-    /* --controls: none;
-    --playback-rate-button: true; */
+    /* --controls: none; */
+    --playback-rate-button: none;
 } 
 
 /* mux-player::part(center play button) {
