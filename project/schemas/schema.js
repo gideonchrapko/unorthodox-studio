@@ -7,6 +7,7 @@ import visualProject from './visualProject';
 import FashionProject from './FashionProject';
 import uxProject from './UXProject';
 import soundProject from './SoundProject';
+import about from './about'
 
 import VisualClients from './VisualClients';
 import FashionClients from './FashionClients';
@@ -26,5 +27,6 @@ export default createSchema({
     FashionClients,
     UXClients,
     SoundClients,
+    about,
   ]),
 })

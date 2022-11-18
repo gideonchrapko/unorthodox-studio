@@ -106,7 +106,6 @@ const Home = () => {
                 })
                 setClientAlphabet(sorted_obj)
         }
-        
     },[clientData])
 
     return (

@@ -201,3 +201,10 @@
 .close-modal-icon:hover {
   transform: rotate(90deg);
 }
+
+.about-body {
+  font-family: sans-serif;
+  font-size: 15pt;
+  font-weight: 100;
+  color: white;
+}
