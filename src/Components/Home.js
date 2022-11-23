@@ -270,7 +270,7 @@ const Home = () => {
                                 >
                                     Clients
                                 </h4>
-                                <div style={{ height: "75vh", overflowY: "scroll" }}>
+                                <div style={{ height: "75vh", overflowY: "auto" }}>
                                     {clientAlphabetic &&
                                         clientAlphabetic.map((clients, index) => {
                                             const clientsId = clients._id
