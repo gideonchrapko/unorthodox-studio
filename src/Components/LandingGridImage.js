@@ -17,11 +17,12 @@ const LandingGridImage = (props) => {
     const builder = imageUrlBuilder(sanityClient);
     const navigate = useNavigate();
     const mobile = window.innerWidth < 600;
+
     // const projectImage = project.projectImages[0].asset === undefined ? "" : project.projectImages[0].asset
 
-    const { ref, inView } = useInView({
-        threshold: 0,
-      });
+    // const { ref, inView } = useInView({
+    //     threshold: 0,
+    //   });
 
     function urlFor(source) {
         return builder.image(source)
@@ -66,10 +67,9 @@ const LandingGridImage = (props) => {
                         {project.projectTitle && project.projectTitle}
                     </motion.h4>
                     <div
-                        ref={ref}
                         index={index}
                         style={{
-                            backgroundImage: `url(${inView ? project.projectImages[0].asset === undefined ? Placeholder : urlFor(project.projectImages[0].asset).width(500).height(500).url() : null})`,
+                            backgroundImage: `url(${project.projectImages[0].asset === undefined ? Placeholder : urlFor(project.projectImages[0].asset).width(500).height(500).url()})`,
                             filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
                         }}
                         className="content"

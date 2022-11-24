@@ -156,7 +156,7 @@ const Home = () => {
                     </Row>
                 </section>
                 <section>
-                    <Row style={{ height: "15vh", position: "sticky", top: "5vh", backgroundColor: "black", zIndex: "9" }}>
+                    <Row style={{ height: "15vh", position: "sticky", top: 0, backgroundColor: "black", zIndex: "9" }}>
                         <Col lg={12}>
                             <ul className='mainMenu-ul' >
                                 <li className='mainMenu-li'
@@ -222,7 +222,8 @@ const Home = () => {
                         <Col>
                             <AnimatePresence initial={false} >
                                 <h4 
-                                    style={{ color: "white", fontSize: "15pt", cursor: "pointer" }}
+                                    className='client-mobile-header-text'
+                                    style={{ color: "white", cursor: "pointer" }}
                                     onClick={() => setClientClicked(!clientClicked)}
                                 >
                                     Clients
