@@ -77,6 +77,9 @@ const Home = () => {
         .catch(console.error)
       },[clientsIndex])
 
+      console.log(displayClientsProj, "displayClientsProj")
+      console.log(projectCat, "projectCat")
+
       function clientList(clientsId) {
             if(clientsIndex === clientsId){
                 setDisplayClientsProj(false)
@@ -295,7 +298,7 @@ const Home = () => {
                             </div>
                         </Col>
                         <Col lg={10} style={{ display: "flex", flexWrap: "wrap", height: "100%" }}>
-                                {!displayClientsProj && projectCat === "visualProject" &&
+                                {/* {!displayClientsProj && projectCat === "visualProject" &&
                                     visualData.map((project, index) => {
                                         return (
                                             <LandingGridImage
@@ -305,7 +308,7 @@ const Home = () => {
                                             />
                                         )
                                     })
-                                }
+                                } */}
                                 {!displayClientsProj && projectCat === "soundProject" &&
                                     soundData.map((project, index) => {
                                         return (
