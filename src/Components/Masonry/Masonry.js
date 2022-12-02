@@ -68,7 +68,7 @@ export default function(props) {
                                     src={urlFor(image.asset).width(size).height(size).url()} 
                                     key={i} 
                                     className='image'
-                                    style={{ padding: gap/0.15 }}
+                                    style={{ padding: mobile ? 0 : gap/0.15 }}
                                     onClick={e => {
                                         setImage(image.asset)
                                         setModal(true)

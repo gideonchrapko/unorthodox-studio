@@ -112,7 +112,7 @@ const SingleProject = () => {
               }
             </Col>
           </Row>
-          <Row style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+          <Row style={{ marginTop: "5vh" }}>
             <Col lg={{ offset: 1, span: 10 }}>
               {singlePost && singlePost[0].playbackId &&
                 <Video 
@@ -122,14 +122,14 @@ const SingleProject = () => {
               }
               <Masonry images={images} columnCount={mobile ? "1" : "2"} gap="10" />
             </Col>
-          <Row style={{ marginTop: "50vh", width: "100%" }}>
-            <Col lg={{ span: 8, offset: 4 }} className='d-md-none d-none d-lg-inline'>
-              <h4 style={{ color: "white" }}>RELATED PROJECTS:</h4>
-            </Col>
-            <Col sm={{ span: 6, offset: 6 }} xs={{ span: 6, offset: 6 }} className='d-block d-lg-none'>
-              <h6 style={{ color: "white" }}>RELATED PROJECTS:</h6>
-            </Col>
-          </Row>
+            <Row style={{ marginTop: "20vh", width: "100%" }}>
+              <Col lg={{ span: 8, offset: 4 }} className='d-md-none d-none d-lg-inline'>
+                <h4 style={{ color: "white" }}>RELATED PROJECTS:</h4>
+              </Col>
+              <Col sm={{ span: 6, offset: 6 }} xs={{ span: 6, offset: 6 }} className='d-block d-lg-none'>
+                <h6 style={{ color: "white" }}>RELATED PROJECTS:</h6>
+              </Col>
+            </Row>
           </Row>
             <ProjectFooter 
               clientNames={clientNames}
