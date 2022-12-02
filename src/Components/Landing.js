@@ -81,7 +81,7 @@ const Landing = () => {
               }} 
               shadows 
               camera={{ position: [0, 0, 12], fov: mobile ? 40 : 28 }}
-            >                
+            >
               <Effects />
                 <Video />
                 <Suspense fallback={null}>
@@ -95,7 +95,7 @@ const Landing = () => {
                   <Logo entered={entered} rotation={rotation} {...bind()}/>
                 </Suspense>
             </Canvas>
-            <MailchimpSubscribe />
+            {/* <MailchimpSubscribe /> */}
         </Container>
     )
 }

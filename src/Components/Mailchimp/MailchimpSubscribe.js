@@ -7,13 +7,17 @@ import InputField from "./InputField";
 import './Mailchimp.css'
 
 const CustomForm = ({ status, message, onValidated }) => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [yourMessage, setMessage] = useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
         email &&
         email.indexOf("@") > -1 &&
         onValidated({
-            MERGE0: email
+            MERGE0: email,
+            MERGE1: name,
+            MERGE2: yourMessage
         });
     }
     useEffect(() => {
@@ -21,13 +25,15 @@ const CustomForm = ({ status, message, onValidated }) => {
     }, [status])
     const clearFields = () => {
         setEmail('');
+        setName('');
+        setMessage('');
     }
 
     return (
         <form onSubmit={(e) => handleSubmit(e)} >
-            <h3 className='mail-header'>
+            <h5 className='mail-header'>
                 {/* LIVE__FROM__THE__FUTURE */}
-            </h3>
+            </h5>
             {status === "sending" && (
                 <div className='mail-header'>sending...</div>
             )}
@@ -38,16 +44,41 @@ const CustomForm = ({ status, message, onValidated }) => {
                 <div className='mail-header'>SUCCESS__THANK YOU</div>
             )}
             {status !== "success" ? (
-                <div className="inputTextStyling">
-                    <InputField
-                        label="Email"
-                        onChangeHandler={setEmail}
-                        type="email"
-                        value={email}
-                        isRequired
-                        placeholder="Your Email"
-                    />
-                </div>
+                <>
+                    <h5 className='header-text'>Name</h5>
+                    <div className="inputTextStyling">
+                        <InputField
+                            label="Name"
+                            onChangeHandler={setName}
+                            type="name"
+                            value={name}
+                            isRequired
+                            // placeholder="Your Name"
+                        />
+                    </div>
+                    <h5 className='header-text'>Email</h5>
+                    <div className="inputTextStyling">
+                        <InputField
+                            label="Email"
+                            onChangeHandler={setEmail}
+                            type="email"
+                            value={email}
+                            isRequired
+                            // placeholder="Your Email"
+                        />
+                    </div>
+                    <h5 className='header-text'>Message</h5>
+                    <div className="inputTextStyling">
+                        <InputField
+                            label="Message"
+                            onChangeHandler={setMessage}
+                            type="message"
+                            value={yourMessage}
+                            isRequired
+                            // placeholder="Your Message"
+                        />
+                    </div>
+                </>
             ) : null}
             {status !== 'success' ? 
                 <div>

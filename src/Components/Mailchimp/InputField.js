@@ -21,7 +21,7 @@ const InputField = props => {
         return (
             <label>
                 <input
-                    className='mail-header mail-input'
+                    className={props.type === "message" ? 'mail-header mail-input-message' : 'mail-header mail-input'}
                     onChange={(e) => props.onChangeHandler(e.target.value)}
                     type={props.type}
                     placeholder={props.placeholder}

@@ -104,7 +104,7 @@ const Header = () => {
                                         </h4>
                                     </li>
                                     <li className='Nav-li'>
-                                        <h4 className={`nav-text ${route === "/contact" ? 'nav-text-active' : ''}`} >
+                                        <h4 className={`nav-text ${route === "/contact" ? 'nav-text-active' : ''}`} onClick={() => navigate('/contact')}>
                                             CONTACT
                                         </h4>
                                     </li>

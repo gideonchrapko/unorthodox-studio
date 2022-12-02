@@ -29,9 +29,9 @@ const Hamburger = () => {
             <Link className='hamburger-text' to="/about" onClick={() => closeHamburger()}>
                 <h3 style={{ padding: "10px 10px 10px 20px" }}>ABOUT</h3>
             </Link>
-            <a className='hamburger-text' href="mailto:max@unorthodoxstudio.ca" onClick={() => closeHamburger()}>
+            <Link className='hamburger-text' to='/contact' onClick={() => closeHamburger()}>
                 <h3 style={{ padding: "10px 10px 10px 20px" }}>CONTACT</h3>
-            </a>
+            </Link>
         </motion.div>
     )
 }
