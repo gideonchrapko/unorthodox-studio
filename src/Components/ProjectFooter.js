@@ -14,7 +14,6 @@ const ProjectFooter = (props) => {
     const [data, setData] = useState();
     const [matchingProjectData, setMatchingProjectData] = useState();
     const [nonMatchingProjectData, setNonMatchingProjectData] = useState();
-    // const [matchLength, setMatchLength] = useState();
     const mobile = window.innerWidth < 600
     const navigate = useNavigate();
 
@@ -54,8 +53,8 @@ const ProjectFooter = (props) => {
 
     return (
             <Row style={{ width: "100%", marginLeft: 0, marginBottom: "20px" }}>
-                <Col style={{ display: "flex", flexWrap: "wrap" }}>
-                    <div className='square' style={{ flexBasis: mobile ? "calc(50% - 10px)" : "calc(33.333% - 10px)" }}>
+                <Col style={{ display: "flex", flexWrap: "wrap" }} className='d-sm-none d-none d-md-flex d-lg-flex'>
+                    <div className='square' style={{ flexBasis: "calc(33.333% - 10px)" }}>
                         <div className='content' style={{ background: "grey" }} onClick={() => navigate('/')}>
                             <div style={{ position: "relative", cursor: "pointer", width: "100%", top: 0, left: 0 }}>
                                 <GoBackLottie />
@@ -94,6 +93,48 @@ const ProjectFooter = (props) => {
                     }
                     {data && data.length === 0 && nonMatchingProjectData && nonMatchingProjectData.length === projectIndex + 1  && 
                         nonMatchingProjectData.slice(projectIndex - 2, projectIndex).map((project, index) => {
+                            return (
+                                <>
+                                    <LandingGridImage
+                                        project={project}
+                                        index={index}
+                                    />
+                                </>
+                            )
+                        })
+                    }
+                </Col>
+                {/* for mobile view only show one related project */}
+                <Col style={{ display: "flex", flexWrap: "wrap" }} className='d-flex d-md-none'>
+                    <div className='square' style={{ flexBasis: "calc(50% - 10px)" }}>
+                        <div className='content' onClick={() => navigate('/')}>
+                            <div style={{ position: "relative", cursor: "pointer", width: "100%", top: 0, left: 0 }}>
+                                <GoBackLottie />
+                            </div>
+                        </div>
+                    </div>
+                    {data &&
+                        data.slice(0, 1).map((project, index) => {
+                            return (
+                                <LandingGridImage
+                                    project={project}
+                                    index={index}
+                                />
+                            )
+                        })
+                    }
+                    {data && data.length === 0 && nonMatchingProjectData &&
+                        nonMatchingProjectData.slice(projectIndex + 1, projectIndex + 2).map((project, index) => {
+                            return (
+                                <LandingGridImage
+                                    project={project}
+                                    index={index}
+                                />
+                            )
+                        })
+                    }
+                    {data && data.length === 0 && nonMatchingProjectData && nonMatchingProjectData.length === projectIndex + 1  && 
+                        nonMatchingProjectData.slice(projectIndex - 1, projectIndex).map((project, index) => {
                             return (
                                 <>
                                     <LandingGridImage
