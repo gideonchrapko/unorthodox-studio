@@ -22,28 +22,26 @@ const CustomForm = ({ status, message, onValidated }) => {
     }
     useEffect(() => {
         if(status === "success") clearFields();
-    }, [status])
-    const clearFields = () => {
-        setEmail('');
-        setName('');
-        setMessage('');
+        }, [status])
+        const clearFields = () => {
+            setEmail('');
+            setName('');
+            setMessage('');
     }
+
+    function submitButtom() {
+        
+    }
+
 
     return (
         <form onSubmit={(e) => handleSubmit(e)} >
             <h5 className='mail-header'>
                 {/* LIVE__FROM__THE__FUTURE */}
             </h5>
-            {status === "sending" && (
-                <div className='mail-header'>sending...</div>
-            )}
             {status === "error" && (
                 <div className='mail-header' dangerouslySetInnerHTML={{ __html: message }} />
             )}
-            {status === "success" && (
-                <div className='mail-header'>SUCCESS__THANK YOU</div>
-            )}
-            {status !== "success" ? (
                 <>
                     <h5 className='header-text'>Name</h5>
                     <div className="inputTextStyling">
@@ -79,15 +77,22 @@ const CustomForm = ({ status, message, onValidated }) => {
                         />
                     </div>
                 </>
-            ) : null}
             {status !== 'success' ? 
                 <div>
-                    <InputField
-                        label="ENTER"
-                        type="submit"
-                        formValues={[email]}
-                    />
-                </div> : null
+                    {status === "sending" ?
+                        <div className='mail-header'>sending...</div>
+                        :
+                        <div>
+                            <InputField
+                                label="ENTER"
+                                type="submit"
+                                formValues={[email]}
+                            />
+                        </div> 
+                    }
+                </div>
+                :
+                <div className='mail-header'>SUCCESS__THANK YOU</div>
             }
         </form>
     );
