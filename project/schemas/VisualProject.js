@@ -1,15 +1,15 @@
-import {
-    orderRankField,
-    orderRankOrdering,
-  } from '@sanity/orderable-document-list';
+// import {
+//     orderRankField,
+//     orderRankOrdering,
+//   } from '@sanity/orderable-document-list';
 
 export default {
     name: 'visualProject',
     title: 'Visual Project Upload',
     type: 'document',
-    orderings: [orderRankOrdering],
+    // orderings: [orderRankOrdering],
     fields: [
-        orderRankField({ type: 'uxProject' }),
+        // orderRankField({ type: 'uxProject' }),
         {
             name: "slugRoute",
             title: "Slug Route",

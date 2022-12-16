@@ -1,15 +1,21 @@
-import {
-    orderRankField,
-    orderRankOrdering,
-  } from '@sanity/orderable-document-list';
+// import {
+//     orderRankField,
+//     orderRankOrdering,
+//   } from '@sanity/orderable-document-list';
 
 export default {
     name: 'uxProject',
     title: 'UX Project Upload',
     type: 'document',
-    orderings: [orderRankOrdering],
+    // orderings: [orderRankOrdering],
     fields: [
-        orderRankField({ type: 'uxProject' }),
+        // orderRankField({ type: 'uxProject' }),
+        {
+            name: "projectTitle",
+            title: "Project Title",
+            type: "string",
+            validation: Rule => Rule.required()
+        },
         {
             name: "slugRoute",
             title: "Slug Route",
@@ -17,18 +23,12 @@ export default {
             validation: Rule => Rule.required(),
             options: {
                 source: 'projectTitle',
-                maxLength: 200, // will be ignored if slugify is set
+                maxLength: 200,
                 slugify: input => input
                     .toLowerCase()
                     .replace(/\s+/g, '-')
                     .slice(0, 200)
               }
-        },
-        {
-            name: "projectTitle",
-            title: "Project Title",
-            type: "string",
-            validation: Rule => Rule.required()
         },
         {
             name: "projectDate",

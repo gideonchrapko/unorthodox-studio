@@ -10,7 +10,7 @@ import sanityClient from '../client';
 import ProjectFooter from './ProjectFooter';
 import Masonry from './Masonry/Masonry';
 import Video from './MuxVideo/ProjectVideo';
-// import ImageModal from './ImageModal';
+
 import './SinglePage.css';
 
 const SingleProject = () => {

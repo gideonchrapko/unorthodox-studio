@@ -24,15 +24,14 @@ export default function LandingVideo(props) {
       ref={ref} 
       style={{ 
         width: "100%",
-        height: "65vh",
-        // aspectRatio: "5/2"
+        height: "65vh"
        }} 
       autoplay={true}
       playbackId={playbackId} 
       metadata={{video_title: title}} 
       streamType="on-demand"
       muted={true}
-      loop={true}
+      loop={false}
     />
   )
 }
