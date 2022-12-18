@@ -5,7 +5,7 @@ import './mux.css'
 
 export default function LandingVideo(props) {
   const { playbackId, title } = props
-  // const [muted, setMuted] = useState(false);
+  const [togglePlay, setTogglePlay] = useState(true)
   const ref = useRef();
 
   useEffect(() => {
@@ -19,13 +19,21 @@ export default function LandingVideo(props) {
        }); 
   },[])
 
+  useEffect(() => {
+    if(togglePlay){
+      ref.current.p()
+    }
+  },[togglePlay])
+
   return (
     <MuxPlayer 
       ref={ref} 
+      className='landing'
       style={{ 
         width: "100%",
         height: "65vh"
-       }} 
+       }}
+      onClick={() => setTogglePlay(!togglePlay)}
       autoplay={true}
       playbackId={playbackId} 
       metadata={{video_title: title}} 

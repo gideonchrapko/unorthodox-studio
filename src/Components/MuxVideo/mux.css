@@ -1,5 +1,5 @@
-mux-player {
-    /* --play-button: none; */
+.landing {
+    --play-button: none;
     --seek-live-button: none;
     --seek-backward-button: none;
     --seek-forward-button: none;
@@ -18,6 +18,14 @@ mux-player {
     --playback-rate-button: none;
 } 
 
-/* mux-player::part(center play button) {
-    display: none;
-  } */
+.project {
+    --seek-live-button: none;
+    --playback-rate-button: none;
+    --cast-button: none;
+    --airplay-button: none;
+    --seek-backward-button: none;
+    --seek-forward-button: none;
+    --volume-range: none;
+    --time-display: none;
+    height: 80vh;
+}
