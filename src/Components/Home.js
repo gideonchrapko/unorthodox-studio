@@ -77,9 +77,6 @@ const Home = () => {
         .catch(console.error)
       },[clientsIndex])
 
-      console.log(displayClientsProj, "displayClientsProj")
-      console.log(projectCat, "projectCat")
-
       function clientList(clientsId) {
             if(clientsIndex === clientsId){
                 setDisplayClientsProj(false)
