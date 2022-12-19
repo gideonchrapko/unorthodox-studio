@@ -19,11 +19,11 @@ export default function LandingVideo(props) {
        }); 
   },[])
 
-  useEffect(() => {
-    if(togglePlay){
-      ref.current.p()
-    }
-  },[togglePlay])
+  // useEffect(() => {
+  //   if(togglePlay){
+  //     ref.current.p()
+  //   }
+  // },[togglePlay])
 
   return (
     <MuxPlayer 

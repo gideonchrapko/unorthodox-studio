@@ -234,6 +234,7 @@ const Home = () => {
                                         className='d-inline d-lg-none' 
                                         src={clientClicked ? minus : plus} 
                                         style={{ marginLeft: "10px",  width: "10px" }}
+                                        alt={clientClicked ? "Show client list" : "Hide client list"} 
                                     />
                                 </h4>
                                 <div style={{ transform: clientClicked ? "translateY(0)" : "translateY(-100px)", transition: "transform 0.5s" }} >
