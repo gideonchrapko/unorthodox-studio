@@ -46,6 +46,7 @@ export default function Masonry(props) {
                         images.map((image, i) => 
                                 <img 
                                     src={urlFor(image.asset).url()} 
+                                    alt='project preivew'
                                     key={i} 
                                     className='image'
                                     style={{ padding: gap/2 }}
@@ -66,6 +67,7 @@ export default function Masonry(props) {
                                 <img 
                                     src={urlFor(image.asset).width(size).height(size).url()} 
                                     key={i} 
+                                    alt='project preivew'
                                     className='image'
                                     style={{ padding: mobile ? 0 : gap/0.15 }}
                                     onClick={e => {
