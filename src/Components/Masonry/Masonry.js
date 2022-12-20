@@ -6,7 +6,7 @@ import Close from '../../Assets/closeModal.svg';
 import Placeholder from '../../Assets/placeholderImage-01.png';
 import './masonry.css'
 
-export default function(props) {
+export default function Masonry(props) {
     const { images, columnCount, gap } = props
     const [modal, setModal] = useState();
     const [image, setImage] = useState();
@@ -30,7 +30,6 @@ export default function(props) {
             document.removeEventListener('keydown', keyDownHandler);
           };
       }, []);
-    
     return (
         <>
             {modal &&
