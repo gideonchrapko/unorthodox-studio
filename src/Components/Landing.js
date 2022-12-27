@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { useDrag } from 'react-use-gesture';
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import MailchimpSubscribe from './Mailchimp/MailchimpSubscribe';
+// import MailchimpSubscribe from './Mailchimp/MailchimpSubscribe';
 
 import Logo from '../Components3D/Logo';
 import Controls from '../Components3D/Controls';

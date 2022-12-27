@@ -29,11 +29,6 @@ const CustomForm = ({ status, message, onValidated }) => {
             setMessage('');
     }
 
-    function submitButtom() {
-        
-    }
-
-
     return (
         <form onSubmit={(e) => handleSubmit(e)} >
             <h5 className='mail-header'>
@@ -84,7 +79,7 @@ const CustomForm = ({ status, message, onValidated }) => {
                         :
                         <div>
                             <InputField
-                                label="ENTER"
+                                label="SEND"
                                 type="submit"
                                 formValues={[email]}
                             />
@@ -97,7 +92,6 @@ const CustomForm = ({ status, message, onValidated }) => {
         </form>
     );
 };
-
 
 const MailchimpForm = props => {
     const url = `https://gmail.us10.list-manage.com/subscribe/post?u=f44c41b585cf2ea8136952a5f&amp;id=b1506a89aa&amp;f_id=001730e2f0`;
