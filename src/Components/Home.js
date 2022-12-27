@@ -94,7 +94,6 @@ const Home = () => {
     useEffect(() => {
         if(clientData !== undefined){
             let propName = 'clientsName';
-
             let sorted_obj = clientData.sort((a,b) => {
                 if(a[propName] > b[propName]) {
                     return 1;
@@ -234,7 +233,8 @@ const Home = () => {
                                         alt={clientClicked ? "Show client list" : "Hide client list"} 
                                     />
                                 </h4>
-                                <div style={{ transform: clientClicked ? "translateY(0)" : "translateY(-100px)", transition: "transform 0.5s" }} >
+                                <div style={{ transform: clientClicked ? "translateY(0)" : "translateY(-100px)", transition: "transform 0.5s" }}>
+
                                 {clientClicked &&
                                     <div style={{ width: "100%"}} >
                                         {clientAlphabetic &&
@@ -273,6 +273,7 @@ const Home = () => {
                                     Clients
                                 </h4>
                                 <div style={{ height: "75vh", overflowY: "auto" }} className='client-div'>
+
                                     {clientAlphabetic &&
                                         clientAlphabetic.map((clients, index) => {
                                             const clientsId = clients._id
@@ -295,52 +296,53 @@ const Home = () => {
                                 </div>
                             </div>
                         </Col>
-                        <Col lg={10} style={{ display: "flex", flexWrap: "wrap", height: "100%" }}>
-                                {!displayClientsProj && projectCat === "visualProject" &&
-                                    visualData.map((project, index) => {
-                                        return (
-                                            <LandingGridImage
-                                                project={project}
-                                                key={index}
-                                                index={index}
-                                            />
-                                        )
-                                    })
-                                }
-                                {!displayClientsProj && projectCat === "soundProject" &&
-                                    soundData.map((project, index) => {
-                                        return (
-                                            <LandingGridImage
-                                                project={project}
-                                                key={index}
-                                                index={index}
-                                            />
-                                        )
-                                    })
-                                }
-                                {!displayClientsProj && projectCat === "fashionProject" &&
-                                    fashionData.map((project, index) => {
-                                        return (
-                                            <LandingGridImage
-                                                project={project}
-                                                key={index}
-                                                index={index}
-                                            />
-                                        )
-                                    })
-                                }
-                                {!displayClientsProj && projectCat === "uxProject" &&
-                                    uxData.map((project, index) => {
-                                        return (
-                                            <LandingGridImage
-                                                project={project}
-                                                key={index}
-                                                index={index}
-                                            />
-                                        )
-                                    })
-                                }
-
+                        {/* sometimes when you load the page you get a object.map is undefined when you freshly reload the site and no visualData state is persisted */}
+                        {projectCat !== null &&
+                            <Col lg={10} style={{ display: "flex", flexWrap: "wrap", height: "100%" }}>
+                                    {!displayClientsProj && projectCat === "visualProject" &&
+                                        visualData.map((project, index) => {
+                                            return (
+                                                <LandingGridImage
+                                                    project={project}
+                                                    key={index}
+                                                    index={index}
+                                                />
+                                            )
+                                        })
+                                    }
+                                    {!displayClientsProj && projectCat === "soundProject" &&
+                                        soundData.map((project, index) => {
+                                            return (
+                                                <LandingGridImage
+                                                    project={project}
+                                                    key={index}
+                                                    index={index}
+                                                />
+                                            )
+                                        })
+                                    }
+                                    {!displayClientsProj && projectCat === "fashionProject" &&
+                                        fashionData.map((project, index) => {
+                                            return (
+                                                <LandingGridImage
+                                                    project={project}
+                                                    key={index}
+                                                    index={index}
+                                                />
+                                            )
+                                        })
+                                    }
+                                    {!displayClientsProj && projectCat === "uxProject" &&
+                                        uxData.map((project, index) => {
+                                            return (
+                                                <LandingGridImage
+                                                    project={project}
+                                                    key={index}
+                                                    index={index}
+                                                />
+                                            )
+                                        })
+                                    }
                                 {displayClientsProj && clientProjectData &&
                                     clientProjectData.map((project, index) => {
                                         return (
@@ -353,6 +355,7 @@ const Home = () => {
                                     })
                                 }
                         </Col>
+                        }
                     </Row>
                 </section>
             </Container>
