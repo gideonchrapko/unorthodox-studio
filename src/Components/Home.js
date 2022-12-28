@@ -24,7 +24,7 @@ const Home = () => {
     } = useShopify();
 
     const [clientClicked, setClientClicked] = useState(false)
-    const [projectData, setProjectData] = useState()
+    // const [projectData, setProjectData] = useState()
     const [clientData, setClientData] = useState();
     const [displayClientsProj, setDisplayClientsProj] = useState(false);
     const [clientAlphabetic, setClientAlphabet] = useState();
@@ -55,16 +55,16 @@ const Home = () => {
         .catch(console.error)
       },[clientCategory])
 
-      useEffect(() => {
-        sanityClient.fetch(`*[_type == "${projectCat}"]{
-            slugRoute,
-            projectImages,
-            projectTitle,
-            clients,
-        }`)
-        .then((data) => setProjectData(data))
-        .catch(console.error)
-      },[projectCat])
+    //   useEffect(() => {
+    //     sanityClient.fetch(`*[_type == "${projectCat}"]{
+    //         slugRoute,
+    //         projectImages,
+    //         projectTitle,
+    //         clients,
+    //     }`)
+    //     .then((data) => setProjectData(data))
+    //     .catch(console.error)
+    //   },[projectCat])
 
       useEffect(() => {
         sanityClient.fetch(`*[_type=="${projectCat}" && references("${clientsIndex}")]{
@@ -106,6 +106,8 @@ const Home = () => {
                 setClientAlphabet(sorted_obj)
         }
     },[clientData])
+
+    console.log(visualData)
 
     return (
         <motion.div
@@ -297,9 +299,8 @@ const Home = () => {
                             </div>
                         </Col>
                         {/* sometimes when you load the page you get a object.map is undefined when you freshly reload the site and no visualData state is persisted */}
-                        {projectCat !== null &&
                             <Col lg={10} style={{ display: "flex", flexWrap: "wrap", height: "100%" }}>
-                                    {!displayClientsProj && projectCat === "visualProject" &&
+                                    {!displayClientsProj && projectCat === "visualProject" && visualData.length !== undefined && 
                                         visualData.map((project, index) => {
                                             return (
                                                 <LandingGridImage
@@ -310,7 +311,7 @@ const Home = () => {
                                             )
                                         })
                                     }
-                                    {!displayClientsProj && projectCat === "soundProject" &&
+                                    {!displayClientsProj && projectCat === "soundProject" && soundData &&
                                         soundData.map((project, index) => {
                                             return (
                                                 <LandingGridImage
@@ -321,7 +322,7 @@ const Home = () => {
                                             )
                                         })
                                     }
-                                    {!displayClientsProj && projectCat === "fashionProject" &&
+                                    {!displayClientsProj && projectCat === "fashionProject" && fashionData && 
                                         fashionData.map((project, index) => {
                                             return (
                                                 <LandingGridImage
@@ -332,7 +333,7 @@ const Home = () => {
                                             )
                                         })
                                     }
-                                    {!displayClientsProj && projectCat === "uxProject" &&
+                                    {!displayClientsProj && projectCat === "uxProject" && uxData &&
                                         uxData.map((project, index) => {
                                             return (
                                                 <LandingGridImage
@@ -355,7 +356,6 @@ const Home = () => {
                                     })
                                 }
                         </Col>
-                        }
                     </Row>
                 </section>
             </Container>

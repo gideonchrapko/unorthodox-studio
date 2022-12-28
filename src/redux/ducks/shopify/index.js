@@ -44,28 +44,8 @@ export default (state = initialState, action) => {
 	}
 }
 
-function handleProjectCat(Cat) {
-	return {
-		type: PROJECT_CATEGORY,
-		payload: Cat
-	}
-}
-
-function handleClientCat(clientCat) {
-	return {
-		type: CLIENTS_CATEGORY,
-		payload: clientCat
-	}
-}
-
-function handleProjectIndex(index) {
-	return {
-		type: PROJECT_INDEX,
-		payload: index
-	}
-}
-
 function getVisual() {
+	console.log("get visual")
 	return (dispatch) => {
 		sanityClient.fetch(`*[_type == "visualProject"]{ slugRoute, projectImages, projectTitle, clients }`).then((data) => {
 			dispatch({
@@ -106,6 +86,27 @@ function getUX() {
 				payload: data,
 			})
 		})
+	}
+}
+
+function handleProjectCat(Cat) {
+	return {
+		type: PROJECT_CATEGORY,
+		payload: Cat
+	}
+}
+
+function handleClientCat(clientCat) {
+	return {
+		type: CLIENTS_CATEGORY,
+		payload: clientCat
+	}
+}
+
+function handleProjectIndex(index) {
+	return {
+		type: PROJECT_INDEX,
+		payload: index
 	}
 }
 
