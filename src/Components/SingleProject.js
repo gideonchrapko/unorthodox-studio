@@ -98,10 +98,11 @@ const SingleProject = () => {
                 singlePost[0].projectTeam.map((team, index) => {
                   const stringColinIndex = team.indexOf(':') + 1
                   const stringLength = team.length
+                  const objectLength = singlePost && singlePost[0].projectTeam.length
                   const newTeamStringTop = team.slice(0, stringColinIndex)
                   const newTeamStringBottom = team.slice(stringColinIndex, stringLength)
                   return (
-                      <div key={index} style={{ display: "inline-block" }}>
+                      <div key={index} style={{ display: objectLength < 3 ? "block" : "inline-block" }}>
                         <h5 style={{ fontWeight: "800" }} className='body-copy team'>{newTeamStringTop}</h5>
                         <h5 className='body-copy team'>{newTeamStringBottom}</h5>
                         {/* {index === 2 &&
