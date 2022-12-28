@@ -45,7 +45,6 @@ export default (state = initialState, action) => {
 }
 
 function getVisual() {
-	console.log("get visual")
 	return (dispatch) => {
 		sanityClient.fetch(`*[_type == "visualProject"]{ slugRoute, projectImages, projectTitle, clients }`).then((data) => {
 			dispatch({

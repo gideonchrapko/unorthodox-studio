@@ -26,7 +26,6 @@ function App() {
       setProjectCategory("visualProject")
       setClientCategory("visualClients")
     }
-    
   },[])
 
   return (

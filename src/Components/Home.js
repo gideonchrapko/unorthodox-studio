@@ -107,8 +107,6 @@ const Home = () => {
         }
     },[clientData])
 
-    console.log(visualData)
-
     return (
         <motion.div
             initial={{ opacity: 0 }}
