@@ -19,27 +19,27 @@ export default function LandingVideo(props) {
        }); 
   },[])
 
-  // useEffect(() => {
-  //   if(togglePlay){
-  //     ref.current.p()
-  //   }
-  // },[togglePlay])
+  useEffect(() => {
+    if(togglePlay){
+      ref.current.play()
+    } else {
+      ref.current.pause()
+    }
+  },[togglePlay])
+
 
   return (
     <MuxPlayer 
       ref={ref} 
       className='landing'
-      style={{ 
-        width: "100%",
-        height: "65vh"
-       }}
+      style={{ width: "100%", height: "65vh" }}
       onClick={() => setTogglePlay(!togglePlay)}
       autoplay={true}
       playbackId={playbackId} 
       metadata={{video_title: title}} 
       streamType="on-demand"
       muted={true}
-      loop={false}
+      loop={true}
     />
   )
 }

@@ -16,6 +16,7 @@
     --duration-display: none;
     --controls: none;
     --playback-rate-button: none;
+    cursor: pointer;
 } 
 
 .project {
@@ -27,5 +28,7 @@
     --seek-forward-button: none;
     --volume-range: none;
     --time-display: none;
+    --controls: none;
+    cursor: pointer;
     height: 80vh;
 }

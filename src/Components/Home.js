@@ -164,6 +164,11 @@ const Home = () => {
                                         setClientCategory('visualClients')
                                         setDisplayClientsProj(false)
                                         setClientsIndex()
+                                        // window.scrollTo({
+                                        //     top: 670,
+                                        //     left: 0,
+                                        //     behavior: 'smooth'
+                                        // })
                                     }}                            
                                 >
                                     <h5 className={`product-category-text ${projectCat === "visualProject" ? "product-category-text-active" : ""}`}>
@@ -177,6 +182,7 @@ const Home = () => {
                                         setClientCategory('soundClients')
                                         setDisplayClientsProj(false)
                                         setClientsIndex()
+                                        // window.scrollTo(0, 670)
                                     }}                            
                                 >
                                     <h5 className={`product-category-text ${projectCat === "soundProject" ? "product-category-text-active" : ""}`} >
@@ -190,6 +196,7 @@ const Home = () => {
                                         setClientCategory('fashionClients')
                                         setDisplayClientsProj(false)
                                         setClientsIndex()
+                                        // window.scrollTo(0, 900)
                                     }}                            
                                 >
                                     <h5 className={`product-category-text ${projectCat === "fashionProject" ? "product-category-text-active" : ""}`}>
@@ -203,6 +210,7 @@ const Home = () => {
                                     //     setClientCategory('uxClients')
                                     //     setDisplayClientsProj(false)
                                     //     setClientsIndex()
+                                    //      indow.scrollTo(0, 1000)
                                     // }}
                                 >
                                     <h5 style={{ color: "grey" }} className={`d-sm-none d-none d-lg-block d-md-block product-category-text ${projectCat === "uxProject" ? "product-category-text-active" : ""}`}>
