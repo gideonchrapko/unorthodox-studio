@@ -1,7 +1,13 @@
+import {
+    orderRankField,
+    orderRankOrdering,
+  } from '@sanity/orderable-document-list';
+
 export default {
     name: 'fashionProject',
     title: 'Fashion Project Upload',
     type: 'document',
+    orderings: [orderRankOrdering],
     fields: [
         {
             name: "slugRoute",
@@ -23,6 +29,7 @@ export default {
             type: "string",
             validation: Rule => Rule.required()
         },
+        orderRankField({ type: 'fashionProject' }),
         {
             name: "projectDate",
             title: "Project Date",
@@ -73,7 +80,6 @@ export default {
             name: 'projectImages',
             title: 'Project Images',
             type: 'array',
-            validation: Rule => Rule.required(),
             of: [
                 {
                     name: 'image',

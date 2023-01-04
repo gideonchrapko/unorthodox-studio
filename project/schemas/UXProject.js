@@ -1,21 +1,21 @@
-// import {
-//     orderRankField,
-//     orderRankOrdering,
-//   } from '@sanity/orderable-document-list';
+import {
+    orderRankField,
+    orderRankOrdering,
+  } from '@sanity/orderable-document-list';
 
 export default {
     name: 'uxProject',
     title: 'UX Project Upload',
     type: 'document',
-    // orderings: [orderRankOrdering],
+    orderings: [orderRankOrdering],
     fields: [
-        // orderRankField({ type: 'uxProject' }),
         {
             name: "projectTitle",
-            title: "Project Title",
+            title: "Title",
             type: "string",
             validation: Rule => Rule.required()
         },
+        orderRankField({ type: 'uxProject' }),
         {
             name: "slugRoute",
             title: "Slug Route",
@@ -80,7 +80,6 @@ export default {
             name: 'projectImages',
             title: 'Project Images',
             type: 'array',
-            validation: Rule => Rule.required(),
             of: [
                 {
                     name: 'image',

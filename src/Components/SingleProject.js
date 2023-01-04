@@ -71,6 +71,17 @@ const SingleProject = () => {
             </Col>
           </Row>
           <Row style={{ marginTop: "5vh" }}>
+            <Col lg={{ offset: 1, span: 10 }}>
+              {singlePost && singlePost[0].playbackId &&
+                <Video 
+                  playbackId={singlePost && singlePost[0].playbackId}
+                  title={singlePost && singlePost[0].videoPost.title}
+                />
+              }
+              <Masonry images={images} columnCount={mobile ? "1" : "2"} gap="10" />
+            </Col>
+          </Row>
+          <Row style={{ marginTop: "10vh" }}>
             <Col lg={12} >
                   <ul className='project-ul'>
                     <li className='project-li'>
@@ -111,24 +122,13 @@ const SingleProject = () => {
               }
             </Col>
           </Row>
-          <Row style={{ marginTop: "5vh" }}>
-            <Col lg={{ offset: 1, span: 10 }}>
-              {singlePost && singlePost[0].playbackId &&
-                <Video 
-                  playbackId={singlePost && singlePost[0].playbackId}
-                  title={singlePost && singlePost[0].videoPost.title}
-                />
-              }
-              <Masonry images={images} columnCount={mobile ? "1" : "2"} gap="10" />
+          <Row>
+            <Col style={{ marginTop: "20vh", width: "100%" }} lg={{ span: 8, offset: 4 }} className='d-md-none d-none d-lg-inline'>
+              <h4 style={{ color: "white" }}>RELATED PROJECTS:</h4>
             </Col>
-            <Row style={{ marginTop: "20vh", width: "100%" }}>
-              <Col lg={{ span: 8, offset: 4 }} className='d-md-none d-none d-lg-inline'>
-                <h4 style={{ color: "white" }}>RELATED PROJECTS:</h4>
-              </Col>
-              <Col sm={{ span: 6, offset: 6 }} xs={{ span: 6, offset: 6 }} className='d-block d-lg-none'>
-                <h6 style={{ color: "white" }}>RELATED PROJECTS:</h6>
-              </Col>
-            </Row>
+            <Col style={{ marginTop: "20vh", width: "100%" }} sm={{ span: 6, offset: 6 }} xs={{ span: 6, offset: 6 }} className='d-block d-lg-none'>
+              <h6 style={{ color: "white" }}>RELATED PROJECTS:</h6>
+            </Col>
           </Row>
             <ProjectFooter 
               clientNames={clientNames}
