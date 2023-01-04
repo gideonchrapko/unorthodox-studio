@@ -3,10 +3,10 @@ import imageUrlBuilder from '@sanity/image-url';
 import { useNavigate } from 'react-router-dom';
 import sanityClient from '../client';
 import { motion } from 'framer-motion';
-import { useInView } from "react-intersection-observer";
+// import { useInView } from "react-intersection-observer";
 import { useShopify } from '../hooks'
 
-import Placeholder from '../Assets/placeholderImage-01.png';
+// import Placeholder from '../Assets/placeholderImage-01.png';
 
 const LandingGridImage = (props) => {
     const { setProjectIndex, projectCat } = useShopify(); 
@@ -17,6 +17,7 @@ const LandingGridImage = (props) => {
     const builder = imageUrlBuilder(sanityClient);
     const navigate = useNavigate();
     const mobile = window.innerWidth < 600;
+    const muxUrl = project.playbackId !== null ? `https://image.mux.com/${project.playbackId}/thumbnail.jpg` : null
 
     // const projectImage = project.projectImages[0].asset === undefined ? "" : project.projectImages[0].asset
 
@@ -42,8 +43,6 @@ const LandingGridImage = (props) => {
         }
     },[projectData])
 
-    // console.log(project.projectImages[0].asset)
-
     return (
             <motion.div
                 initial={{ opacity: 0 }}
@@ -66,19 +65,19 @@ const LandingGridImage = (props) => {
                     >
                         {project.projectTitle && project.projectTitle}
                     </motion.h4>
-                    <div
-                        index={index}
-                        style={{
-                            backgroundImage: `url(${project.projectImages[0].asset === undefined ? Placeholder : urlFor(project.projectImages[0].asset).width(500).height(500).url()})`,
-                            filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
-                        }}
-                        className="content"
-                        onPointerUp={e => {
-                            navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)
-                            setProjectIndex(data && data.indexOf(`${project.projectTitle}`))
-                        }}
-                    >
-                    </div>
+                        <div
+                            index={index}
+                            style={{
+                                backgroundImage: `url(${project.projectImages !== null ? urlFor(project.projectImages[0].asset).width(500).height(500).url() : muxUrl })`,
+                                filter: hoverIndex === index ? "opacity(30%)" : "opacity(100%)",
+                            }}
+                            className="content"
+                            onPointerUp={e => {
+                                navigate(`/project/${project.slugRoute.current && project.slugRoute.current}`)
+                                setProjectIndex(data && data.indexOf(`${project.projectTitle}`))
+                            }}
+                        >
+                        </div>
             </motion.div>
     )
 }

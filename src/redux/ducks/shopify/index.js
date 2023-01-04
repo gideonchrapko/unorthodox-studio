@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
 
 function getVisual() {
 	return (dispatch) => {
-		sanityClient.fetch(`*[_type == "visualProject"]{ slugRoute, projectImages, projectTitle, clients }`).then((data) => {
+		sanityClient.fetch(`*[_type == "visualProject"]{ slugRoute, projectImages, projectTitle, clients, "playbackId": videoPost.video.asset->playbackId }`).then((data) => {
 			dispatch({
 				type: FETCH_VISUAL,
 				payload: data,
@@ -57,7 +57,7 @@ function getVisual() {
 
 function getSound() {
 	return (dispatch) => {
-		sanityClient.fetch(`*[_type == "soundProject"]{ slugRoute, projectImages, projectTitle, clients }`).then((data) => {
+		sanityClient.fetch(`*[_type == "soundProject"]{ slugRoute, projectImages, projectTitle, clients, "playbackId": videoPost.video.asset->playbackId }`).then((data) => {
 			dispatch({
 				type: FETCH_SOUND,
 				payload: data,
@@ -68,7 +68,7 @@ function getSound() {
 
 function getFashion() {
 	return (dispatch) => {
-		sanityClient.fetch(`*[_type == "fashionProject"]{ slugRoute, projectImages, projectTitle, clients }`).then((data) => {
+		sanityClient.fetch(`*[_type == "fashionProject"]{ slugRoute, projectImages, projectTitle, clients, "playbackId": videoPost.video.asset->playbackId }`).then((data) => {
 			dispatch({
 				type: FETCH_FASHION,
 				payload: data,
@@ -79,7 +79,7 @@ function getFashion() {
 
 function getUX() {
 	return (dispatch) => {
-		sanityClient.fetch(`*[_type == "uxProject"]{ slugRoute, projectImages, projectTitle, clients }`).then((data) => {
+		sanityClient.fetch(`*[_type == "uxProject"]{ slugRoute, projectImages, projectTitle, clients, "playbackId": videoPost.video.asset->playbackId }`).then((data) => {
 			dispatch({
 				type: FETCH_UX,
 				payload: data,

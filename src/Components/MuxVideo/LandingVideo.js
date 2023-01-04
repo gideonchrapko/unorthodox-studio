@@ -27,6 +27,7 @@ export default function LandingVideo(props) {
     }
   },[togglePlay])
 
+  console.log()
 
   return (
     <MuxPlayer 
