@@ -70,7 +70,7 @@ const SingleProject = () => {
               <h1 className='header-title-text' style={{ paddingTop: "5px" }}>{singlePost && singlePost[0].projectTitle}</h1>
             </Col>
           </Row>
-          <Row style={{ marginTop: "5vh" }}>
+          <Row style={{ marginTop: "1vh" }}>
             <Col lg={{ offset: 1, span: 10 }}>
               {singlePost && singlePost[0].playbackId &&
                 <Video 
