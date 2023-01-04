@@ -59,13 +59,13 @@ const SingleProject = () => {
 					content={singlePost && singlePost[0].projectDescription[0].children[0].text}
 				/>
 			</Helmet>
-        <Container fluid style={{ marginTop: "10vh" }}>
+        <Container fluid style={{ marginTop: "7vh" }}>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 3 } }}
             exit={{ opacity: 0 }}
           >
-          <Row style={{ top: "5vh", background: "transparent", zIndex: "9" }}>
+          <Row style={{ background: "transparent", zIndex: "9" }}>
             <Col lg={12}>
               <h1 className='header-title-text' style={{ paddingTop: "5px" }}>{singlePost && singlePost[0].projectTitle}</h1>
             </Col>
