@@ -27,13 +27,11 @@ export default function LandingVideo(props) {
     }
   },[togglePlay])
 
-  console.log()
-
   return (
     <MuxPlayer 
       ref={ref} 
       className='landing'
-      style={{ width: "100%", height: "65vh" }}
+      style={{ width: "100%", height: "70vh" }}
       onClick={() => setTogglePlay(!togglePlay)}
       autoplay={true}
       playbackId={playbackId} 

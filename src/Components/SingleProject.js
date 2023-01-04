@@ -127,7 +127,7 @@ const SingleProject = () => {
               <h4 style={{ color: "white" }}>RELATED PROJECTS:</h4>
             </Col>
             <Col style={{ marginTop: "20vh", width: "100%" }} sm={{ span: 6, offset: 6 }} xs={{ span: 6, offset: 6 }} className='d-block d-lg-none'>
-              <h6 style={{ color: "white" }}>RELATED PROJECTS:</h6>
+              <h6 style={{ color: "white", fontSize: "clamp(10pt, 2vw, 15pt)" }}>RELATED PROJECTS:</h6>
             </Col>
           </Row>
             <ProjectFooter 

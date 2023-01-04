@@ -8,7 +8,7 @@ import './Nav.css'
 import Branding from '../../Assets/branding.svg';
 import HamburgerMenu from '../Lottie/HamburgerMenu';
 import Hamburger from './Hamburger';
-import { useShopify } from '../../redux/ducks/shopify';
+// import { useShopify } from '../../redux/ducks/shopify';
 
 const Header = () => {
     const [landingNav, setLandingNav] = useState(true);

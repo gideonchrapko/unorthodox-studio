@@ -164,11 +164,7 @@ const Home = () => {
                                         setClientCategory('visualClients')
                                         setDisplayClientsProj(false)
                                         setClientsIndex()
-                                        // window.scrollTo({
-                                        //     top: 670,
-                                        //     left: 0,
-                                        //     behavior: 'smooth'
-                                        // })
+                                        // window.scrollTo({ top: 670, left: 0, behavior: 'smooth' })
                                     }}                            
                                 >
                                     <h5 className={`product-category-text ${projectCat === "visualProject" ? "product-category-text-active" : ""}`}>
@@ -242,7 +238,6 @@ const Home = () => {
                                     />
                                 </h4>
                                 <div style={{ transform: clientClicked ? "translateY(0)" : "translateY(-100px)", transition: "transform 0.5s" }}>
-
                                 {clientClicked &&
                                     <div style={{ width: "100%"}} >
                                         {clientAlphabetic &&

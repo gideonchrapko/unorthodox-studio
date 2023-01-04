@@ -19,6 +19,10 @@ const LandingGridImage = (props) => {
     const mobile = window.innerWidth < 600;
     const muxUrl = project.playbackId !== null ? `https://image.mux.com/${project.playbackId}/thumbnail.jpg` : null
 
+    //https://image.mux.com/{PLAYBACK_ID}/animated.gif
+
+    //https://image.mux.com/${project.playbackId}/thumbnail.jpg
+
     // const projectImage = project.projectImages[0].asset === undefined ? "" : project.projectImages[0].asset
 
     // const { ref, inView } = useInView({
