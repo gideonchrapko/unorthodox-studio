@@ -14,7 +14,7 @@ const ProjectFooter = (props) => {
     const [data, setData] = useState();
     const [matchingProjectData, setMatchingProjectData] = useState();
     const [nonMatchingProjectData, setNonMatchingProjectData] = useState();
-    const mobile = window.innerWidth < 600
+    // const mobile = window.innerWidth < 600
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,6 +30,7 @@ const ProjectFooter = (props) => {
                 projectTitle,
                 projectImages,
                 slugRoute,
+                "playbackId": videoPost.video.asset->playbackId,
             }`)
         .then((data) => setMatchingProjectData(data))
         .catch(console.error)
@@ -40,6 +41,7 @@ const ProjectFooter = (props) => {
                 projectTitle,
                 projectImages,
                 slugRoute,
+                "playbackId": videoPost.video.asset->playbackId,
             }`)
         .then((data) => setNonMatchingProjectData(data))
         .catch(console.error)
