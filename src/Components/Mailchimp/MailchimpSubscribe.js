@@ -1,12 +1,12 @@
 //    const url = "https://gmail.us10.list-manage.com/subscribe/post?u=f44c41b585cf2ea8136952a5f&amp;id=b1506a89aa&amp;f_id=001730e2f0"
 
 import React, {useState, useEffect} from 'react';
-import MailchimpSubscribe from "react-mailchimp-subscribe"
-import InputField from "./InputField";
+// import MailchimpSubscribe from "react-mailchimp-subscribe"
+// import InputField from "./InputField";
 
 import './Mailchimp.css'
 
-const CustomForm = ({ status, message, onValidated }) => {
+const MailchimpForm = ({ status, message, onValidated }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [yourMessage, setMessage] = useState('');
@@ -30,86 +30,52 @@ const CustomForm = ({ status, message, onValidated }) => {
     }
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)} >
+        <form action="https://submit-form.com/SYvpKRTOB">
             <h5 className='mail-header'>
-                {/* LIVE__FROM__THE__FUTURE */}
             </h5>
-            {status === "error" && (
-                <div className='mail-header' dangerouslySetInnerHTML={{ __html: message }} />
-            )}
                 <>
+                <input
+    type="hidden"
+    name="_redirect"
+    value="https://unorthodoxstudio.ca/contact"
+  />
                     <h5 className='header-text'>Name</h5>
                     <div className="inputTextStyling">
-                        <InputField
-                            label="Name"
-                            onChangeHandler={setName}
-                            type="name"
-                            value={name}
-                            isRequired
-                            // placeholder="Your Name"
-                        />
+                    <input className='mail-header mail-input' type="name" isRequired value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
                     <h5 className='header-text'>Email</h5>
                     <div className="inputTextStyling">
-                        <InputField
-                            label="Email"
-                            onChangeHandler={setEmail}
-                            type="email"
-                            value={email}
-                            isRequired
-                            // placeholder="Your Email"
-                        />
+                    <input className='mail-header mail-input' type="email" isRequired value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <h5 className='header-text'>Message</h5>
                     <div className="inputTextStyling">
-                        <InputField
-                            label="Message"
-                            onChangeHandler={setMessage}
-                            type="message"
-                            value={yourMessage}
-                            isRequired
-                            // placeholder="Your Message"
-                        />
+                        <textarea className='mail-header mail-input-message' type="email" isRequired value={message} onChange={(e) => setMessage(e.target.value)} />
                     </div>
                 </>
-            {status !== 'success' ? 
-                <div>
-                    {status === "sending" ?
-                        <div className='mail-header'>sending...</div>
-                        :
-                        <div>
-                            <InputField
-                                label="SEND"
-                                type="submit"
-                                formValues={[email]}
-                            />
-                        </div> 
-                    }
-                </div>
-                :
-                <div className='mail-header'>SUCCESS__THANK YOU</div>
-            }
+                <button type="submit" className='mail-header mail-button' style={{ width: "100%"}}>
+                    SEND
+                </button>
         </form>
     );
 };
 
-const MailchimpForm = props => {
-    const url = `https://us10.list-manage.com/contact-form?u=f44c41b585cf2ea8136952a5f&form_id=2253a42dc482763c9bcdb4943c0521c3`;
-    return (
-        <div className="formDiv">
-            <MailchimpSubscribe
-                url={url}
-                render={({ subscribe, status, message }) => (
-                    <CustomForm
-                        status={status}
-                        message={message}
-                        onValidated={formData => subscribe(formData)}
-                    />
-                )}
-            />
-        </div>
+// const MailchimpForm = props => {
+//     const url = `https://us10.list-manage.com/contact-form?u=f44c41b585cf2ea8136952a5f&form_id=2253a42dc482763c9bcdb4943c0521c3`;
+//     return (
+//         <div className="formDiv">
+//             <MailchimpSubscribe
+//                 url={url}
+//                 render={({ subscribe, status, message }) => (
+//                     <CustomForm
+//                         status={status}
+//                         message={message}
+//                         onValidated={formData => subscribe(formData)}
+//                     />
+//                 )}
+//             />
+//         </div>
 
-    )
-}
+//     )
+// }
 
 export default MailchimpForm;

@@ -37,6 +37,7 @@
     border: none; 
     font-family: sans-serif;
     color: white;
+    padding-top: 10px;
   }
 
   .inputTextStyling {
@@ -46,4 +47,5 @@
   .header-text {
     color: white;
     text-align: left;
+    padding-top: 10px;
   }

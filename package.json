@@ -35,7 +35,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "sanity": "^2.33.2",
-    "sanity-plugin-mux-input": "^2.0.0-v3-studio.20",
+    "sanity-plugin-mux-input": "^2.2.3",
     "suspend-react": "^0.0.8",
     "three": "^0.143.0",
     "web-vitals": "^2.1.4"
