@@ -11,6 +11,7 @@
     cursor: pointer;
     position: relative;
     z-index: 9999;
+    padding-left: 7px;
 }
 
 .Nav-ul {
